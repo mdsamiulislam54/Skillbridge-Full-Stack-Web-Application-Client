@@ -20,13 +20,9 @@ import {
     FieldLabel,
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
-import {
-    InputGroup,
-    InputGroupAddon,
-    InputGroupText,
-    InputGroupTextarea,
-} from "@/components/ui/input-group"
+
 import Link from "next/link"
+import useSignIn from "@/hook/authentication/useSign-in"
 
 const formSchema = z.object({
     email: z.email().min(5, "Email must be at least 5 characters."),
@@ -36,29 +32,17 @@ const formSchema = z.object({
 })
 
 const LoginPage = () => {
+    const {mutate, isPending} = useSignIn();
     const form = useForm({
         defaultValues: {
-            email: "",
-            password: "",
+            email: "samiulm5332@gmail.com",
+            password: "password1234",
         },
         validators: {
             onSubmit: formSchema,
         },
         onSubmit: async ({ value }) => {
-            toast("You submitted the following values:", {
-                description: (
-                    <pre className="bg-code text-code-foreground mt-2 w-[320px] overflow-x-auto rounded-md p-4">
-                        <code>{JSON.stringify(value, null, 2)}</code>
-                    </pre>
-                ),
-                position: "top-center",
-                classNames: {
-                    content: "flex flex-col gap-2",
-                },
-                style: {
-                    "--border-radius": "calc(var(--radius)  + 4px)",
-                } as React.CSSProperties,
-            })
+            mutate({email:value.email, password:value.password});
         },
     })
 
@@ -136,10 +120,10 @@ const LoginPage = () => {
                 <Field orientation="vertical" className="w-full">
 
                     <Button type="submit" className="w-full" form="bug-report-form">
-                        Submit
+                        {isPending ? "Logging in..." : "Login"}
                     </Button>
                     <Button variant="outline" className="w-full mt-2 text-center">
-                        Continue with Google
+                        
 
                     </Button>
                     <FieldDescription className="text-center mt-4">
