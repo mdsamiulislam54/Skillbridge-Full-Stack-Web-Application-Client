@@ -28,6 +28,8 @@ import {
 } from "@/components/ui/sheet";
 import Link from "next/link";
 import { ModeToggle } from "@/components/modules/Darkmode/darkmode";
+import { useClientSession } from "@/hook/authentication/useClientSession";
+import Image from "next/image";
 
 interface MenuItem {
   title: string;
@@ -77,6 +79,7 @@ const Navbar = ({
   },
   className,
 }: Navbar1Props) => {
+  const { user, isAuthenticated } = useClientSession()
   return (
     <section className={cn("py-4", className)}>
       <div className="container px-4 mx-auto">
@@ -100,15 +103,27 @@ const Navbar = ({
               </NavigationMenu>
             </div>
           </div>
-          <div className="flex gap-2">
-            <ModeToggle />
-            <Button asChild variant="outline" size="sm">
-              <Link href={auth.login.url}>{auth.login.title}</Link>
-            </Button>
-            <Button asChild size="sm">
-              <Link href={auth.signup.url}>{auth.signup.title}</Link>
-            </Button>
-          </div>
+          {
+            isAuthenticated ? (
+              <div className="flex items-center gap-4">
+                <Link href={'/dashboard'} title="Dashboard">
+                  <Image src={user?.image || 'http://localhost:3000/_next/static/media/teaching.ba59945d.svg'} alt="Profile" width={32} height={32} className="rounded-full" />
+                </Link>
+                <ModeToggle />
+              </div>
+            ) : (
+              <div className="flex gap-2">
+                <ModeToggle />
+                <Button asChild variant="outline" size="sm">
+                  <Link href={auth.login.url}>{auth.login.title}</Link>
+                </Button>
+                <Button asChild size="sm">
+                  <Link href={auth.signup.url}>{auth.signup.title}</Link>
+                </Button>
+              </div>
+            )
+
+          }
         </nav>
 
         {/* Mobile Menu */}
@@ -147,15 +162,27 @@ const Navbar = ({
                   >
                     {menu.map((item) => renderMobileMenuItem(item))}
                   </Accordion>
+                  {
+                    isAuthenticated ? (
+                      <div className="flex items-center gap-4">
+                        <Link href={'/dashboard'} title="Dashboard">
+                          <Image src={user?.image || 'http://localhost:3000/_next/static/media/teaching.ba59945d.svg'} alt="Profile" width={32} height={32} className="rounded-full" />
+                        </Link>
+                        <ModeToggle />
+                      </div>
+                    ) : (
 
-                  <div className="flex flex-col gap-3">
-                    <Button asChild variant="outline">
-                      <a href={auth.login.url}>{auth.login.title}</a>
-                    </Button>
-                    <Button asChild>
-                      <a href={auth.signup.url}>{auth.signup.title}</a>
-                    </Button>
-                  </div>
+                      <div className="flex flex-col gap-3">
+                        <Button asChild variant="outline">
+                          <Link href={auth.login.url}>{auth.login.title}</Link>
+                        </Button>
+                        <Button asChild>
+                          <Link href={auth.signup.url}>{auth.signup.title}</Link>
+                        </Button>
+                      </div>
+
+                    )
+                  }
                 </div>
               </SheetContent>
             </Sheet>
