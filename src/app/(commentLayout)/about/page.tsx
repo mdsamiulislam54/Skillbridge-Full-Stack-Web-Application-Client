@@ -1,6 +1,4 @@
 
-
-import { useClientSession } from "@/hook/authentication/useClientSession";
 import { getSession } from "@/hook/authentication/useGetSession";
 
 const AboutPage = async () => {

@@ -45,7 +45,7 @@ export function AppSidebar({
 
   return (
     <Sidebar {...props}>
-      {/* ---------- HEADER ---------- */}
+  
       <SidebarHeader className="flex flex-col items-center gap-3 py-6">
         <Link href="/" className="flex items-center gap-2">
           <AlignVerticalSpaceBetween className="h-5 w-5" />
@@ -82,9 +82,7 @@ export function AppSidebar({
                     )}
                   >
                     <Link href={item.url}>
-                      {item.icon && (
-                        <item.icon className="h-4 w-4 shrink-0" />
-                      )}
+                     
                       <span>{item.title}</span>
                     </Link>
                   </SidebarMenuButton>

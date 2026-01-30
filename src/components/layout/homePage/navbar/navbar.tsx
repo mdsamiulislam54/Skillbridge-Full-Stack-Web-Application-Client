@@ -122,7 +122,7 @@ const Navbar = ({
                   <div>Loading...</div>
                 ) : (
                   <Link href={'/dashboard'} title="Dashboard" className="flex items-center gap-3">
-                    <span>{user?.role}</span>
+                    <span>{user?.name}</span>
                     <Image src={user?.image || 'http://localhost:3000/_next/static/media/teaching.ba59945d.svg'} alt="Profile" width={32} height={32} className="rounded-full" />
                   </Link>
                 )}
@@ -240,12 +240,12 @@ const renderMenuItem = (item: MenuItem) => {
 
   return (
     <NavigationMenuItem key={item.title}>
-      <NavigationMenuLink
+      <Link
         href={item.url}
         className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-muted hover:text-accent-foreground"
       >
         {item.title}
-      </NavigationMenuLink>
+      </Link>
     </NavigationMenuItem>
   );
 };
@@ -275,7 +275,7 @@ const renderMobileMenuItem = (item: MenuItem) => {
 
 const SubMenuLink = ({ item }: { item: MenuItem }) => {
   return (
-    <a
+    <Link
       className="flex min-w-80 flex-row gap-4 rounded-md p-3 leading-none no-underline transition-colors outline-none select-none hover:bg-muted hover:text-accent-foreground"
       href={item.url}
     >
@@ -288,7 +288,7 @@ const SubMenuLink = ({ item }: { item: MenuItem }) => {
           </p>
         )}
       </div>
-    </a>
+    </Link>
   );
 };
 
