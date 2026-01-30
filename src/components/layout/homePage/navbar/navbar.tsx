@@ -30,6 +30,8 @@ import Link from "next/link";
 import { ModeToggle } from "@/components/modules/Darkmode/darkmode";
 import { useClientSession } from "@/hook/authentication/useClientSession";
 import Image from "next/image";
+import useSignOut from "@/hook/authentication/useSign-Out";
+import { Spinner } from "@/components/ui/spinner";
 
 interface MenuItem {
   title: string;
@@ -64,11 +66,12 @@ interface Navbar1Props {
 const Navbar = ({
 
   menu = [
-    { title: "Home", url: "#" },
+    { title: "Home", url: "/" },
     { title: "Browse Tutors", url: "/tutor" },
     { title: "About", url: "/about" },
     { title: "Contact", url: "/contact" },
-    { title: "Blog", url: "/blog" }
+    { title: "Blog", url: "/blog" },
+    { title: "Dashboard", url: "/dashboard" }
 
 
   ],
@@ -79,7 +82,14 @@ const Navbar = ({
   },
   className,
 }: Navbar1Props) => {
-  const { user, isAuthenticated } = useClientSession()
+  const { user, isAuthenticated, isPending } = useClientSession();
+
+  const { mutate, isPending: signOutIsPending, reset } = useSignOut()
+  const handaleSignOut = () => {
+    mutate();
+    reset();
+  }
+
   return (
     <section className={cn("py-4", className)}>
       <div className="container px-4 mx-auto">
@@ -106,10 +116,22 @@ const Navbar = ({
           {
             isAuthenticated ? (
               <div className="flex items-center gap-4">
-                <Link href={'/dashboard'} title="Dashboard">
-                  <Image src={user?.image || 'http://localhost:3000/_next/static/media/teaching.ba59945d.svg'} alt="Profile" width={32} height={32} className="rounded-full" />
-                </Link>
+
                 <ModeToggle />
+                {isPending ? (
+                  <div>Loading...</div>
+                ) : (
+                  <Link href={'/dashboard'} title="Dashboard" className="flex items-center gap-3">
+                    <span>{user?.role}</span>
+                    <Image src={user?.image || 'http://localhost:3000/_next/static/media/teaching.ba59945d.svg'} alt="Profile" width={32} height={32} className="rounded-full" />
+                  </Link>
+                )}
+                <Button onClick={handaleSignOut} variant="outline" size="sm" className="cursor-pointer">
+                  {
+                    signOutIsPending ? <Spinner /> : "Sign Out"
+                  }
+                </Button>
+
               </div>
             ) : (
               <div className="flex gap-2">
@@ -164,11 +186,18 @@ const Navbar = ({
                   </Accordion>
                   {
                     isAuthenticated ? (
-                      <div className="flex items-center gap-4">
-                        <Link href={'/dashboard'} title="Dashboard">
-                          <Image src={user?.image || 'http://localhost:3000/_next/static/media/teaching.ba59945d.svg'} alt="Profile" width={32} height={32} className="rounded-full" />
-                        </Link>
-                        <ModeToggle />
+                      <div>
+                        <div className="flex items-center gap-4">
+                          <Link href={'/dashboard'} title="Dashboard">
+                            <Image src={user?.image || 'http://localhost:3000/_next/static/media/teaching.ba59945d.svg'} alt="Profile" width={32} height={32} className="rounded-full" />
+                          </Link>
+                          <ModeToggle />
+                        </div>
+                        <Button onClick={handaleSignOut} variant="outline" size="sm" className="cursor-pointer">
+                          {
+                            signOutIsPending ? <Spinner /> : "Sign Out"
+                          }
+                        </Button>
                       </div>
                     ) : (
 

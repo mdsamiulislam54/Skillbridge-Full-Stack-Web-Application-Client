@@ -13,7 +13,7 @@ const AboutPage = () => {
           
             <h1>About Page</h1>
             {session?.user ? (
-                <p>Welcome, {session.user.email}!</p>
+                <p>Welcome, {session?.user?.id }!</p>
             ) : (
                 <p>You are not logged in.</p>
             )}

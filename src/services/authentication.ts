@@ -1,4 +1,5 @@
 import { config } from "@/config/config"
+import { authClient } from "@/lib/auth-client";
 
 export const authenticationService = {
     login: async (payload: { email: string, password: string }) => {
@@ -26,10 +27,23 @@ export const authenticationService = {
             throw error;
         }
     },
-    logout: async () => {
-        // Implement logout logic here
+    signOut: async () => {
+
+        try {
+            const res=  await fetch(`${config.backendUrl}/api/auth/sign-out`, {
+                method: "POST",
+                credentials: "include"
+            })
+            if (!res.ok) {
+                throw new Error("Sign out failed");
+            }
+            return res
+        } catch (error) {
+            throw error
+        }
     },
-    register: async (payload: {name: string, password: string, email: string, images?: string}) => {
+
+    register: async (payload: { name: string, password: string, email: string, images?: string }) => {
         try {
             const res = await fetch(`${config.backendUrl}/api/auth/sign-up/email`, {
                 method: 'POST',

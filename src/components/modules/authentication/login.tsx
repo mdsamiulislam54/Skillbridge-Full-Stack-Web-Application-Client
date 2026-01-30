@@ -23,6 +23,7 @@ import { Input } from "@/components/ui/input"
 
 import Link from "next/link"
 import useSignIn from "@/hook/authentication/useSign-in"
+import { Spinner } from "@/components/ui/spinner"
 
 const formSchema = z.object({
     email: z.email().min(5, "Email must be at least 5 characters."),
@@ -120,7 +121,7 @@ const LoginPage = () => {
                 <Field orientation="vertical" className="w-full">
 
                     <Button type="submit" className="w-full" form="bug-report-form">
-                        {isPending ? "Logging in..." : "Login"}
+                       {isPending ? <span className="flex gap-2 justify-center items-center"><Spinner /> Loggin in...</span> : "Login"}
                     </Button>
                     <Button variant="outline" className="w-full mt-2 text-center">
                         
