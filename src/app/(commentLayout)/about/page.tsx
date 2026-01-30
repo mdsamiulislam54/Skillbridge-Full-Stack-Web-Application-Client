@@ -1,13 +1,14 @@
-'use client'
+
 
 import { useClientSession } from "@/hook/authentication/useClientSession";
+import { getSession } from "@/hook/authentication/useGetSession";
 
-const AboutPage = () => {
-    const { session,isPending } = useClientSession();
+const AboutPage = async () => {
+    const session =  await getSession()
 
-    if (isPending) {
-        return <div>Loading session...</div>;
-    }
+    // if (isPending) {
+    //     return <div>Loading session...</div>;
+    // }
     return (
         <div>
           

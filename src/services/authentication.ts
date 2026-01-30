@@ -1,5 +1,5 @@
 import { config } from "@/config/config"
-import { authClient } from "@/lib/auth-client";
+
 
 export const authenticationService = {
     login: async (payload: { email: string, password: string }) => {
