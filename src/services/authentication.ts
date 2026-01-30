@@ -19,9 +19,9 @@ export const authenticationService = {
             }
 
             const data = await res.json();
-   
+
             return data.user;
-            
+
         } catch (error) {
             throw error;
         }
@@ -29,7 +29,29 @@ export const authenticationService = {
     logout: async () => {
         // Implement logout logic here
     },
-    register: async (username: string, password: string, email: string) => {
-        // Implement registration logic here
+    register: async (payload: {name: string, password: string, email: string, images?: string}) => {
+        try {
+            const res = await fetch(`${config.backendUrl}/api/auth/sign-up/email`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include',
+                body: JSON.stringify(payload)
+
+            })
+
+            if (!res.ok) {
+                const errorData = await res.json();
+                throw new Error(errorData.message || 'Registration failed');
+            }
+
+            const data = await res.json();
+
+            return data.user;
+
+        } catch (error) {
+            throw error;
+        }
     }
 }

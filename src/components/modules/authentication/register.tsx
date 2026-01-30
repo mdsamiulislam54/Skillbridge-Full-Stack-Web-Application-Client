@@ -27,6 +27,7 @@ import {
     InputGroupTextarea,
 } from "@/components/ui/input-group"
 import Link from "next/link"
+import useSignUp from "@/hook/authentication/useSign-Up"
 
 const formSchema = z.object({
     email: z.email().min(5, "Email must be at least 5 characters."),
@@ -38,6 +39,7 @@ const formSchema = z.object({
 })
 
 const Register = () => {
+    const {mutate,isPending} = useSignUp()
     const form = useForm({
         defaultValues: {
             name:"",
@@ -49,20 +51,7 @@ const Register = () => {
             onSubmit: formSchema,
         },
         onSubmit: async ({ value }) => {
-            toast("You submitted the following values:", {
-                description: (
-                    <pre className="bg-code text-code-foreground mt-2 w-[320px] overflow-x-auto rounded-md p-4">
-                        <code>{JSON.stringify(value, null, 2)}</code>
-                    </pre>
-                ),
-                position: "top-center",
-                classNames: {
-                    content: "flex flex-col gap-2",
-                },
-                style: {
-                    "--border-radius": "calc(var(--radius)  + 4px)",
-                } as React.CSSProperties,
-            })
+            mutate(value)
         },
     })
 
@@ -188,7 +177,7 @@ const Register = () => {
                 <Field orientation="vertical" className="w-full">
 
                     <Button type="submit" className="w-full" form="bug-report-form">
-                        Submit
+                     {isPending ? "Registering..." : "Register"}
                     </Button>
                     <Button variant="outline" className="w-full mt-2 text-center"> 
                         Continue with Google
