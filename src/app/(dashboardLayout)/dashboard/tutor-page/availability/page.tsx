@@ -1,8 +1,11 @@
-import React from 'react'
+import AvailabilitySlotForm from '@/components/modules/TutorProfileFrom/tutorSlotFrom'
+
 
 const Availability = () => {
   return (
-    <div>Availability</div>
+    <div className=''>
+      <AvailabilitySlotForm/>
+    </div>
   )
 }
 

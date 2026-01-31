@@ -6,11 +6,8 @@ export const tutorSchema = z.object({
   bio: z.string().min(10),
   education: z.string(),
   experienceYears: z.string(),
-  hourlyRate: z.number().min(0),
   teachingMode: z.string(),
-  categories: z.array(z.string()).min(1),
   languages: z.array(z.string()).min(1),
-  sessionDuration: z.number().optional(),
   isAvailable: z.boolean(),
 })
 

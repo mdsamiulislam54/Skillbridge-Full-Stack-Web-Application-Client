@@ -5,12 +5,12 @@ import { useRouter } from "next/navigation"
 import { toast } from "sonner"
 
 function useTutorProfileCreate() {
-    const router = useRouter()
+    // const router = useRouter()
     return useMutation({
         mutationFn: TutorService.tutorProfileCreate,
         onSuccess: (res) => {
             toast.success("Profile created successful!", { duration: 3000 , position:'top-center'});
-            router.push("/")
+            // router.push("/")
             console.log("profile create  response:", res);
         },
         onError: (error) => {

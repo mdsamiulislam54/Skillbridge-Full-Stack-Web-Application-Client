@@ -28,7 +28,6 @@ import useTutorProfileCreate from "@/hook/tutorProfile/useCreateTutorProfile"
 import { Spinner } from "@/components/ui/spinner"
 import { useClientSession } from "@/hook/authentication/useClientSession"
 
-const categoriesOptions = ["Math", "Physics", "Chemistry", "English", "Biology"]
 const languagesOptions = ["English", "Bangla", "Hindi", "Spanish"]
 
 const tutorSchema = z.object({
@@ -36,13 +35,9 @@ const tutorSchema = z.object({
     bio: z.string().min(10),
     education: z.string(),
     experienceYears: z.string(),
-    hourlyRate: z.number().min(0),
     teachingMode: z.string(),
     isAvailable: z.boolean(),
-    categories: z.array(z.string()).min(1),
-    sessionDuration: z.number().optional(),
     profileImage: z.string().optional(),
-    coverImage: z.string().optional(),
     languages: z.array(z.string()).min(1),
 })
 
@@ -50,22 +45,17 @@ type TutorFormValues = z.infer<typeof tutorSchema>
 
 function CreateProfile() {
     const { mutate, isPending } = useTutorProfileCreate();
-    const {user} = useClientSession()
+    const { user } = useClientSession()
     const form = useForm({
         defaultValues: {
             name: "",
             bio: "",
             education: "",
             experienceYears: "",
-            hourlyRate: 0,
             teachingMode: "",
             isAvailable: true,
-            categories: [],
-            sessionDuration: undefined,
             profileImage: "",
-            coverImage: "",
             languages: [],
-            approvalStatus: "PENDING",
         } as TutorFormValues,
         validators: {
             onSubmit: tutorSchema,
@@ -75,12 +65,13 @@ function CreateProfile() {
                 ...value,
                 userId: user?.id
             }
+            console.log('formdata',formData)
             mutate(formData)
         },
     })
 
     return (
-        <Card className="max-w-full mx-auto">
+        <Card className="max-w-full mx-auto m-4">
             <CardHeader>
                 <CardTitle>Create Tutor Profile</CardTitle>
                 <CardDescription>Fill in the tutor details below</CardDescription>
@@ -132,13 +123,7 @@ function CreateProfile() {
                                 </Field>
                             )}</form.Field>
 
-                            {/* Hourly Rate */}
-                            <form.Field name="hourlyRate">{(field) => (
-                                <Field>
-                                    <FieldLabel>Hourly Rate</FieldLabel>
-                                    <Input type="text" value={field.state.value} onChange={(e) => field.setValue(Number(e.target.value))} />
-                                </Field>
-                            )}</form.Field>
+
 
                             {/* Teaching Mode */}
                             <form.Field name="teachingMode">{(field) => (
@@ -147,29 +132,10 @@ function CreateProfile() {
                                     <Input value={field.state.value} onChange={(e) => field.setValue(e.target.value)} />
                                 </Field>
                             )}</form.Field>
-                        </div>
 
-                        <div className="grid sm:grid-cols-2 border-1 rounded-xl p-2">
-                            {/* Categories */}
-                            <form.Field name="categories">{(field) => (
-                                <Field>
-                                    <FieldLabel>Categories</FieldLabel>
-                                    <div className="flex flex-wrap gap-2">
-                                        {categoriesOptions.map((cat) => {
-                                            const selected = field.state.value.includes(cat)
-                                            return (
-                                                <Badge key={cat} variant={selected ? "default" : "outline"} className="cursor-pointer"
-                                                    onClick={() => {
-                                                        if (selected) field.setValue(field.state.value.filter(v => v !== cat))
-                                                        else field.setValue([...field.state.value, cat])
-                                                    }}>
-                                                    {cat}
-                                                </Badge>
-                                            )
-                                        })}
-                                    </div>
-                                </Field>
-                            )}</form.Field>
+
+
+
                             {/* Languages */}
                             <form.Field name="languages">{(field) => (
                                 <Field>
@@ -195,45 +161,23 @@ function CreateProfile() {
                         <div className="grid sm:grid-cols-2 gap-4">
                             {/* Is Available */}
                             <form.Field name="isAvailable">{(field) => (
-                                <Field className=" p-4 border rounded-lg">
-                                    <FieldLabel>Available for Booking</FieldLabel>
+                                <Field className="">
+                                    <FieldLabel className="flex gap-4 p-2 rounded-xl">
+                                        Available for Booking
+
+                                    </FieldLabel>
                                     <Switch checked={field.state.value} onCheckedChange={field.setValue} />
                                 </Field>
                             )}</form.Field>
-                            {/* Session Duration */}
-                            <form.Field name="sessionDuration">{(field) => (
+                            {/* Profile Image */}
+                            <form.Field name="profileImage">{(field) => (
                                 <Field>
-                                    <FieldLabel>Session Duration (minutes)</FieldLabel>
-                                    <Input type="number" value={field.state.value || ""} onChange={(e) => field.setValue(Number(e.target.value))} />
+                                    <FieldLabel>Profile Image URL</FieldLabel>
+                                    <Input value={field.state.value} onChange={(e) => field.setValue(e.target.value)} placeholder="https://..." />
                                 </Field>
                             )}</form.Field>
+
                         </div>
-
-
-
-
-
-
-
-                        {/* Profile Image */}
-                        <form.Field name="profileImage">{(field) => (
-                            <Field>
-                                <FieldLabel>Profile Image URL</FieldLabel>
-                                <Input value={field.state.value} onChange={(e) => field.setValue(e.target.value)} placeholder="https://..." />
-                            </Field>
-                        )}</form.Field>
-
-                        {/* Cover Image */}
-                        <form.Field name="coverImage">{(field) => (
-                            <Field>
-                                <FieldLabel>Cover Image URL</FieldLabel>
-                                <Input value={field.state.value} onChange={(e) => field.setValue(e.target.value)} placeholder="https://..." />
-                            </Field>
-                        )}</form.Field>
-
-
-
-
 
                     </FieldGroup>
                 </form>
