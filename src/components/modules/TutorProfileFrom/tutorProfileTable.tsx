@@ -23,6 +23,7 @@ export type TutorProfileType = {
     hourlyRate: number;
     isAvailable: boolean;
     profileImage: string
+    education: string
 };
 
 type TutorProfileTableProps = {
@@ -49,6 +50,7 @@ export const TutorProfileTable: React.FC<TutorProfileTableProps> = ({
                         <TableHead>Profile Images</TableHead>
                         <TableHead>ID</TableHead>
                         <TableHead>Name</TableHead>
+                        <TableHead>Education</TableHead>
                         <TableHead>Available</TableHead>
                         <TableHead className="text-center">Actions</TableHead>
                     </TableRow>
@@ -71,6 +73,7 @@ export const TutorProfileTable: React.FC<TutorProfileTableProps> = ({
                                 </Tooltip>
                             </TableCell>
                             <TableCell>{profile.name}</TableCell>
+                            <TableCell>{profile.education}</TableCell>
 
                            
                             <TableCell>{profile.isAvailable ? "Yes" : "No"}</TableCell>

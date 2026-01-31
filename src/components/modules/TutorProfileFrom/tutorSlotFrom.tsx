@@ -1,6 +1,6 @@
-"use client"
+'use client'
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -13,10 +13,11 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import { useClientSession } from "@/hook/authentication/useClientSession"
-import useTutorSlotsCreate from "@/hook/tutorProfile/useTutorSlotsCreate"
+import { AdminService } from "@/services/admin.service"
 import { SlotsType } from "@/type/slots.type"
-
+import useTutorSlotsCreate from "@/hook/tutorProfile/useTutorSlotsCreate"
+import { useClientSession } from "@/hook/authentication/useClientSession"
+import { Spinner } from "@/components/ui/spinner"
 
 const AvailabilitySlotForm = () => {
     const [formData, setFormData] = useState({
@@ -27,16 +28,25 @@ const AvailabilitySlotForm = () => {
         teachingMode: "",
         maxStudents: "1",
         isActive: true,
+        categories: '',
+        hourlyRate: ''
     })
 
-    const { user } = useClientSession();
+    const [categoryOptions, setCategoryOptions] = useState<{ id: string, name: string }[]>([])
+
+    useEffect(() => {
+        const fetch = async () => {
+            const res = await AdminService.getCategory()
+            setCategoryOptions(res.data?.data || [])
+        }
+        fetch()
+    }, [])
+
+    const { user } = useClientSession()
     const { mutate, isPending } = useTutorSlotsCreate()
 
-    const handleChange = (
-        field: string,
-        value: string | boolean
-    ) => {
-        setFormData((prev) => ({
+    const handleChange = (field: string, value: string | boolean | string[]) => {
+        setFormData(prev => ({
             ...prev,
             [field]: value,
         }))
@@ -46,17 +56,18 @@ const AvailabilitySlotForm = () => {
         e.preventDefault()
 
         const payload: SlotsType = {
-
             startTime: formData.startTime,
             endTime: formData.endTime,
             duration: formData.duration,
             teachingMode: formData.teachingMode,
-            maxStudents: formData.maxStudents,
+            maxStudents: Number(formData.maxStudents),
             isActive: formData.isActive,
             tutorId: formData.tutorProfileId,
-            userId: user?.id
+            userId: user?.id,
+            categories: formData.categories,
+            hourlyRate: Number(formData.hourlyRate)
         }
-
+        
         mutate(payload)
     }
 
@@ -68,63 +79,58 @@ const AvailabilitySlotForm = () => {
 
             <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-4">
+
+                    {/* Start / End Time */}
                     <div className="grid sm:grid-cols-2 gap-4">
-                        {/* Start Time */}
                         <div className="space-y-1">
                             <Label>Start Time</Label>
                             <Input
                                 type="time"
                                 value={formData.startTime}
-                                onChange={(e) => handleChange("startTime", e.target.value)}
+                                onChange={e => handleChange("startTime", e.target.value)}
                                 required
                             />
                         </div>
-                        {/* Start Time */}
                         <div className="space-y-1">
                             <Label>End Time</Label>
                             <Input
                                 type="time"
                                 value={formData.endTime}
-                                onChange={(e) => handleChange("endTime", e.target.value)}
+                                onChange={e => handleChange("endTime", e.target.value)}
                                 required
                             />
                         </div>
                     </div>
 
-                    {/* Duration */}
-                    <div className="grid sm:grid-cols-2 gap-2">
+                    {/* Duration / Max Students */}
+                    <div className="grid sm:grid-cols-2 gap-4">
                         <div className="space-y-1">
                             <Label>Session Duration (minutes)</Label>
                             <Input
                                 type="number"
                                 placeholder="60"
                                 value={formData.duration}
-                                onChange={(e) => handleChange("duration", e.target.value)}
+                                onChange={e => handleChange("duration", e.target.value)}
                                 required
                             />
                         </div>
-                        {/* Max Students */}
                         <div className="space-y-1">
                             <Label>Max Students</Label>
                             <Input
                                 type="number"
                                 min={1}
                                 value={formData.maxStudents}
-                                onChange={(e) =>
-                                    handleChange("maxStudents", e.target.value)
-                                }
+                                onChange={e => handleChange("maxStudents", e.target.value)}
                             />
                         </div>
                     </div>
-                    <div className="grid sm:grid-cols-2 gap-2">
-                        {/* Teaching Mode */}
+
+                    {/* Teaching Mode / Categories */}
+                    <div className="grid sm:grid-cols-2 gap-4">
                         <div className="space-y-1">
                             <Label>Teaching Mode</Label>
                             <Select
-                                onValueChange={(value) =>
-                                    handleChange("teachingMode", value)
-                                }
-
+                                onValueChange={value => handleChange("teachingMode", value)}
                             >
                                 <SelectTrigger>
                                     <SelectValue placeholder="Select mode" />
@@ -135,52 +141,65 @@ const AvailabilitySlotForm = () => {
                                 </SelectContent>
                             </Select>
                         </div>
-                        <div className="space-y-1 w-full">
-                            <Label>Select Category</Label>
+
+                        <div className="space-y-1">
+                            <Label>Categories</Label>
                             <Select
-                            
-                                onValueChange={(value) =>
-                                    handleChange("teachingMode", value)
-                                }
-                                
+
+                                onValueChange={values => handleChange("categories", values)}
                             >
                                 <SelectTrigger>
-                                    <SelectValue placeholder="Select mode" />
+                                    <SelectValue placeholder="Select categories" />
                                 </SelectTrigger>
                                 <SelectContent>
-                                    <SelectItem value="ONLINE">Online</SelectItem>
-                                    <SelectItem value="OFFLINE">Offline</SelectItem>
+                                    {categoryOptions.map(cat => (
+                                        <SelectItem key={cat.id} value={cat.id}>
+                                            {cat.name}
+                                        </SelectItem>
+                                    ))}
                                 </SelectContent>
                             </Select>
                         </div>
-
-
                     </div>
+
                     {/* Active */}
                     <div className="flex items-center justify-between rounded-lg border p-3">
                         <Label>Slot Active</Label>
                         <Switch
                             checked={formData.isActive}
-                            onCheckedChange={(value) =>
-                                handleChange("isActive", value)
-                            }
+                            onCheckedChange={value => handleChange("isActive", value)}
                         />
                     </div>
 
-                    {/* Duration */}
-                    <div className="space-y-1">
-                        <Label>Tutor Profile Id</Label>
-                        <Input
-                            type="text"
-                            placeholder="Jfhwfhfh38nchfsdhcsnhfks"
-                            value={formData.tutorProfileId}
-                            onChange={(e) => handleChange("tutorProfileId", e.target.value)}
-                            required
-                        />
+                    <div className="grid sm:grid-cols-2 gap-2">
+                        {/* Tutor Profile Id */}
+                        <div className="space-y-1">
+                            <Label>Tutor Profile Id</Label>
+                            <Input
+                                type="text"
+                                placeholder="Tutor Profile ID"
+                                value={formData.tutorProfileId}
+                                onChange={e => handleChange("tutorProfileId", e.target.value)}
+                                required
+                            />
+                        </div>
+                        {/* hourlyrate */}
+                        <div className="space-y-1">
+                            <Label>HourlyRate</Label>
+                            <Input
+                                type="text"
+                                placeholder="Enter Your HourlyRate"
+                                value={formData.hourlyRate}
+                                onChange={e => handleChange("hourlyRate", e.target.value)}
+                                required
+                            />
+                        </div>
                     </div>
 
-                    <Button type="submit" className="w-full">
-                        Create Slot
+                    <Button type="submit" className="w-full" disabled={isPending}>
+                        {
+                            isPending ? <Spinner/>:"Create Slot"
+                        }
                     </Button>
                 </form>
             </CardContent>

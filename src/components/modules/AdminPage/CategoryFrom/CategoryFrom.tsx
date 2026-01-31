@@ -11,6 +11,8 @@ import { Textarea } from '@/components/ui/textarea'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import AdmincategoryCreate from '@/hook/admin/useCreateCategory'
 import { Spinner } from '@/components/ui/spinner'
+import { useEffect, useState } from 'react'
+import { AdminService } from '@/services/admin.service'
 
 const categorySchema = z.object({
     name: z.string().min(1, 'Category name is required'),
@@ -23,7 +25,8 @@ const categorySchema = z.object({
 
 
 const CategoryForm = () => {
-    const { mutate, isPending } = AdmincategoryCreate()
+    const { mutate, isPending } = AdmincategoryCreate();
+
     const form = useForm({
         defaultValues: {
             name: '',
@@ -46,7 +49,7 @@ const CategoryForm = () => {
     })
 
     return (
-        <Card className="max-w-2xl mx-auto">
+        <Card className="max-w-2xl mx-auto my-4">
             <CardHeader>
                 <CardTitle>Create Category</CardTitle>
             </CardHeader>
@@ -143,7 +146,7 @@ const CategoryForm = () => {
                     {/* Submit */}
                     <Button type="submit" className="w-full">
                         {
-                            isPending ? <Spinner/>: "Save Category"
+                            isPending ? <Spinner /> : "Save Category"
                         }
                     </Button>
                 </form>

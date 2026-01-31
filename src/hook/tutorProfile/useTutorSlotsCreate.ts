@@ -10,7 +10,7 @@ function useTutorSlotsCreate() {
         mutationFn: TutorService.tutorSlotsCreate,
         onSuccess: (res) => {
             toast.success("Slots created successful!", { duration: 3000, position: 'top-center' });
-            router.push("/dashboard")
+            router.push("")
             console.log("Slots create  response:", res);
         },
         onError: (error) => {

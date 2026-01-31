@@ -72,9 +72,9 @@ export const AdminService = {
     //         throw error
     //     }
     // },
-    getTutorProfileAll: async () => {
+    getCategory: async () => {
         try {
-            const res = await fetch(`${config.backendUrl}/api/tutor/get-profile/all`)
+            const res = await fetch(`${config.backendUrl}/api/admin/category`)
             const data = await res.json();
             return { success: true, data }
         } catch (error) {
