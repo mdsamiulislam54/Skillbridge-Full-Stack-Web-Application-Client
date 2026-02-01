@@ -18,6 +18,7 @@ import { SlotsType } from "@/type/slots.type"
 import useTutorSlotsCreate from "@/hook/tutorProfile/useTutorSlotsCreate"
 import { useClientSession } from "@/hook/authentication/useClientSession"
 import { Spinner } from "@/components/ui/spinner"
+import { Category } from "@/type/category.type"
 
 const AvailabilitySlotForm = () => {
     const [formData, setFormData] = useState({
@@ -32,7 +33,7 @@ const AvailabilitySlotForm = () => {
         hourlyRate: ''
     })
 
-    const [categoryOptions, setCategoryOptions] = useState<{ id: string, name: string }[]>([])
+    const [categoryOptions, setCategoryOptions] = useState<Category[]>([])
 
     useEffect(() => {
         const fetch = async () => {
@@ -52,7 +53,7 @@ const AvailabilitySlotForm = () => {
         }))
     }
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
         const payload: SlotsType = {
@@ -67,10 +68,12 @@ const AvailabilitySlotForm = () => {
             categories: formData.categories,
             hourlyRate: Number(formData.hourlyRate)
         }
+        console.log(payload)
         
-        mutate(payload)
+        // mutate(payload)
     }
 
+    console.log(categoryOptions)
     return (
         <Card className="max-w-2xl mx-auto my-5">
             <CardHeader>
@@ -145,7 +148,7 @@ const AvailabilitySlotForm = () => {
                         <div className="space-y-1">
                             <Label>Categories</Label>
                             <Select
-
+                                value={formData.categories}
                                 onValueChange={values => handleChange("categories", values)}
                             >
                                 <SelectTrigger>
@@ -153,7 +156,7 @@ const AvailabilitySlotForm = () => {
                                 </SelectTrigger>
                                 <SelectContent>
                                     {categoryOptions.map(cat => (
-                                        <SelectItem key={cat.id} value={cat.id}>
+                                        <SelectItem key={cat.id} value={cat.name}>
                                             {cat.name}
                                         </SelectItem>
                                     ))}

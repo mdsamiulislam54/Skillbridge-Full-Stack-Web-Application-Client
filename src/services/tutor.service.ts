@@ -56,14 +56,14 @@ export const TutorService = {
     },
     getTutorProfile: async (cookie?: string) => {
         try {
-       
+
             const res = await fetch(`${config.backendUrl}/api/tutor/get-profile`, {
-                method:"GET",
+                method: "GET",
                 headers: {
                     "Content-Type": "application/json",
                     ...(cookie ? { cookie } : {}),
                 },
-                credentials:"include"
+                credentials: "include"
 
             })
             const data = await res.json();
@@ -83,5 +83,66 @@ export const TutorService = {
             console.log(error)
             throw error
         }
-    }
+    },
+
+    getTutorSlots: async (cookie?: string) => {
+        try {
+
+            const res = await fetch(`${config.backendUrl}/api/tutor/slots`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    ...(cookie ? { cookie } : {}),
+                },
+                credentials: "include"
+
+            })
+            const data = await res.json();
+
+            return { success: true, data }
+        } catch (error) {
+            console.log(error)
+            throw error
+        }
+    },
+    getDashboardCard: async (cookie?: string) => {
+        try {
+
+            const res = await fetch(`${config.backendUrl}/api/tutor/dashboard`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    ...(cookie ? { cookie } : {}),
+                },
+                credentials: "include"
+
+            })
+            const data = await res.json();
+
+            return { success: true, data }
+        } catch (error) {
+    
+            throw error
+        }
+    },
+    getChartData: async (cookie?: string) => {
+        try {
+
+            const res = await fetch(`${config.backendUrl}/api/tutor/dashboard/chart-data`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    ...(cookie ? { cookie } : {}),
+                },
+                credentials: "include"
+
+            })
+            const data = await res.json();
+
+            return { success: true, data }
+        } catch (error) {
+    
+            throw error
+        }
+    },
 }

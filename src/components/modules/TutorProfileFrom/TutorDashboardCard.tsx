@@ -7,6 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import { TutorDashboardCardType } from "@/type/tutorDashboardCard.type"
 import {
   CalendarCheck,
   DollarSign,
@@ -15,28 +16,35 @@ import {
   Clock,
 } from "lucide-react"
 
+
+type Props ={
+  card:TutorDashboardCardType
+}
+
+const TutorDashboardCard = ({card}:Props) => {
+
 const stats = [
   {
-    title: "Upcoming Sessions",
-    value: "3",
+    title: "Total Active Session",
+    value: card.totalSlot,
     description: "Sessions scheduled this week",
     icon: CalendarCheck,
   },
   {
     title: "Total Earnings",
-    value: "৳12,500",
+    value: `৳ ${card.totalEarning}`,
     description: "This month",
     icon: DollarSign,
   },
   {
     title: "Average Rating",
-    value: "4.8",
+    value: card.averageRating,
     description: "From student reviews",
     icon: Star,
   },
   {
-    title: "Total Students",
-    value: "42",
+    title: "Total Booking",
+    value: card.totalBooking,
     description: "Students taught so far",
     icon: Users,
   },
@@ -47,8 +55,6 @@ const stats = [
     icon: Clock,
   },
 ]
-
-const TutorDashboardCard = () => {
   return (
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5 ">
       {stats.map((item) => (
