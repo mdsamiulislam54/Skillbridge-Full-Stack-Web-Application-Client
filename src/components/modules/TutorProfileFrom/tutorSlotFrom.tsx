@@ -22,10 +22,9 @@ import { Category } from "@/type/category.type"
 
 const AvailabilitySlotForm = () => {
     const [formData, setFormData] = useState({
-        tutorProfileId: "",
         startTime: "",
         endTime: "",
-        duration: "",
+        duration: "60",
         teachingMode: "",
         maxStudents: "1",
         isActive: true,
@@ -63,14 +62,12 @@ const AvailabilitySlotForm = () => {
             teachingMode: formData.teachingMode,
             maxStudents: Number(formData.maxStudents),
             isActive: formData.isActive,
-            tutorId: formData.tutorProfileId,
-            userId: user?.id,
+            tutorId: user?.id,
             categories: formData.categories,
             hourlyRate: Number(formData.hourlyRate)
         }
-        console.log(payload)
-        
-        // mutate(payload)
+        console.log(user?.id)
+        mutate(payload)
     }
 
     console.log(categoryOptions)
@@ -83,7 +80,6 @@ const AvailabilitySlotForm = () => {
             <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-4">
 
-                    {/* Start / End Time */}
                     <div className="grid sm:grid-cols-2 gap-4">
                         <div className="space-y-1">
                             <Label>Start Time</Label>
@@ -105,7 +101,6 @@ const AvailabilitySlotForm = () => {
                         </div>
                     </div>
 
-                    {/* Duration / Max Students */}
                     <div className="grid sm:grid-cols-2 gap-4">
                         <div className="space-y-1">
                             <Label>Session Duration (minutes)</Label>
@@ -128,7 +123,6 @@ const AvailabilitySlotForm = () => {
                         </div>
                     </div>
 
-                    {/* Teaching Mode / Categories */}
                     <div className="grid sm:grid-cols-2 gap-4">
                         <div className="space-y-1">
                             <Label>Teaching Mode</Label>
@@ -165,7 +159,7 @@ const AvailabilitySlotForm = () => {
                         </div>
                     </div>
 
-                    {/* Active */}
+                
                     <div className="flex items-center justify-between rounded-lg border p-3">
                         <Label>Slot Active</Label>
                         <Switch
@@ -175,18 +169,7 @@ const AvailabilitySlotForm = () => {
                     </div>
 
                     <div className="grid sm:grid-cols-2 gap-2">
-                        {/* Tutor Profile Id */}
-                        <div className="space-y-1">
-                            <Label>Tutor Profile Id</Label>
-                            <Input
-                                type="text"
-                                placeholder="Tutor Profile ID"
-                                value={formData.tutorProfileId}
-                                onChange={e => handleChange("tutorProfileId", e.target.value)}
-                                required
-                            />
-                        </div>
-                        {/* hourlyrate */}
+                    
                         <div className="space-y-1">
                             <Label>HourlyRate</Label>
                             <Input

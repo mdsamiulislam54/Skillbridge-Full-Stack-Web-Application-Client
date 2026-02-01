@@ -1,7 +1,7 @@
 
 import { config } from "@/config/config"
 import { TutorFormValues } from "@/lib/validator/tutor.schema"
-import { SlotsType } from "@/type/slots.type";
+import { SlotsType, UpdateSlotsType } from "@/type/slots.type";
 
 
 
@@ -121,7 +121,7 @@ export const TutorService = {
 
             return { success: true, data }
         } catch (error) {
-    
+
             throw error
         }
     },
@@ -141,7 +141,45 @@ export const TutorService = {
 
             return { success: true, data }
         } catch (error) {
-    
+
+            throw error
+        }
+    },
+    slotsDelete: async (id: string) => {
+        try {
+
+            const res = await fetch(`${config.backendUrl}/api/tutor/slots/${id}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json"
+
+                },
+                credentials: "include"
+
+            })
+            const data = await res.json();
+
+            return { success: true, data }
+        } catch (error) {
+
+            throw error
+        }
+    },
+    slotsUpdate: async (id: string, payload: UpdateSlotsType) => {
+        try {
+
+            const res = await fetch(`${config.backendUrl}/api/tutor/slots/update/${id}`, {
+                "cache":"no-store",
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                credentials: "include",
+                body: JSON.stringify(payload)
+            })
+            const data = await res.json();
+
+            return { success: true, data }
+        } catch (error) {
+
             throw error
         }
     },

@@ -13,13 +13,34 @@ import { Switch } from "@/components/ui/switch"
 import { TutorSlot } from "@/type/tutor.slot.type"
 import { Button } from "@/components/ui/button"
 import { Edit2, Trash2 } from "lucide-react"
+import useTutorSlotsDelete from "@/hook/tutorProfile/useTutorSlotsDelete"
+import { Spinner } from "@/components/ui/spinner"
+import { useState } from "react"
+import UpdateSlotsFrom from "./updatedSlotsFrom"
 
 
 type Props = {
     slots: TutorSlot[],
 }
 
-const TutorSlotTable = ({ slots}: Props) => {
+const TutorSlotTable = ({ slots }: Props) => {
+    const { mutate, isPending } = useTutorSlotsDelete();
+    const [updateSlotsFrom, setUpdateSlotsFrom] = useState(false);
+    const [selectedSlot, setSelectedSlot] = useState<TutorSlot | null>(null);
+
+
+    const handleUpdateFromToggle = () => {
+        setUpdateSlotsFrom(!updateSlotsFrom)
+    }
+
+    const handleDelete = (id: string) => {
+        mutate(id)
+    };
+    const handleUpdate = (slot:TutorSlot) => {
+        setSelectedSlot(slot)
+        handleUpdateFromToggle()
+    }
+
     if (!slots?.length) {
         return (
             <p className="text-center text-muted-foreground py-10">
@@ -27,10 +48,8 @@ const TutorSlotTable = ({ slots}: Props) => {
             </p>
         )
     }
-    const handleDelete = (id: string) => console.log("Delete profile:", id);
-    const handleUpdate = (id: string) => console.log("Update profile:", id);
     return (
-        <div className="rounded-md border">
+        <div className="rounded-md border ">
             <Table>
                 <TableHeader>
                     <TableRow>
@@ -75,21 +94,28 @@ const TutorSlotTable = ({ slots}: Props) => {
                                 <Switch checked={slot.isActive} color="blue" />
                             </TableCell>
                             <TableCell className="flex justify-center gap-2">
-                            
-                                    <Button variant="outline" size="sm" onClick={() => handleUpdate(slot.id)}>
-                                        <Edit2 className="w-4 h-4" />
-                                    </Button>
-                               
-                           
-                                    <Button variant="destructive" size="sm" onClick={() => handleDelete(slot.id)}>
-                                        <Trash2 className="w-4 h-4" />
-                                    </Button>
-                                
+
+                                <Button variant="outline" size="sm" onClick={() => handleUpdate(slot)}>
+                                    {isPending ? <Spinner /> : <Edit2 className="w-4 h-4" />}
+                                </Button>
+
+
+                                <Button variant="destructive" size="sm" onClick={() => handleDelete(slot.id)}>
+                                    {isPending ? <Spinner /> : <Trash2 className="w-4 h-4" />}
+                                </Button>
+
                             </TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
             </Table>
+
+
+            {updateSlotsFrom && selectedSlot && (
+                <div className="absolute inset-0 bg-black/30 flex justify-center items-center">
+                    <UpdateSlotsFrom onClose={() => setUpdateSlotsFrom(false)} selectedSlot={selectedSlot} />
+                </div>
+            )}
         </div>
     )
 }

@@ -3,10 +3,20 @@ export type SlotsType = {
   endTime:string
   duration: string   
   teachingMode: string
-  maxStudents: number
+  maxStudent: number
   isActive: boolean
   tutorId: string | undefined
-  userId: string | undefined
-  categories: string
+  category: string
+  hourlyRate: number
+}
+
+export type UpdateSlotsType = {     
+  startTime: string  
+  endTime:string
+  duration: string   
+  teachingMode: string
+  maxStudent: number
+  isActive: boolean
+  category: string
   hourlyRate: number
 }
