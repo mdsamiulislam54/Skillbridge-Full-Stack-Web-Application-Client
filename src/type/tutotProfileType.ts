@@ -12,3 +12,15 @@ export type TutorProfileFormData = {
   sessionDuration?: number
   teachingMode: string
 }
+
+
+export type TutorFormValues = {
+    name: string;
+    bio: string;
+    education: string;
+    experienceYears: string;
+    teachingMode: string;
+    isAvailable: boolean;
+    languages: string[];
+    profileImage?: string 
+}

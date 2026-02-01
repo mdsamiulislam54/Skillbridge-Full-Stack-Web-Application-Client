@@ -78,11 +78,11 @@ const UpdateSlotsFrom = ({ onClose, selectedSlot }: Props) => {
     }
 
     return (
-        <div className="relative">
+        <div className="">
             <Button
                 size="sm"
-                variant="ghost"
-                className="absolute top-2 right-2"
+                variant="outline"
+                className="absolute top-5 right-5 cursor-pointer"
                 onClick={onClose}
             >
                 <X className="w-4 h-4" />

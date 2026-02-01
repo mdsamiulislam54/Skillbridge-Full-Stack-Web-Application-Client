@@ -43,6 +43,8 @@ const tutorSchema = z.object({
 
 type TutorFormValues = z.infer<typeof tutorSchema>
 
+
+
 function CreateProfile() {
     const { mutate, isPending } = useTutorProfileCreate();
     const { user } = useClientSession()
@@ -65,13 +67,14 @@ function CreateProfile() {
                 ...value,
                 userId: user?.id
             }
-            console.log('formdata',formData)
+            console.log('formdata', formData)
             mutate(formData)
         },
     })
 
     return (
         <Card className="max-w-full mx-auto m-4">
+           
             <CardHeader>
                 <CardTitle>Create Tutor Profile</CardTitle>
                 <CardDescription>Fill in the tutor details below</CardDescription>

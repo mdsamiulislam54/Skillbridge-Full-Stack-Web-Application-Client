@@ -54,7 +54,7 @@ export const TutorService = {
             throw error
         }
     },
-    getTutorProfile: async (cookie?: string) => {
+    getTutorProfileById: async (cookie?: string) => {
         try {
 
             const res = await fetch(`${config.backendUrl}/api/tutor/get-profile`, {
@@ -174,6 +174,45 @@ export const TutorService = {
                 headers: { "Content-Type": "application/json" },
                 credentials: "include",
                 body: JSON.stringify(payload)
+            })
+            const data = await res.json();
+
+            return { success: true, data }
+        } catch (error) {
+
+            throw error
+        }
+    },
+    tutorProfileUpdate: async (id: string, payload: TutorFormValues) => {
+        try {
+
+            const res = await fetch(`${config.backendUrl}/api/tutor/profile/update/${id}`, {
+                "cache":"no-store",
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                credentials: "include",
+                body: JSON.stringify(payload)
+            })
+            const data = await res.json();
+
+            return { success: true, data }
+        } catch (error) {
+
+            throw error
+        }
+    },
+
+     profileDelete: async (id: string) => {
+        try {
+
+            const res = await fetch(`${config.backendUrl}/api/tutor/profile/${id}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json"
+
+                },
+                credentials: "include"
+
             })
             const data = await res.json();
 
