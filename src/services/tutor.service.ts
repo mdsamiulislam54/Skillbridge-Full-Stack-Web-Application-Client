@@ -67,7 +67,7 @@ export const TutorService = {
 
             })
             const data = await res.json();
-            
+
             return { success: true, data }
         } catch (error) {
             console.log(error)
@@ -169,7 +169,7 @@ export const TutorService = {
         try {
 
             const res = await fetch(`${config.backendUrl}/api/tutor/slots/update/${id}`, {
-                "cache":"no-store",
+                "cache": "no-store",
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
                 credentials: "include",
@@ -187,7 +187,7 @@ export const TutorService = {
         try {
 
             const res = await fetch(`${config.backendUrl}/api/tutor/profile/update/${id}`, {
-                "cache":"no-store",
+                "cache": "no-store",
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
                 credentials: "include",
@@ -202,7 +202,7 @@ export const TutorService = {
         }
     },
 
-     profileDelete: async (id: string) => {
+    profileDelete: async (id: string) => {
         try {
 
             const res = await fetch(`${config.backendUrl}/api/tutor/profile/${id}`, {
@@ -219,6 +219,16 @@ export const TutorService = {
             return { success: true, data }
         } catch (error) {
 
+            throw error
+        }
+    },
+    getAllTutorProfile: async () => {
+        try {
+
+            const res = await fetch(`${config.backendUrl}/api/tutor`)
+            return await res.json();
+
+        } catch (error) {
             throw error
         }
     },
