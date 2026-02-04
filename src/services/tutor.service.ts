@@ -3,6 +3,11 @@ import { config } from "@/config/config"
 import { TutorFormValues } from "@/lib/validator/tutor.schema"
 import { SlotsType, UpdateSlotsType } from "@/type/slots.type";
 
+interface GetParams {
+    page?: string,
+    limit?: string
+    search?: string
+}
 
 
 
@@ -222,10 +227,19 @@ export const TutorService = {
             throw error
         }
     },
-    getAllTutorProfile: async () => {
+    getAllTutorProfile: async (params: GetParams) => {
         try {
+            const url = new URL(`${config.backendUrl}/api/tutor`);
 
-            const res = await fetch(`${config.backendUrl}/api/tutor`)
+            if (params) {
+                Object.entries(params).forEach(([key, value]) => {
+                    if (value !== undefined && value !== null && value !== '') {
+                        url.searchParams.append(key, value)
+                    }
+                })
+            }
+
+            const res = await fetch(url)
             return await res.json();
 
         } catch (error) {
