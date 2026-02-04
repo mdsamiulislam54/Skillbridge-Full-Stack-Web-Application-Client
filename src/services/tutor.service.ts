@@ -67,7 +67,7 @@ export const TutorService = {
 
             })
             const data = await res.json();
-            console.log(data)
+            
             return { success: true, data }
         } catch (error) {
             console.log(error)
