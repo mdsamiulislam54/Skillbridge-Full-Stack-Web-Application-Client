@@ -246,4 +246,13 @@ export const TutorService = {
             throw error
         }
     },
+    getAllTutorProfileById: async (id: string) => {
+        try {
+            const res = await fetch(`${config.backendUrl}/api/tutor/${id}`)
+            return await res.json();
+
+        } catch (error) {
+            throw error
+        }
+    },
 }

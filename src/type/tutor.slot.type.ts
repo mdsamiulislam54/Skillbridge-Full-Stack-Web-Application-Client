@@ -5,7 +5,7 @@ export type TutorSlot = {
   startTime: string
   endTime: string
   duration: string
-  teachingMode: string
+  teachingMode?: string
   maxStudent: number
   hourlyRate: number
   category: string
