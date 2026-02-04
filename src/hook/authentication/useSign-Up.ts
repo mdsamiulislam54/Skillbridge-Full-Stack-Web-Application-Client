@@ -12,7 +12,6 @@ function useSignUp() {
         onSuccess: (res) => {
             toast.success("Registration successful!", { duration: 3000 , position:'top-center'});
             router.push("/auth/login")
-            console.log("Registration response:", res);
         },
         onError: (error) => {
             toast.error(error instanceof Error ? error.message : "Registration failed." ,{ duration: 5000 , position:'top-center'});

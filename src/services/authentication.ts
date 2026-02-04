@@ -43,7 +43,7 @@ export const authenticationService = {
         }
     },
 
-    register: async (payload: { name: string, password: string, email: string, images?: string }) => {
+    register: async (payload: { name: string, password: string, email: string, images?: string,role:string }) => {
         try {
             const res = await fetch(`${config.backendUrl}/api/auth/sign-up/email`, {
                 method: 'POST',

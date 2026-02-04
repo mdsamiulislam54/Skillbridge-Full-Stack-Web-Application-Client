@@ -7,12 +7,12 @@ import { TutorService } from '@/services/tutor.service'
 import { TutorProfile } from '@/type/tutorProfile'
 
 
-const TutorPage = async ({ searchParams }: { searchParams: Promise<{ page: string }> }) => {
+const TutorPage = async ({ searchParams }: { searchParams: Promise<{ page: string ,search:string}> }) => {
 
 
-  const { page } = await searchParams;
+  const { page,search } = await searchParams;
 
-  const tutorProfile = await TutorService.getAllTutorProfile({ page });
+  const tutorProfile = await TutorService.getAllTutorProfile({ page,search });
   const pagination = tutorProfile.data?.pagination || {
     limit: 10,
     page: 1,

@@ -4,8 +4,8 @@ import React from 'react'
 
 const loading = () => {
     return (
-        <div className='flex flex-col h-full w-full justify-center items-center'>
-            <Spinner />
+        <div className='flex flex-col min-h-screen w-full justify-center items-center'>
+            <Spinner width={100} />
         </div>
     )
 }

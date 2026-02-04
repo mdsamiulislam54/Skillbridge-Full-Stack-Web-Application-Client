@@ -1,6 +1,6 @@
 "use client"
 import { useForm } from "@tanstack/react-form"
-import { toast } from "sonner"
+
 import * as z from "zod"
 
 import { Button } from "@/components/ui/button"
@@ -20,18 +20,16 @@ import {
     FieldLabel,
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
-import {
-    InputGroup,
-    InputGroupAddon,
-    InputGroupText,
-    InputGroupTextarea,
-} from "@/components/ui/input-group"
+
 import Link from "next/link"
 import useSignUp from "@/hook/authentication/useSign-Up"
 import { Spinner } from "@/components/ui/spinner"
 
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+
 const formSchema = z.object({
     email: z.email().min(5, "Email must be at least 5 characters."),
+    role: z.string().nonempty("Role is required"),
     password: z.string().min(8, "Password must be at least 8 characters."),
     name: z.string().min(3, "Name must be at least 3 characters."),
     images: z.string().min(5, "Image URL must be at least 5 characters."),
@@ -40,18 +38,20 @@ const formSchema = z.object({
 })
 
 const Register = () => {
-    const {mutate,isPending} = useSignUp()
+    const { mutate, isPending } = useSignUp()
     const form = useForm({
         defaultValues: {
-            name:"",
+            name: "",
             email: "",
             password: "",
-            images:""
+            images: "",
+            role: "STUDENT"
         },
         validators: {
             onSubmit: formSchema,
         },
         onSubmit: async ({ value }) => {
+            console.log(value)
             mutate(value)
         },
     })
@@ -73,6 +73,34 @@ const Register = () => {
                     }}
                 >
                     <FieldGroup>
+                        <form.Field name="role">
+                            {(field) => {
+                                const isInvalid =
+                                    field.state.meta.isTouched && !field.state.meta.isValid
+                                return (
+                                    <Field data-invalid={isInvalid}>
+                                        <FieldLabel htmlFor={field.name}>Role</FieldLabel>
+
+                                        <Select
+                                            value={field.state.value || ""}
+                                            name={field.name}
+                                            onValueChange={(value) => field.handleChange(value)}
+                                        >
+                                            <SelectTrigger>
+                                                <SelectValue placeholder="Select a role" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="TUTOR">Tutor</SelectItem>
+                                                <SelectItem value="STUDENT">Student</SelectItem>
+                                            </SelectContent>
+                                        </Select>
+                                        {isInvalid && (
+                                            <FieldError errors={field.state.meta.errors} />
+                                        )}
+                                    </Field>
+                                )
+                            }}
+                        </form.Field>
                         <form.Field name="name">
                             {(field) => {
                                 const isInvalid =
@@ -178,9 +206,9 @@ const Register = () => {
                 <Field orientation="vertical" className="w-full">
 
                     <Button type="submit" className="w-full" form="bug-report-form">
-                      {isPending ? <span className="flex gap-2 justify-center items-center"><Spinner/> Registering...</span> : "Register"}
+                        {isPending ? <span className="flex gap-2 justify-center items-center"><Spinner /> Registering...</span> : "Register"}
                     </Button>
-                    <Button variant="outline" className="w-full mt-2 text-center"> 
+                    <Button variant="outline" className="w-full mt-2 text-center">
                         Continue with Google
 
                     </Button>

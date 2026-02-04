@@ -1,8 +1,18 @@
-
+'use client'
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const TutorBanner = () => {
+  const searchParams = useSearchParams();
+  const router = useRouter()
+
+  const handleSearch = (search: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set('search', search.toString());
+    router.push(`?${params.toString()}`)
+
+  }
   return (
     <div
       className="relative h-72 bg-cover bg-center bg-no-repeat"
@@ -24,8 +34,11 @@ const TutorBanner = () => {
         </p>
 
         <div className="relative mt-6 w-full max-w-md">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-black h-4 w-4"  />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-black h-4 w-4" />
           <Input
+            onChange={(e) => {
+              handleSearch(e.target.value)
+            }}
             placeholder="Search tutor, subject, or category..."
             className="pl-10 bg-white/90 backdrop-blur-md"
           />
