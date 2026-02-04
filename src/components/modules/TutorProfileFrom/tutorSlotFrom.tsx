@@ -26,9 +26,9 @@ const AvailabilitySlotForm = () => {
         endTime: "",
         duration: "60",
         teachingMode: "",
-        maxStudents: "1",
+        maxStudent: "1",
         isActive: true,
-        categories: '',
+        category: '',
         hourlyRate: ''
     })
 
@@ -56,21 +56,20 @@ const AvailabilitySlotForm = () => {
         e.preventDefault()
 
         const payload: SlotsType = {
+            id:user?.id??"",
             startTime: formData.startTime,
             endTime: formData.endTime,
             duration: formData.duration,
             teachingMode: formData.teachingMode,
-            maxStudents: Number(formData.maxStudents),
+            maxStudent: Number(formData.maxStudent),
             isActive: formData.isActive,
             tutorId: user?.id,
-            categories: formData.categories,
+            category: formData.category,
             hourlyRate: Number(formData.hourlyRate)
         }
-        console.log(user?.id)
+        console.log(payload)
         mutate(payload)
     }
-
-    console.log(categoryOptions)
     return (
         <Card className="max-w-2xl mx-auto my-5">
             <CardHeader>
@@ -117,8 +116,8 @@ const AvailabilitySlotForm = () => {
                             <Input
                                 type="number"
                                 min={1}
-                                value={formData.maxStudents}
-                                onChange={e => handleChange("maxStudents", e.target.value)}
+                                value={formData.maxStudent}
+                                onChange={e => handleChange("maxStudent", e.target.value)}
                             />
                         </div>
                     </div>
@@ -142,8 +141,8 @@ const AvailabilitySlotForm = () => {
                         <div className="space-y-1">
                             <Label>Categories</Label>
                             <Select
-                                value={formData.categories}
-                                onValueChange={values => handleChange("categories", values)}
+                                value={formData.category}
+                                onValueChange={values => handleChange("category", values)}
                             >
                                 <SelectTrigger>
                                     <SelectValue placeholder="Select categories" />

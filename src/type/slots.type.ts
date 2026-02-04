@@ -1,4 +1,5 @@
 export type SlotsType = {     
+  id:string
   startTime: string  
   endTime:string
   duration: string   

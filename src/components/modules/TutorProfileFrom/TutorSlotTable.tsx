@@ -96,7 +96,7 @@ const TutorSlotTable = ({ slots }: Props) => {
                             <TableCell className="flex justify-center gap-2">
 
                                 <Button variant="outline" size="sm" onClick={() => handleUpdate(slot)}>
-                                    {isPending ? <Spinner /> : <Edit2 className="w-4 h-4" />}
+                                    <Edit2 className="w-4 h-4" />
                                 </Button>
 
 

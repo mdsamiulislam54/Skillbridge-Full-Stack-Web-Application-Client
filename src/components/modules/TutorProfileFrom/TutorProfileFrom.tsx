@@ -65,7 +65,8 @@ function CreateProfile() {
         onSubmit: async ({ value }) => {
             const formData = {
                 ...value,
-                userId: user?.id
+                userId: user?.id,
+                profileImage: value.profileImage || ""
             }
             console.log('formdata', formData)
             mutate(formData)

@@ -17,12 +17,14 @@ import { AdminService } from "@/services/admin.service"
 import { Spinner } from "@/components/ui/spinner"
 import { Category } from "@/type/category.type"
 import { X } from "lucide-react"
-import { TutorSlot } from "@/type/tutor.slot.type"
+
 import useTutorSlotsUpdate from "@/hook/tutorProfile/useTutorSlotsUpdate"
+import { SlotsType } from "@/type/slots.type"
+
 
 type Props = {
     onClose: () => void
-    selectedSlot: TutorSlot
+    selectedSlot: SlotsType
 }
 
 const UpdateSlotsFrom = ({ onClose, selectedSlot }: Props) => {
@@ -48,7 +50,7 @@ const UpdateSlotsFrom = ({ onClose, selectedSlot }: Props) => {
         fetchCategories()
     }, [])
 
-    const handleChange = (field: string, value:any) => {
+    const handleChange = (field: string, value:string| number | boolean) => {
         setFormData(prev => ({
             ...prev,
             [field]: value,
