@@ -41,4 +41,23 @@ export const studentService = {
             throw error
         }
     },
+    getStudentDashboardData: async (cookie?: string) => {
+        try {
+
+            const res = await fetch(`${config.backendUrl}/api/student/dashboard`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    ...(cookie ? { cookie } : {}),
+                },
+                credentials: "include"
+
+            })
+            return await res.json();
+
+        } catch (error) {
+           
+            throw error
+        }
+    },
 }

@@ -1,8 +1,15 @@
-import React from 'react'
+import StudentDashboardCard from "@/components/modules/studentPage/studentDashboardCard"
+import { studentService } from "@/services/student.service";
+import { cookies } from "next/headers"
 
-const StudentDashboard = () => {
+
+const StudentDashboard = async() => {
+  const cookieStore = await cookies();
+  const res = await studentService.getStudentDashboardData(cookieStore.toString())
   return (
-    <div>StudentDashboard</div>
+    <div className="p-4">
+      <StudentDashboardCard card={res.data}/>
+    </div>
   )
 }
 

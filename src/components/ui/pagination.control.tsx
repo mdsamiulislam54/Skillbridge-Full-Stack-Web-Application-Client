@@ -80,4 +80,4 @@ const PaginationControl = ({ meta }: PaginationProps) => {
     )
 }
 
-export default PaginationControl
+export default PaginationControl 

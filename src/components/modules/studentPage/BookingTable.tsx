@@ -34,7 +34,8 @@ const BookingTable = ({ booking }: IoBooking) => {
             <TableHead>Duration</TableHead>
             <TableHead>Mode</TableHead>
             <TableHead>Price</TableHead>
-            <TableHead>Status</TableHead>
+            <TableHead>Payment</TableHead>
+            <TableHead>Booking Status</TableHead>
             <TableHead className="text-right">Action</TableHead>
           </TableRow>
         </TableHeader>
@@ -42,17 +43,15 @@ const BookingTable = ({ booking }: IoBooking) => {
         <TableBody>
           {booking.map((item, index) => (
             <TableRow key={index}>
-              {/* Profile Image */}
+              {/* Tutor Image */}
               <TableCell>
-                <div className="flex items-center gap-3">
-                  <Image
-                    src={item.tutorProfile.profileImage}
-                    alt="Tutor"
-                    width={40}
-                    height={40}
-                    className="rounded-full object-cover"
-                  />
-                </div>
+                <Image
+                  src={item.tutorProfile.profileImage}
+                  alt="Tutor"
+                  width={40}
+                  height={40}
+                  className="rounded-full object-cover"
+                />
               </TableCell>
 
               <TableCell className="font-medium">
@@ -69,6 +68,7 @@ const BookingTable = ({ booking }: IoBooking) => {
 
               <TableCell>৳{item.totalPrice}</TableCell>
 
+              {/* Payment Status */}
               <TableCell>
                 <span
                   className={`rounded-full px-3 py-1 text-xs font-semibold
@@ -82,14 +82,43 @@ const BookingTable = ({ booking }: IoBooking) => {
                 </span>
               </TableCell>
 
-              <TableCell className="text-right">
-                <Button
-                  variant="destructive"
-                  size="icon"
-                  onClick={() => console.log("Delete booking")}
+              {/* Booking Status */}
+              <TableCell>
+                <span
+                  className={`rounded-full px-3 py-1 text-xs font-semibold
+                  ${
+                    item.bookingStatus === "PENDING" &&
+                    "bg-yellow-100 text-yellow-700 dark:bg-yellow-900 dark:text-yellow-300"
+                  }
+                  ${
+                    item.bookingStatus === "CONFIRMED" &&
+                    "bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300"
+                  }
+                  ${
+                    item.bookingStatus === "COMPLETED" &&
+                    "bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300"
+                  }
+                  ${
+                    item.bookingStatus === "CANCELLED" &&
+                    "bg-gray-200 text-gray-700 dark:bg-gray-800 dark:text-gray-300"
+                  }
+                `}
                 >
-                  <Trash2 className="h-4 w-4" />
-                </Button>
+                  {item.bookingStatus}
+                </span>
+              </TableCell>
+
+              {/* Action */}
+              <TableCell className="text-right">
+                {item.bookingStatus === "CANCELLED" && (
+                  <Button
+                    variant="destructive"
+                    size="icon"
+                    onClick={() => console.log("Delete booking", item)}
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
+                )}
               </TableCell>
             </TableRow>
           ))}

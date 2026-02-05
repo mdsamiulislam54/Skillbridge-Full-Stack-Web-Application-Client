@@ -8,8 +8,8 @@ const BookingPage = async () => {
     const cookieStore = await cookies();
     const booking = await studentService.getStudentOwnBookings(cookieStore.toString());
     return (
-        <div>
-            <div>
+        <div className='min-h-screen'>
+            <div className='p-4'>
                 <BookingTable booking={booking.data.result} />
             </div>
             <PaginationControl meta={booking.data.pagination} />
