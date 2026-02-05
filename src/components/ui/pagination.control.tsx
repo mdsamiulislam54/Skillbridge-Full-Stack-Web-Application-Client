@@ -6,22 +6,25 @@ import { Button } from './button';
 
 
 interface PaginationProps {
-  meta: {
-    limit: number;
-    page: number;
-    total: number;
-    totalPages: number;
-  };
+    meta: {
+        limit: number;
+        page: number;
+        total: number;
+        totalPages: number;
+    };
 }
 
 
 
 const PaginationControl = ({ meta }: PaginationProps) => {
-    const { limit: pageSize, page: currentPage, total, totalPages } = meta;
+    const { limit: pageSize, page: currentPage,  totalPages } = meta;
     const searchParams = useSearchParams();
     const router = useRouter();
 
     const navigateToPage = (page: number) => {
+        if (page < 1) return
+        if (page > totalPages) return
+        if (totalPages === 0) return
         const params = new URLSearchParams(searchParams.toString());
         params.set("page", page.toString());
         router.push(`?${params.toString()}`);
@@ -35,7 +38,7 @@ const PaginationControl = ({ meta }: PaginationProps) => {
                     variant="outline"
                     size="icon"
                     onClick={() => navigateToPage(1)}
-                    disabled={currentPage === 1}
+                     disabled={currentPage <= 1 || totalPages === 0}
                 >
                     <ChevronsLeft className="h-4 w-4" />
                 </Button>
@@ -44,7 +47,7 @@ const PaginationControl = ({ meta }: PaginationProps) => {
                     variant="outline"
                     size="icon"
                     onClick={() => navigateToPage(currentPage - 1)}
-                    disabled={currentPage === 1}
+                  disabled={currentPage <= 1 || totalPages === 0}
                 >
                     <ChevronLeft className="h-4 w-4" />
                 </Button>
@@ -59,7 +62,7 @@ const PaginationControl = ({ meta }: PaginationProps) => {
                     variant="outline"
                     size="icon"
                     onClick={() => navigateToPage(currentPage + 1)}
-                    disabled={currentPage === totalPages}
+                    disabled={currentPage >= totalPages && totalPages === 0}
                 >
                     <ChevronRight className="h-4 w-4" />
                 </Button>
@@ -68,7 +71,7 @@ const PaginationControl = ({ meta }: PaginationProps) => {
                     variant="outline"
                     size="icon"
                     onClick={() => navigateToPage(totalPages)}
-                    disabled={currentPage === totalPages}
+                    disabled={currentPage >= totalPages && totalPages === 0}
                 >
                     <ChevronsRight className="h-4 w-4" />
                 </Button>

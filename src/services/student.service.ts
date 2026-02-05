@@ -20,5 +20,25 @@ export const studentService = {
         } catch (error) {
             throw error
         }
-    }
+    },
+
+    getStudentOwnBookings: async (cookie?: string) => {
+        try {
+
+            const res = await fetch(`${config.backendUrl}/api/student/booking`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    ...(cookie ? { cookie } : {}),
+                },
+                credentials: "include"
+
+            })
+            return await res.json();
+
+        } catch (error) {
+            console.log(error)
+            throw error
+        }
+    },
 }
