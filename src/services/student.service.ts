@@ -1,5 +1,6 @@
 import { config } from "@/config/config"
 import { BookingType } from "@/type/booking.type"
+import { GetParams } from "./tutor.service"
 
 export const studentService = {
     createBooking: async (payload: BookingType) => {
@@ -22,10 +23,19 @@ export const studentService = {
         }
     },
 
-    getStudentOwnBookings: async (cookie?: string) => {
+    getStudentOwnBookings: async (params:GetParams, cookie?: string) => {
         try {
 
-            const res = await fetch(`${config.backendUrl}/api/student/booking`, {
+            const url = new URL(`${config.backendUrl}/api/student/booking`);
+
+            if (params) {
+                Object.entries(params).forEach(([key, value]) => {
+                    if (value !== undefined && value !== null && value !== '') {
+                        url.searchParams.append(key, value)
+                    }
+                })
+            }
+            const res = await fetch(url, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -56,7 +66,7 @@ export const studentService = {
             return await res.json();
 
         } catch (error) {
-           
+
             throw error
         }
     },

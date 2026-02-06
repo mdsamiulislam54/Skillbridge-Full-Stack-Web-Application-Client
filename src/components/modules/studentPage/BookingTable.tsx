@@ -43,7 +43,7 @@ const BookingTable = ({ booking }: IoBooking) => {
         <TableBody>
           {booking.map((item, index) => (
             <TableRow key={index}>
-              {/* Tutor Image */}
+
               <TableCell>
                 <Image
                   src={item.tutorProfile.profileImage}
@@ -68,50 +68,58 @@ const BookingTable = ({ booking }: IoBooking) => {
 
               <TableCell>৳{item.totalPrice}</TableCell>
 
-              {/* Payment Status */}
+
               <TableCell>
                 <span
                   className={`rounded-full px-3 py-1 text-xs font-semibold
-                  ${
-                    item.paymentStatus === "PAID"
+                  ${item.paymentStatus === "PAID"
                       ? "bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300"
                       : "bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-300"
-                  }`}
+                    }`}
                 >
                   {item.paymentStatus}
                 </span>
               </TableCell>
 
-              {/* Booking Status */}
+
               <TableCell>
                 <span
                   className={`rounded-full px-3 py-1 text-xs font-semibold
-                  ${
-                    item.bookingStatus === "PENDING" &&
+                  ${item.bookingStatus === "PENDING" &&
                     "bg-yellow-100 text-yellow-700 dark:bg-yellow-900 dark:text-yellow-300"
-                  }
-                  ${
-                    item.bookingStatus === "CONFIRMED" &&
+                    }
+                  ${item.bookingStatus === "CONFIRMED" &&
                     "bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300"
-                  }
-                  ${
-                    item.bookingStatus === "COMPLETED" &&
+                    }
+                  ${item.bookingStatus === "COMPLETED" &&
                     "bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300"
-                  }
-                  ${
-                    item.bookingStatus === "CANCELLED" &&
-                    "bg-gray-200 text-gray-700 dark:bg-gray-800 dark:text-gray-300"
-                  }
+                    }
+                  ${item.bookingStatus === "CANCELLED" &&
+                    "bg-red-200 text-gray-900 dark:bg-gray-800 dark:text-gray-300"
+                    }
                 `}
                 >
                   {item.bookingStatus}
                 </span>
               </TableCell>
 
-              {/* Action */}
-              <TableCell className="text-right">
+              <TableCell className="text-right space-x-2">
+                {/* Review button */}
+                {item.bookingStatus === "COMPLETED" && !item.review && (
+                  <Button
+                    className="cursor-pointer"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => console.log("Review booking", item)}
+                  >
+                    Leave Review
+                  </Button>
+                )}
+
+
                 {item.bookingStatus === "CANCELLED" && (
                   <Button
+                    className="cursor-pointer"
                     variant="destructive"
                     size="icon"
                     onClick={() => console.log("Delete booking", item)}
@@ -120,6 +128,7 @@ const BookingTable = ({ booking }: IoBooking) => {
                   </Button>
                 )}
               </TableCell>
+
             </TableRow>
           ))}
         </TableBody>

@@ -2,8 +2,8 @@
 import { config } from "@/config/config"
 import { TutorFormValues } from "@/lib/validator/tutor.schema"
 import { SlotsType, UpdateSlotsType } from "@/type/slots.type";
-
-interface GetParams {
+ 
+export interface GetParams {
     page?: string,
     limit?: string
     search?: string

@@ -33,15 +33,15 @@ const TutorProfileCard = ({ tutorProfile }: Props) => {
             </CardHeader>
 
 
-            <CardContent className="relative -mt-12 mx-3 mb-3 rounded-xl bg-transparent backdrop-blur-md p-4 shadow">
+            <CardContent className="relative -mt-12 mx-3 mb-3 rounded-xl bg-transparent  backdrop-blur-md p-4 shadow">
 
 
-                <h3 className="text-lg font-semibold text-center text-gray-900 truncate">
+                <h3 className="text-lg font-semibold text-center text-gray-900 dark:text-white truncate">
                     {tutorProfile.name}
                 </h3>
 
 
-                <div className="mt-3 space-y-2 text-sm text-gray-700">
+                <div className="mt-3 space-y-2 text-sm text-gray-700 dark:text-white ">
 
                     <div className="flex justify-between">
                         <span className="text-muted-foreground">Experience</span>
