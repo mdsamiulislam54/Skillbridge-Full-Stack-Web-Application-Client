@@ -4,7 +4,7 @@ import { useMutation } from "@tanstack/react-query"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
 
-function AdmincategoryCreate() {
+function AdminCategoryCreate() {
     // const router = useRouter()
     return useMutation({
         mutationFn: AdminService.adminCategoryCreate,
@@ -21,4 +21,4 @@ function AdmincategoryCreate() {
 
 }
 
-export default AdmincategoryCreate
+export default AdminCategoryCreate

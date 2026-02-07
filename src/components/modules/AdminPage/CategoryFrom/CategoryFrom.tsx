@@ -1,3 +1,4 @@
+
 'use client'
 
 import { useForm } from '@tanstack/react-form'
@@ -9,10 +10,9 @@ import { Label } from '@/components/ui/label'
 import { Switch } from '@/components/ui/switch'
 import { Textarea } from '@/components/ui/textarea'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import AdmincategoryCreate from '@/hook/admin/useCreateCategory'
+
 import { Spinner } from '@/components/ui/spinner'
-import { useEffect, useState } from 'react'
-import { AdminService } from '@/services/admin.service'
+import AdminCategoryCreate from '@/hook/admin/useCreateCategory'
 
 const categorySchema = z.object({
     name: z.string().min(1, 'Category name is required'),
@@ -25,7 +25,7 @@ const categorySchema = z.object({
 
 
 const CategoryForm = () => {
-    const { mutate, isPending } = AdmincategoryCreate();
+    const { mutate, isPending } = AdminCategoryCreate();
 
     const form = useForm({
         defaultValues: {

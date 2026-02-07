@@ -55,7 +55,7 @@ export function AppSidebar({
         </Link>
 
         {user?.email && (
-          <span className="text-xs text-muted-foreground truncate max-w-[160px]">
+          <span className="text-xs text-muted-foreground truncate max-w-40">
             {user.email}
           </span>
         )}

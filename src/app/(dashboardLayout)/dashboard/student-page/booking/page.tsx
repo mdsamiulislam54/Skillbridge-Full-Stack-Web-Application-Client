@@ -7,7 +7,7 @@ import React from 'react'
 const BookingPage = async ({searchParams}:{searchParams:Promise<{page:string}>}) => {
     const {page} = await searchParams
     const cookieStore = await cookies();
-    const booking = await studentService.getStudentOwnBookings({page},cookieStore.toString());
+    const booking = await studentService.getStudentOwnBookings({page, limit:'10'},cookieStore.toString());
     const pagination = booking.data?.pagination || {
         limit: 10,
         page: 1,

@@ -46,7 +46,7 @@ export default async function DashboardLayout({
 
         </header>
 
-        <main>
+        <main className="w-full h-full relative">
           {children}
         </main>
     

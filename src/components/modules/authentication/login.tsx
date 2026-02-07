@@ -28,8 +28,6 @@ import { Spinner } from "@/components/ui/spinner"
 const formSchema = z.object({
     email: z.email().min(5, "Email must be at least 5 characters."),
     password: z.string().min(8, "Password must be at least 8 characters."),
-
-
 })
 
 const LoginPage = () => {
