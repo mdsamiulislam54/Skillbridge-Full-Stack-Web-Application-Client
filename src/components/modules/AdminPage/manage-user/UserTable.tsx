@@ -11,6 +11,7 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrig
 import { SidebarGroup, SidebarGroupContent, SidebarInput } from "@/components/ui/sidebar";
 import { Label } from "@/components/ui/label";
 import { useRouter, useSearchParams } from "next/navigation";
+import AdminStatusUpdate from "@/hook/admin/useStatusUpdate";
 
 
 
@@ -18,6 +19,7 @@ type UserTableProps = { data: User[]; };
 
 const UserTable: React.FC<UserTableProps> = ({ data }) => {
     const router = useRouter();
+    const { mutate, isPending } = AdminStatusUpdate()
     const searchParams = useSearchParams();
     const [formData, setFormData] = useState({
         search: '',
@@ -33,6 +35,14 @@ const UserTable: React.FC<UserTableProps> = ({ data }) => {
         router.push(`?${params.toString()}`);
     }, [formData.search, formData.sort, router])
 
+    const handleStatusUpdate = (currentStatus: string, id: string) => {
+       
+
+        mutate({
+            id,
+            status: currentStatus,
+        })
+    }
 
 
     return (
@@ -82,7 +92,7 @@ const UserTable: React.FC<UserTableProps> = ({ data }) => {
                         <TableHead>Email</TableHead>
                         <TableHead>Role</TableHead>
                         <TableHead>Status</TableHead>
-                        <TableHead>Actions</TableHead>
+                        <TableHead className="text-right">Actions</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -92,16 +102,38 @@ const UserTable: React.FC<UserTableProps> = ({ data }) => {
                             <TableCell>{user.email}</TableCell>
                             <TableCell>{user.role}</TableCell>
                             <TableCell>{user.status}</TableCell>
-                            <TableCell className="flex flex-col justify-end">
+                            <TableCell className="flex justify-end gap-2">
+                                {/* ACTIVE */}
                                 <Button
-                                    variant={user.status === "ACTIVE" ? "destructive" : "default"}
                                     size="sm"
-                                    className="flex items-center gap-2"
+                                    variant="default"
+                               
+                                    onClick={() => handleStatusUpdate("ACTIVE", user.id)}
                                 >
-                                    {user.status === "ACTIVE" ? <UserMinus size={16} /> : <UserPlus size={16} />}
-                                    {user.status === "ACTIVE" ? "Ban" : "Unban"}
+                                    Active
+                                </Button>
+
+                                {/* BAN */}
+                                <Button
+                                    size="sm"
+                                    variant="destructive"
+                                    
+                                    onClick={() => handleStatusUpdate("BAN", user.id)}
+                                >
+                                    Ban
+                                </Button>
+
+                                {/* UNBAN */}
+                                <Button
+                                    size="sm"
+                                    variant="outline"
+                                    
+                                    onClick={() => handleStatusUpdate("ACTIVE", user.id)}
+                                >
+                                    Unban
                                 </Button>
                             </TableCell>
+
                         </TableRow>
                     ))}
                 </TableBody>

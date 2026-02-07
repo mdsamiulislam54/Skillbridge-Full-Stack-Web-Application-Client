@@ -6,7 +6,8 @@ export interface GetParams {
     page?: string,
     limit?: string
     search?: string,
-    sort?: string
+    sort?: string,
+    status?: string
 }
 
 
@@ -88,6 +89,23 @@ export const AdminService = {
                 })
             }
             const res = await fetch(url, {
+                headers: {
+                    "Content-Type": "application/json",
+                    ...(cookie ? { cookie } : {}),
+                },
+                credentials: "include"
+            })
+            return await res.json();
+
+        } catch (error) {
+            throw error
+        }
+    },
+    updateUser: async (id: string, status: string, cookie?: string) => {
+        try {
+            console.log(id,status)
+            const res = await fetch(`${config.backendUrl}/api/admin/manage/user/${id}?status=${status}`, {
+                method:"PATCH",
                 headers: {
                     "Content-Type": "application/json",
                     ...(cookie ? { cookie } : {}),

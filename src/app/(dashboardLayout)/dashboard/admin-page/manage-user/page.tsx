@@ -10,9 +10,7 @@ const ManageUser = async ({ searchParams }: { searchParams: Promise<{ search: st
   const res = await AdminService.getAllUser({ search, sort, page }, cookieStore.toString())
   return (
     <div className='m-4'>
-
       <UserTable data={res.data.result} />
-
       <PaginationControl meta={res?.data?.pagination}/>
     </div>
   )
