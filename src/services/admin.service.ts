@@ -2,7 +2,12 @@
 import { config } from "@/config/config"
 import { Category } from "@/type/category.type";
 
-
+export interface GetParams {
+    page?: string,
+    limit?: string
+    search?: string,
+    sort?: string
+}
 
 
 
@@ -58,6 +63,31 @@ export const AdminService = {
     getAdminChartData: async (cookie?: string) => {
         try {
             const res = await fetch(`${config.backendUrl}/api/admin/dashboard/chart`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    ...(cookie ? { cookie } : {}),
+                },
+                credentials: "include"
+            })
+            return await res.json();
+
+        } catch (error) {
+            throw error
+        }
+    },
+    getAllUser: async (params: GetParams, cookie?: string) => {
+        try {
+
+            const url = new URL(`${config.backendUrl}/api/admin/all-user`);
+
+            if (params) {
+                Object.entries(params).forEach(([key, value]) => {
+                    if (value !== undefined && value !== null && value !== '') {
+                        url.searchParams.append(key, value)
+                    }
+                })
+            }
+            const res = await fetch(url, {
                 headers: {
                     "Content-Type": "application/json",
                     ...(cookie ? { cookie } : {}),
