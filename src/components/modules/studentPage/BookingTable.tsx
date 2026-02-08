@@ -10,18 +10,29 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { Button } from "@/components/ui/button"
-import { Trash2 } from "lucide-react"
+import { Trash2, X } from "lucide-react"
 import Image from "next/image"
 
 import { StudentBooking } from "@/type/student.booking.type"
+import { useState } from "react"
+import LeaveReview from "./LeaveReview"
+import { BookingType } from "@/type/booking.type"
 
 interface IoBooking {
   booking: StudentBooking[]
 }
 
 const BookingTable = ({ booking }: IoBooking) => {
+  const [selectedBooking, setSelectedBooking] = useState<StudentBooking>();
+  const [isOpen, setIsOpen] = useState(false);
+  const handleToggle = () => setIsOpen(!isOpen);
+
+  const handleReview = async (booking: StudentBooking) => {
+    handleToggle();
+    setSelectedBooking(booking)
+  }
   return (
-    <div className="rounded-xl border bg-background p-4">
+    <div className="rounded-xl border bg-background p-4 relative">
       <Table>
         <TableCaption>Your booking history</TableCaption>
 
@@ -110,7 +121,7 @@ const BookingTable = ({ booking }: IoBooking) => {
                     className="cursor-pointer"
                     variant="outline"
                     size="sm"
-                    onClick={() => console.log("Review booking", item)}
+                    onClick={() => handleReview(item)}
                   >
                     Leave Review
                   </Button>
@@ -133,6 +144,13 @@ const BookingTable = ({ booking }: IoBooking) => {
           ))}
         </TableBody>
       </Table>
+
+      {
+        isOpen && selectedBooking && <div className="absolute inset-0   ">
+          <Button className="absolute top-4 right-0" onClick={handleToggle}><X /></Button>
+          <LeaveReview bookingId={selectedBooking.id || ''} tutorProfileId={selectedBooking.tutorProfile.id || ''} onClose={handleToggle} />
+        </div>
+      }
     </div>
   )
 }

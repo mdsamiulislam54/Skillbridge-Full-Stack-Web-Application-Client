@@ -1,6 +1,7 @@
 import { config } from "@/config/config"
 import { BookingType } from "@/type/booking.type"
 import { GetParams } from "./tutor.service"
+import { Review, ReviewForm } from "@/type/Review.type"
 
 export const studentService = {
     createBooking: async (payload: BookingType) => {
@@ -61,15 +62,14 @@ export const studentService = {
                     ...(cookie ? { cookie } : {}),
                 },
                 credentials: "include"
-
             })
             return await res.json();
-
         } catch (error) {
 
             throw error
         }
     },
+
     getDashboardChartData: async (cookie?: string) => {
         try {
 
@@ -86,6 +86,22 @@ export const studentService = {
 
         } catch (error) {
 
+            throw error
+        }
+    },
+    createReview: async (data:ReviewForm,cookie?: string) => {
+        try {
+            const res = await fetch(`${config.backendUrl}/api/student/review`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    ...(cookie ? { cookie } : {}),
+                },
+                credentials: "include",
+                body:JSON.stringify(data)
+            });
+            return await res.json();
+        } catch (error) {
             throw error
         }
     },

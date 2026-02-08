@@ -2,7 +2,7 @@
 import { config } from "@/config/config"
 import { TutorFormValues } from "@/lib/validator/tutor.schema"
 import { SlotsType, UpdateSlotsType } from "@/type/slots.type";
- 
+
 export interface GetParams {
     page?: string,
     limit?: string
@@ -249,6 +249,53 @@ export const TutorService = {
     getAllTutorProfileById: async (id: string) => {
         try {
             const res = await fetch(`${config.backendUrl}/api/tutor/${id}`)
+            return await res.json();
+
+        } catch (error) {
+            throw error
+        }
+    },
+    getTutorBooking: async (cookie?: string) => {
+        try {
+
+            const res = await fetch(`${config.backendUrl}/api/tutor/dashboard/chart-data`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    ...(cookie ? { cookie } : {}),
+                },
+                credentials: "include"
+
+            })
+            const data = await res.json();
+
+            return { success: true, data }
+        } catch (error) {
+
+            throw error
+        }
+    },
+
+    GetOwnBookings: async (params: GetParams, cookie?: string) => {
+        try {
+            const url = new URL(`${config.backendUrl}/api/tutor/booking`);
+
+            if (params) {
+                Object.entries(params).forEach(([key, value]) => {
+                    if (value !== undefined && value !== null && value !== '') {
+                        url.searchParams.append(key, value)
+                    }
+                })
+            }
+
+            const res = await fetch(url, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    ...(cookie ? { cookie } : {}),
+                },
+                credentials: "include"
+            })
             return await res.json();
 
         } catch (error) {

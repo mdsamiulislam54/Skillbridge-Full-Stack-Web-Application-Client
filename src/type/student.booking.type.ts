@@ -1,4 +1,5 @@
 export type StudentBooking = {
+    id?:string,
     totalPrice: number
     createdAt: string
     paymentStatus: "PAID" | "UNPAID"
@@ -10,6 +11,7 @@ export type StudentBooking = {
     }
 
     tutorProfile: {
+        id?:string,
         profileImage: string
         teachingMode: "ONLINE" | "OFFLINE"
     }

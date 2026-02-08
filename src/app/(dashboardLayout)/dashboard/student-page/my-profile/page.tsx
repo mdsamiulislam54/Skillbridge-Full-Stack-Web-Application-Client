@@ -1,9 +1,9 @@
-import React from 'react'
+
 
 const ProfilePage = () => {
     return (
-        <div className="h-screen w-full bg-red-400">
-            ProfilePage
+        <div className="">
+            <div className='w-full h-200 bg-red-200'></div>
         </div>
 
     )
