@@ -17,6 +17,7 @@ import useTutorSlotsDelete from "@/hook/tutorProfile/useTutorSlotsDelete"
 import { Spinner } from "@/components/ui/spinner"
 import { useState } from "react"
 import UpdateSlotsFrom from "./updatedSlotsFrom"
+import { to12HourWithPeriod } from "@/hook/use12HourWithPeriod/use12HourWithPeriod"
 
 
 type Props = {
@@ -36,7 +37,7 @@ const TutorSlotTable = ({ slots }: Props) => {
     const handleDelete = (id: string) => {
         mutate(id)
     };
-    const handleUpdate = (slot:TutorSlot) => {
+    const handleUpdate = (slot: TutorSlot) => {
         setSelectedSlot(slot)
         handleUpdateFromToggle()
     }
@@ -74,7 +75,7 @@ const TutorSlotTable = ({ slots }: Props) => {
                             </TableCell>
 
                             <TableCell>
-                                {slot.startTime} - {slot.endTime}
+                                {to12HourWithPeriod(slot.startTime)} - {to12HourWithPeriod(slot.endTime)}
                             </TableCell>
 
                             <TableCell>{slot.duration} min</TableCell>

@@ -1,27 +1,23 @@
-type Booking = {
-  id: string;
-  userId: string;
-  tutorProfileId: string;
-  categoryId: string | null;
-  tutorSlotsId: string;
-  bookingStatus: BookingStatus;
+export type BookingItem = {
+  bookingStatus: "PENDING" | "CONFIRMED" | "COMPLETED" | "CANCELLED";
+  paymentStatus: "PAID" | "UNPAID" | "REFUNDED";
   totalPrice: number;
-  paymentStatus: PaymentStatus;
-  createdAt: Date;
-  updatedAt: Date;
-}
-enum BookingStatus {
-  PENDING,
-  CONFIRMED,
-  COMPLETED,
-  CANCELLED
-}
 
-enum PaymentStatus {
-  UNPAID,
-  PAID,
-  REFUNDED
-}
+  tutorProfile: {
+    name: string;
+  };
+
+  tutorSlot: {
+    duration: string;     
+    startTime: string;     
+    endTime: string;       
+    teachingMode: "ONLINE" | "OFFLINE";
+  };
+
+  user: {
+    email: string;
+  };
+};
 
 
 export type BookingType = {

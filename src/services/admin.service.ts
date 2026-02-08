@@ -117,5 +117,31 @@ export const AdminService = {
         } catch (error) {
             throw error
         }
-    }
+    },
+
+      getAllBooking: async (params: GetParams, cookie?: string) => {
+        try {
+
+            const url = new URL(`${config.backendUrl}/api/admin/all-booking`);
+
+            if (params) {
+                Object.entries(params).forEach(([key, value]) => {
+                    if (value !== undefined && value !== null && value !== '') {
+                        url.searchParams.append(key, value)
+                    }
+                })
+            }
+            const res = await fetch(url, {
+                headers: {
+                    "Content-Type": "application/json",
+                    ...(cookie ? { cookie } : {}),
+                },
+                credentials: "include"
+            })
+            return await res.json();
+
+        } catch (error) {
+            throw error
+        }
+    },
 }
