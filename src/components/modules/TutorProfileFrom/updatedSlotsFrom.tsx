@@ -45,7 +45,7 @@ const UpdateSlotsFrom = ({ onClose, selectedSlot }: Props) => {
     useEffect(() => {
         const fetchCategories = async () => {
             const res = await AdminService.getCategory()
-            setCategoryOptions(res.data?.data || [])
+            setCategoryOptions(res.data || [])
         }
         fetchCategories()
     }, [])

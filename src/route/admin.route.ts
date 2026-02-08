@@ -4,7 +4,7 @@ export const adminRoutes : NavItem[]= [
     {title: "Dashboard", url: "/admin/dashboard"},
     {title: "Manage Users", url: "/dashboard/admin-page/manage-user"},
     {title: "Manage Bookings", url: "/dashboard/admin-page/manage-booking"},
-    {title: "Manage Categories", url: "/dashboard/admin-page/categories"},
+    {title: "Manage Categories", url: "/dashboard/admin-page/manage-categories"},
     {title: "Create Categories", url: "/dashboard/admin-page/create-categories"},
   
 ]

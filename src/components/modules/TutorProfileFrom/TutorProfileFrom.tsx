@@ -68,7 +68,7 @@ function CreateProfile() {
                 userId: user?.id,
                 profileImage: value.profileImage || ""
             }
-            console.log('formdata', formData)
+    
             mutate(formData)
         },
     })

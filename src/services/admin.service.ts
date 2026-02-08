@@ -39,8 +39,8 @@ export const AdminService = {
     getCategory: async () => {
         try {
             const res = await fetch(`${config.backendUrl}/api/admin/category`)
-            const data = await res.json();
-            return { success: true, data }
+            return await res.json();
+
         } catch (error) {
             console.log(error)
             throw error
@@ -103,9 +103,9 @@ export const AdminService = {
     },
     updateUser: async (id: string, status: string, cookie?: string) => {
         try {
-            console.log(id,status)
+            console.log(id, status)
             const res = await fetch(`${config.backendUrl}/api/admin/manage/user/${id}?status=${status}`, {
-                method:"PATCH",
+                method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
                     ...(cookie ? { cookie } : {}),
@@ -119,7 +119,7 @@ export const AdminService = {
         }
     },
 
-      getAllBooking: async (params: GetParams, cookie?: string) => {
+    getAllBooking: async (params: GetParams, cookie?: string) => {
         try {
 
             const url = new URL(`${config.backendUrl}/api/admin/all-booking`);
@@ -137,6 +137,24 @@ export const AdminService = {
                     ...(cookie ? { cookie } : {}),
                 },
                 credentials: "include"
+            })
+            return await res.json();
+
+        } catch (error) {
+            throw error
+        }
+    },
+    updateCategory: async (id: string, data: Category, cookie?: string) => {
+        try {
+
+            const res = await fetch(`${config.backendUrl}/api/admin/manage/category/${id}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                    ...(cookie ? { cookie } : {}),
+                },
+                credentials: "include",
+                body: JSON.stringify(data)
             })
             return await res.json();
 
