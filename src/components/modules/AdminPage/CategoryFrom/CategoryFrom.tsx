@@ -38,7 +38,6 @@ const CategoryForm = () => {
         onSubmit: async ({ value }) => {
 
             const categoryData = {
-                id: '',
                 name: value.name,
                 icon: value.icon,
                 description: value.description,

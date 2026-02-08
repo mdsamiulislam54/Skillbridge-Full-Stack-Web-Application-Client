@@ -162,4 +162,22 @@ export const AdminService = {
             throw error
         }
     },
+    deleteCategory: async (id: string, cookie?: string) => {
+        try {
+
+            const res = await fetch(`${config.backendUrl}/api/admin/manage/category/${id}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    ...(cookie ? { cookie } : {}),
+                },
+                credentials: "include",
+              
+            })
+            return await res.json();
+
+        } catch (error) {
+            throw error
+        }
+    },
 }
