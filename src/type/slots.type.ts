@@ -10,6 +10,7 @@ export type SlotsType = {
   category: string
   hourlyRate: number
 }
+export type PartialSlotsType = Partial<SlotsType>;
 
 export type UpdateSlotsType = {     
   startTime: string  

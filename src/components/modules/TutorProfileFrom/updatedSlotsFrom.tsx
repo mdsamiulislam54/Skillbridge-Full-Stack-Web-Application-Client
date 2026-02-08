@@ -19,12 +19,12 @@ import { Category } from "@/type/category.type"
 import { X } from "lucide-react"
 
 import useTutorSlotsUpdate from "@/hook/tutorProfile/useTutorSlotsUpdate"
-import { SlotsType } from "@/type/slots.type"
+import { PartialSlotsType, SlotsType } from "@/type/slots.type"
 
 
 type Props = {
     onClose: () => void
-    selectedSlot: SlotsType
+    selectedSlot: PartialSlotsType
 }
 
 const UpdateSlotsFrom = ({ onClose, selectedSlot }: Props) => {
@@ -61,18 +61,18 @@ const UpdateSlotsFrom = ({ onClose, selectedSlot }: Props) => {
         e.preventDefault()
 
         const payload = {
-            startTime: formData.startTime,
-            endTime: formData.endTime,
-            duration: formData.duration,
-            teachingMode: formData.teachingMode,
-            maxStudent: Number(formData.maxStudent),
-            isActive: Boolean(formData.isActive),
-            category: formData.category,
-            hourlyRate: Number(formData.hourlyRate),
+            startTime: formData.startTime || '',
+            endTime: formData.endTime || '',
+            duration: formData.duration || '',
+            teachingMode: formData.teachingMode || '',
+            maxStudent: Number(formData.maxStudent) || 0,
+            isActive: Boolean(formData.isActive) || true,
+            category: formData.category || '',
+            hourlyRate: Number(formData.hourlyRate) || 0,
         }
 
         mutate(
-            { id: selectedSlot.id, payload },
+            { id: selectedSlot.id || '', payload },
             {
                 onSuccess: () => onClose(),
             }

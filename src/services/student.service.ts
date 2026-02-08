@@ -70,4 +70,23 @@ export const studentService = {
             throw error
         }
     },
+    getDashboardChartData: async (cookie?: string) => {
+        try {
+
+            const res = await fetch(`${config.backendUrl}/api/student/dashboard/chart`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    ...(cookie ? { cookie } : {}),
+                },
+                credentials: "include"
+
+            })
+            return await res.json();
+
+        } catch (error) {
+
+            throw error
+        }
+    },
 }
