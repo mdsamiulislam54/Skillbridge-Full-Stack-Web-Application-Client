@@ -24,7 +24,7 @@ export const studentService = {
         }
     },
 
-    getStudentOwnBookings: async (params:GetParams, cookie?: string) => {
+    getStudentOwnBookings: async (params: GetParams, cookie?: string) => {
         try {
 
             const url = new URL(`${config.backendUrl}/api/student/booking`);
@@ -89,7 +89,7 @@ export const studentService = {
             throw error
         }
     },
-    createReview: async (data:ReviewForm,cookie?: string) => {
+    createReview: async (data: ReviewForm, cookie?: string) => {
         try {
             const res = await fetch(`${config.backendUrl}/api/student/review`, {
                 method: "POST",
@@ -98,10 +98,48 @@ export const studentService = {
                     ...(cookie ? { cookie } : {}),
                 },
                 credentials: "include",
-                body:JSON.stringify(data)
+                body: JSON.stringify(data)
             });
             return await res.json();
         } catch (error) {
+            throw error
+        }
+    },
+    upComingBooking: async (cookie?: string) => {
+        try {
+
+            const res = await fetch(`${config.backendUrl}/api/student/upcoming/booking`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    ...(cookie ? { cookie } : {}),
+                },
+                credentials: "include"
+
+            })
+            return await res.json();
+
+        } catch (error) {
+
+            throw error
+        }
+    },
+    pastBooking: async (cookie?: string) => {
+        try {
+
+            const res = await fetch(`${config.backendUrl}/api/student/past/booking`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    ...(cookie ? { cookie } : {}),
+                },
+                credentials: "include"
+
+            })
+            return await res.json();
+
+        } catch (error) {
+
             throw error
         }
     },

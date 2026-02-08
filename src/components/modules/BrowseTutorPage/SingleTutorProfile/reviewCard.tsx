@@ -2,8 +2,6 @@
 import { Card, CardDescription, CardTitle } from '@/components/ui/card'
 import { Review } from '@/type/Review.type'
 import { Star } from 'lucide-react'
-import React from 'react'
-
 
 type Props = {
     review: Review
