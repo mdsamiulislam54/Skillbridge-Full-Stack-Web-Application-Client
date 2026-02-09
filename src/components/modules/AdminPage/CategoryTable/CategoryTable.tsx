@@ -88,7 +88,7 @@ export default function CategoryTable({ data }: Props) {
                                     Edit
                                 </Button>
                                 <Button
-                                    className="bg-red-600 cursor-pointer"
+                                    className=" cursor-pointer"
                                     onClick={() => item.id && handleDeleteCategoryById(item?.id)}
                                     size="sm" variant="secondary">
                                     {isPending && item.id === selectedId ? <Spinner/>: <Trash2 color="red" />}

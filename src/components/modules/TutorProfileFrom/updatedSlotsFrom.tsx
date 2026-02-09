@@ -33,7 +33,7 @@ const UpdateSlotsFrom = ({ onClose, selectedSlot }: Props) => {
         endTime: selectedSlot.endTime,
         duration: selectedSlot.duration,
         teachingMode: selectedSlot.teachingMode,
-        maxStudent: selectedSlot.maxStudent,
+        maxStudent: 0,
         isActive: selectedSlot.isActive,
         category: selectedSlot.category,
         hourlyRate: selectedSlot.hourlyRate,
@@ -65,11 +65,12 @@ const UpdateSlotsFrom = ({ onClose, selectedSlot }: Props) => {
             endTime: formData.endTime || '',
             duration: formData.duration || '',
             teachingMode: formData.teachingMode || '',
-            maxStudent: Number(formData.maxStudent) || 0,
+            maxStudent: Number(formData.maxStudent) ,
             isActive: Boolean(formData.isActive) || true,
             category: formData.category || '',
             hourlyRate: Number(formData.hourlyRate) || 0,
         }
+  
 
         mutate(
             { id: selectedSlot.id || '', payload },
@@ -133,8 +134,8 @@ const UpdateSlotsFrom = ({ onClose, selectedSlot }: Props) => {
                                 <Input
                                     type="number"
                                     min={1}
-                                    value={formData.maxStudent}
-                                    onChange={e => handleChange("maxStudents", e.target.value)}
+                                    
+                                    onChange={e => handleChange("maxStudent", e.target.value)}
                                 />
                             </div>
                         </div>

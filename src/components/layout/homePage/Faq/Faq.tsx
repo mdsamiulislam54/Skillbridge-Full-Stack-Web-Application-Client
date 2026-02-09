@@ -37,8 +37,8 @@ const faqData = [
 
 export default function FAQPage() {
   return (
-    <div className="container mx-auto px-4 py-10">
-      <Card className="max-w-3xl mx-auto bg-background dark:border-zinc-800">
+    <div className=" px-4 py-10">
+      <Card className=" bg-background dark:border-zinc-800">
         <CardHeader>
           <CardTitle className="text-2xl md:text-3xl font-bold text-center">
             Frequently Asked Questions

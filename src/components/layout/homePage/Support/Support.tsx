@@ -47,7 +47,7 @@ const Support = () => {
                     </div>
 
                 </div>
-                <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                <div className="grid gap-6 sm:grid-cols-2 ">
                     {supportCards.map((item, index) => {
                         const Icon = item.icon;
 
@@ -57,7 +57,7 @@ const Support = () => {
                                 className="bg-background dark:border-zinc-800 hover:shadow-md transition m-0 p-4"
                             >
                                 <div className="flex flex-col items-start gap-4 p-6">
-                                    <div className="rounded-full bg-gray-500  p-3">
+                                    <div className="rounded-full bg-gray-500 text-white  p-3">
                                         <Icon className="h-6 w-6 " />
                                     </div>
 
