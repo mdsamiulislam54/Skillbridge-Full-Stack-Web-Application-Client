@@ -69,8 +69,6 @@ const Navbar = ({
     { title: "Home", url: "/" },
     { title: "Browse Tutors", url: "/tutor" },
     { title: "About", url: "/about" },
-    { title: "Contact", url: "/contact" },
-    { title: "Blog", url: "/blog" },
     { title: "Dashboard", url: "/dashboard" }
 
 
@@ -88,6 +86,7 @@ const Navbar = ({
   const handaleSignOut = () => {
     mutate();
     reset();
+ 
   }
 
   return (
