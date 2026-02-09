@@ -1,10 +1,14 @@
 import React from 'react'
-import { Hero47 } from './hero/hero'
+
+
+import TutorProfile from './TutorProfile/TutorProfile'
+import { Hero } from './hero/hero'
 
 const HomePage = () => {
   return (
-    <div>
-        <Hero47/>
+    <div className='px-4'>
+        <Hero/>
+        <TutorProfile/>
     </div>
   )
 }

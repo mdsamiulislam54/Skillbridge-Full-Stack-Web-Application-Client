@@ -26,7 +26,7 @@ interface Hero47Props {
   className?: string;
 }
 
-const Hero47 = ({
+const Hero = ({
   heading = "Unlock Your Potential",
   subheading = ", Master New Skills Today",
   description = "SkillBridge connects passionate learners with expert tutors worldwide. Dive into interactive courses, personalized mentoring, and hands-on projects that transform your career. Start your learning journey today!",
@@ -45,7 +45,7 @@ const Hero47 = ({
 }: Hero47Props) => {
   return (
     <section className={cn("bg-background py-20 lg:py-10", className)}>
-      <div className="container px-4 mx-auto flex flex-col items-center gap-10 lg:my-0 lg:flex-row">
+      <div className="container  mx-auto flex flex-col items-center gap-10 lg:my-0 lg:flex-row">
         <div className="flex flex-col gap-7 lg:w-2/3">
           <h2 className="text-5xl font-semibold text-foreground md:text-5xl lg:text-8xl">
             <span>{heading}</span>
@@ -86,4 +86,4 @@ const Hero47 = ({
   );
 };
 
-export { Hero47 };
+export { Hero };
