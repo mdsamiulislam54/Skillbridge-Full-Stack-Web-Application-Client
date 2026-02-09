@@ -39,7 +39,7 @@ const Support = () => {
                     <div className="space-y-4">
                         <h3 className="text-xl font-bold"> ___Best resources for find tutor</h3>
                         <p className=" text-5xl font-bold">If the perfect tutor do not exists, then what we are? </p>
-                        <p className="text-sm">
+                        <p className="text-base">
                             Let say you think that perfect tutor is not exists then what do you think we are?
                         </p>
 

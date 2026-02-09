@@ -29,7 +29,7 @@ interface Hero47Props {
 const Hero = ({
   heading = "Unlock Your Potential",
   subheading = ", Master New Skills Today",
-  description = "SkillBridge connects passionate learners with expert tutors worldwide. Dive into interactive courses, personalized mentoring, and hands-on projects that transform your career. Start your learning journey today!",
+  description = "Skillbridge connects passionate learners with expert tutors worldwide. Dive into interactive courses, personalized mentoring, and hands-on projects that transform your career. Start your learning journey today!",
   buttons = {
     primary: {
       text: "Get Started",
@@ -51,7 +51,7 @@ const Hero = ({
             <span>{heading}</span>
             <span className="text-muted-foreground">{subheading}</span>
           </h2>
-          <p className="text-base text-muted-foreground md:text-lg lg:text-xl">
+          <p className=" text-muted-foreground  text-md">
             {description}
           </p>
           <div className="flex flex-wrap items-start gap-5 lg:gap-7">
