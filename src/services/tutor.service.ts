@@ -71,6 +71,10 @@ export const TutorService = {
                 credentials: "include"
 
             })
+            if (!res.ok) {
+                const text = await res.text();
+                throw new Error(text || "API Error");
+            }
             const data = await res.json();
 
             return { success: true, data }
@@ -82,6 +86,11 @@ export const TutorService = {
     getTutorProfileAll: async () => {
         try {
             const res = await fetch(`${config.backendUrl}/api/tutor/get-profile/all`)
+            if (!res.ok) {
+                const text = await res.text();
+                throw new Error(text || "API Error");
+            }
+
             const data = await res.json();
             return { success: true, data }
         } catch (error) {
@@ -101,7 +110,11 @@ export const TutorService = {
                 },
                 credentials: "include"
 
-            })
+            });
+            if (!res.ok) {
+                const text = await res.text();
+                throw new Error(text || "API Error");
+            }
             const data = await res.json();
 
             return { success: true, data }
@@ -122,6 +135,10 @@ export const TutorService = {
                 credentials: "include"
 
             })
+            if (!res.ok) {
+                const text = await res.text();
+                throw new Error(text || "API Error");
+            }
             const data = await res.json();
 
             return { success: true, data }
@@ -142,6 +159,10 @@ export const TutorService = {
                 credentials: "include"
 
             })
+            if (!res.ok) {
+                const text = await res.text();
+                throw new Error(text || "API Error");
+            }
             const data = await res.json();
 
             return { success: true, data }
@@ -162,6 +183,10 @@ export const TutorService = {
                 credentials: "include"
 
             })
+            if (!res.ok) {
+                const text = await res.text();
+                throw new Error(text || "API Error");
+            }
             const data = await res.json();
 
             return { success: true, data }
@@ -180,6 +205,10 @@ export const TutorService = {
                 credentials: "include",
                 body: JSON.stringify(payload)
             })
+            if (!res.ok) {
+                const text = await res.text();
+                throw new Error(text || "API Error");
+            }
             const data = await res.json();
 
             return { success: true, data }
@@ -198,6 +227,10 @@ export const TutorService = {
                 credentials: "include",
                 body: JSON.stringify(payload)
             })
+            if (!res.ok) {
+                const text = await res.text();
+                throw new Error(text || "API Error");
+            }
             const data = await res.json();
 
             return { success: true, data }
@@ -219,6 +252,10 @@ export const TutorService = {
                 credentials: "include"
 
             })
+            if (!res.ok) {
+                const text = await res.text();
+                throw new Error(text || "API Error");
+            }
             const data = await res.json();
 
             return { success: true, data }
@@ -239,7 +276,11 @@ export const TutorService = {
                 })
             }
 
-            const res = await fetch(url)
+            const res = await fetch(url);
+            if (!res.ok) {
+                const text = await res.text();
+                throw new Error(text || "API Error");
+            }
             return await res.json();
 
         } catch (error) {
@@ -248,7 +289,11 @@ export const TutorService = {
     },
     getAllTutorProfileById: async (id: string) => {
         try {
-            const res = await fetch(`${config.backendUrl}/api/tutor/${id}`)
+            const res = await fetch(`${config.backendUrl}/api/tutor/${id}`);
+            if (!res.ok) {
+                const text = await res.text();
+                throw new Error(text || "API Error");
+            }
             return await res.json();
 
         } catch (error) {
@@ -267,6 +312,10 @@ export const TutorService = {
                 credentials: "include"
 
             })
+            if (!res.ok) {
+                const text = await res.text();
+                throw new Error(text || "API Error");
+            }
             const data = await res.json();
 
             return { success: true, data }
@@ -295,7 +344,11 @@ export const TutorService = {
                     ...(cookie ? { cookie } : {}),
                 },
                 credentials: "include"
-            })
+            });
+            if (!res.ok) {
+                const text = await res.text();
+                throw new Error(text || "API Error");
+            }
             return await res.json();
 
         } catch (error) {

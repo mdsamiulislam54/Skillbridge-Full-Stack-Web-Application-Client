@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import UserTable from '@/components/modules/AdminPage/manage-user/UserTable';
 import PaginationControl from '@/components/ui/pagination.control';
 import { AdminService } from '@/services/admin.service';

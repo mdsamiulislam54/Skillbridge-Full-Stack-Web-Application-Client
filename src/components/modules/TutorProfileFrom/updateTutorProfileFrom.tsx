@@ -2,8 +2,6 @@
 
 import { useForm } from "@tanstack/react-form"
 import * as z from "zod"
-import { toast } from "sonner"
-
 import { Button } from "@/components/ui/button"
 import {
     Card,
@@ -15,7 +13,6 @@ import {
 } from "@/components/ui/card"
 import {
     Field,
-    FieldDescription,
     FieldError,
     FieldGroup,
     FieldLabel,
@@ -24,9 +21,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Switch } from "@/components/ui/switch"
 import { Badge } from "@/components/ui/badge"
-import useTutorProfileCreate from "@/hook/tutorProfile/useCreateTutorProfile"
 import { Spinner } from "@/components/ui/spinner"
-import { useClientSession } from "@/hook/authentication/useClientSession"
 import { X } from "lucide-react"
 import { TutorProfileType } from "./tutorProfileTable"
 import userTutorProfileUpdate from "@/hook/tutorProfile/useTutorProfileUpdate"
@@ -46,12 +41,11 @@ const tutorSchema = z.object({
 
 type TutorFormValues = z.infer<typeof tutorSchema>
 type Props = {
-    onDelete?: (id: string) => void;
     onUpdate?: (id: string) => void;
     onClose: () => void
     profiles: TutorProfileType
 }
-function UpdatedTutorProfileFrom({ onDelete, onClose, profiles }: Props) {
+function UpdatedTutorProfileFrom({ onClose, profiles }: Props) {
     const { mutate, isPending } = userTutorProfileUpdate();
     const form = useForm({
         defaultValues: {
@@ -104,7 +98,7 @@ function UpdatedTutorProfileFrom({ onDelete, onClose, profiles }: Props) {
                     >
                         <FieldGroup>
                             <div className="grid sm:grid-cols-2 gap-4">
-                                {/* Name */}
+                           
                                 <form.Field name="name">{(field) => (
                                     <Field>
                                         <FieldLabel>Full Name</FieldLabel>
@@ -112,7 +106,7 @@ function UpdatedTutorProfileFrom({ onDelete, onClose, profiles }: Props) {
                                         <FieldError errors={field.state.meta.errors} />
                                     </Field>
                                 )}</form.Field>
-                                {/* Education */}
+                          
                                 <form.Field name="education">{(field) => (
                                     <Field>
                                         <FieldLabel>Education</FieldLabel>
@@ -122,7 +116,7 @@ function UpdatedTutorProfileFrom({ onDelete, onClose, profiles }: Props) {
                             </div>
 
 
-                            {/* Bio */}
+                    
                             <form.Field name="bio">{(field) => (
                                 <Field>
                                     <FieldLabel>Bio</FieldLabel>
@@ -132,7 +126,7 @@ function UpdatedTutorProfileFrom({ onDelete, onClose, profiles }: Props) {
                             )}</form.Field>
 
                             <div className="grid sm:grid-cols-3 gap-4">
-                                {/* Experience Years */}
+                            
                                 <form.Field name="experienceYears">{(field) => (
                                     <Field>
                                         <FieldLabel>Experience Years</FieldLabel>
@@ -142,7 +136,7 @@ function UpdatedTutorProfileFrom({ onDelete, onClose, profiles }: Props) {
 
 
 
-                                {/* Teaching Mode */}
+                             
                                 <form.Field name="teachingMode">{(field) => (
                                     <Field>
                                         <FieldLabel>Teaching Mode</FieldLabel>
@@ -153,7 +147,7 @@ function UpdatedTutorProfileFrom({ onDelete, onClose, profiles }: Props) {
 
 
 
-                                {/* Languages */}
+                             
                                 <form.Field name="languages">{(field) => (
                                     <Field>
                                         <FieldLabel>Languages</FieldLabel>
@@ -176,7 +170,7 @@ function UpdatedTutorProfileFrom({ onDelete, onClose, profiles }: Props) {
                             </div>
 
                             <div className="grid sm:grid-cols-2 gap-4">
-                                {/* Is Available */}
+                              
                                 <form.Field name="isAvailable">{(field) => (
                                     <Field className="">
                                         <FieldLabel className="flex gap-4 p-2 rounded-xl">
@@ -186,7 +180,7 @@ function UpdatedTutorProfileFrom({ onDelete, onClose, profiles }: Props) {
                                         <Switch checked={field.state.value} onCheckedChange={field.setValue} />
                                     </Field>
                                 )}</form.Field>
-                                {/* Profile Image */}
+                           
                                 <form.Field name="profileImage">{(field) => (
                                     <Field>
                                         <FieldLabel>Profile Image URL</FieldLabel>

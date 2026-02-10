@@ -16,7 +16,7 @@ import Image from "next/image"
 import { StudentBooking } from "@/type/student.booking.type"
 import { useState } from "react"
 import LeaveReview from "./LeaveReview"
-import { BookingType } from "@/type/booking.type"
+
 
 interface IoBooking {
   booking: StudentBooking[]

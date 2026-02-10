@@ -122,7 +122,7 @@ const Navbar = ({
                 ) : (
                   <Link href={'/dashboard'} title="Dashboard" className="flex items-center gap-3">
                     <span>{user?.name}</span>
-                    <Image src={user?.image || 'http://localhost:3000/_next/static/media/teaching.ba59945d.svg'} alt="Profile" width={32} height={32} className="rounded-full" />
+                    <Image src={user?.image || 'https://skillbridge-chi-seven.vercel.app/_next/static/media/teaching.6012afe6.svg'} alt="Profile" width={32} height={32} className="rounded-full" />
                   </Link>
                 )}
                 <Button onClick={handaleSignOut} variant="outline" size="sm" className="cursor-pointer">
@@ -188,7 +188,7 @@ const Navbar = ({
                       <div>
                         <div className="flex items-center gap-4">
                           <Link href={'/dashboard'} title="Dashboard">
-                            <Image src={user?.image || 'http://localhost:3000/_next/static/media/teaching.ba59945d.svg'} alt="Profile" width={32} height={32} className="rounded-full" />
+                            <Image src={user?.image || 'https://skillbridge-chi-seven.vercel.app/_next/static/media/teaching.6012afe6.svg'} alt="Profile" width={32} height={32} className="rounded-full" />
                           </Link>
                           <ModeToggle />
                         </div>

@@ -11,7 +11,6 @@ function useTutorSlotsCreate() {
         onSuccess: (res) => {
             toast.success("Slots created successful!", { duration: 3000, position: 'top-center' });
             router.push("/dashboard/tutor-page/view-slots")
-            console.log("Slots create  response:", res);
         },
         onError: (error) => {
             toast.error(error instanceof Error ? error.message : " Slots create  failed.", { duration: 5000, position: 'top-center' });

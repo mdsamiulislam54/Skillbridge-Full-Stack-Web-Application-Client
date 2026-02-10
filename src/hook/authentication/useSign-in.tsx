@@ -12,7 +12,7 @@ function useSignIn() {
         onSuccess: (res) => {
             toast.success("Login successful!", { duration: 3000 , position:'top-center'});
             router.push("/")
-            console.log("Login response:", res);
+
         },
         onError: (error) => {
             toast.error(error instanceof Error ? error.message : "Login failed." ,{ duration: 5000 , position:'top-center'});

@@ -11,7 +11,6 @@ function useTutorProfileCreate() {
         onSuccess: (res) => {
             toast.success("Profile created successful!", { duration: 3000 , position:'top-center'});
             router.push("/dashboard/tutor-page/view-profile")
-            console.log("profile create  response:", res);
         },
         onError: (error) => {
             toast.error(error instanceof Error ? error.message : " profile create  failed." ,{ duration: 5000 , position:'top-center'});

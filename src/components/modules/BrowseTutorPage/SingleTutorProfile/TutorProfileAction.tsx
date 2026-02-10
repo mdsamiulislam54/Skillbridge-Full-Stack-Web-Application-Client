@@ -1,4 +1,4 @@
-// components/tutor/ProfileActions.tsx
+
 import { Button } from "@/components/ui/button";
 
 const TutorProfileActions = () => {

@@ -1,7 +1,6 @@
 "use client"
 
 import {
-    ResponsiveContainer,
     LineChart,
     Line,
     XAxis,
@@ -10,7 +9,7 @@ import {
     CartesianGrid,
     Legend,
 } from "recharts"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card} from "@/components/ui/card"
 
 type ChartData = {
     date: string

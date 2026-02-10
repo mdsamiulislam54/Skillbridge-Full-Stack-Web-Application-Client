@@ -1,6 +1,6 @@
 'use client';
 
-import { SingleTutorProfile, TutorSlot } from '@/type/single.tutor.type';
+import { SingleTutorProfile } from '@/type/single.tutor.type';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -10,7 +10,6 @@ import { useClientSession } from '@/hook/authentication/useClientSession';
 import { SlotsType } from '@/type/slots.type';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
-import useStudent from '@/hook/student/useBooking';
 import useBooking from '@/hook/student/useBooking';
 import { Spinner } from '@/components/ui/spinner';
 import { BookingType } from '@/type/booking.type';
@@ -21,7 +20,7 @@ const TutorSlotCard = ({ tutor }: { tutor: SingleTutorProfile }) => {
     const router = useRouter()
     const { user } = useClientSession()
 
-    const { mutate, isPending } = useBooking()
+    const { mutate } = useBooking()
     const [loadingSlotId, setLoadingSlotId] = useState<string | null>(null);
 
     const handleBooking = async (slot: SlotsType) => {
@@ -47,7 +46,7 @@ const TutorSlotCard = ({ tutor }: { tutor: SingleTutorProfile }) => {
                 setLoadingSlotId(null)
             }
         })
-        console.log(payload)
+      
 
     }
     return (

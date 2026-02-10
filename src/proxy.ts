@@ -1,11 +1,11 @@
-// middleware.ts
+
 import { NextRequest, NextResponse } from "next/server";
 import { getSession } from "./hook/authentication/useGetSession";
 import { roles } from "./constants/roles";
 
 export default async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
-  const  data = await getSession();
+  const data = await getSession();
 
   const isAuthenticated = !!data?.user;
   const userRole = data?.user?.role;
@@ -16,7 +16,7 @@ export default async function middleware(req: NextRequest) {
 
 
   if (pathname.startsWith("/dashboard/admin") && userRole !== roles.ADMIN) {
-    return NextResponse.redirect(new URL("/dashboard", req.url)); 
+    return NextResponse.redirect(new URL("/dashboard", req.url));
   }
 
   if (pathname.startsWith("/dashboard/tutor") && userRole !== roles.TUTOR) {
@@ -31,5 +31,5 @@ export default async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*"], 
+  matcher: ["/dashboard/:path*"],
 };

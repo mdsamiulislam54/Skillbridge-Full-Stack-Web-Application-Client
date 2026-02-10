@@ -1,9 +1,12 @@
+export const dynamic = "force-dynamic";
 import SlotChart from '@/components/modules/TutorProfileFrom/tutorChart';
 import TutorDashboardCard from '@/components/modules/TutorProfileFrom/TutorDashboardCard'
 import { TutorService } from '@/services/tutor.service';
 import { cookies } from 'next/headers'
 
-
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+export const fetchCache = "force-no-store";
 const TutorDashboard = async() => {
   const cookieStore = await cookies();
   const [cardData,slotChartData] = await Promise.all([

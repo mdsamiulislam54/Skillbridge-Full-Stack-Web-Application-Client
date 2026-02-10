@@ -1,4 +1,4 @@
-// components/tutor/ProfileAbout.tsx
+
 import { Card } from "@/components/ui/card";
 import { SingleTutorProfile } from "@/type/single.tutor.type";
 import { Clock, Globe, GraduationCap } from "lucide-react";

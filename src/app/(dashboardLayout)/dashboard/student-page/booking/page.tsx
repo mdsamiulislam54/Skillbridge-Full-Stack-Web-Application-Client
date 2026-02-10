@@ -1,9 +1,8 @@
+export const dynamic = "force-dynamic";
 import BookingTable from '@/components/modules/studentPage/BookingTable';
 import PaginationControl from '@/components/ui/pagination.control';
 import { studentService } from '@/services/student.service';
 import { cookies } from 'next/headers'
-import React from 'react'
-
 const BookingPage = async ({searchParams}:{searchParams:Promise<{page:string}>}) => {
     const {page} = await searchParams
     const cookieStore = await cookies();

@@ -1,8 +1,6 @@
 'use client'
 import { useClientSession } from "@/hook/authentication/useClientSession"
-import { getSession } from "@/hook/authentication/useGetSession"
 import Image from "next/image"
-
 
 const ProfilePage = () => {
     const { user } = useClientSession()
@@ -15,7 +13,7 @@ const ProfilePage = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 justify-center items-center p-5">
                     <div>
                         <Image
-                            src={user?.image || "http://localhost:3000/_next/static/media/teaching.6012afe6.svg"}
+                            src={user?.image || "https://skillbridge-chi-seven.vercel.app/_next/static/media/teaching.6012afe6.svg"}
                             alt="Profile Images Student"
                             width={400}
                             height={400}

@@ -1,7 +1,5 @@
-// lib/validators/tutor.schema.ts
-import { profile } from "console"
-import { z } from "zod"
 
+import { z } from "zod"
 export const tutorSchema = z.object({
   name: z.string().min(2, "Name is required"),
   bio: z.string().min(10),

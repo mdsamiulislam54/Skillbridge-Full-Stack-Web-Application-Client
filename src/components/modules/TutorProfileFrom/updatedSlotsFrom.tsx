@@ -19,7 +19,7 @@ import { Category } from "@/type/category.type"
 import { X } from "lucide-react"
 
 import useTutorSlotsUpdate from "@/hook/tutorProfile/useTutorSlotsUpdate"
-import { PartialSlotsType, SlotsType } from "@/type/slots.type"
+import { PartialSlotsType } from "@/type/slots.type"
 
 
 type Props = {
@@ -99,7 +99,7 @@ const UpdateSlotsFrom = ({ onClose, selectedSlot }: Props) => {
                 <CardContent>
                     <form onSubmit={handleSubmit} className="space-y-4">
 
-                        {/* Time */}
+                    
                         <div className="grid sm:grid-cols-2 gap-4">
                             <div>
                                 <Label>Start Time</Label>
@@ -119,7 +119,7 @@ const UpdateSlotsFrom = ({ onClose, selectedSlot }: Props) => {
                             </div>
                         </div>
 
-                        {/* Duration & Students */}
+                 
                         <div className="grid sm:grid-cols-2 gap-4">
                             <div>
                                 <Label>Duration (min)</Label>
@@ -140,7 +140,7 @@ const UpdateSlotsFrom = ({ onClose, selectedSlot }: Props) => {
                             </div>
                         </div>
 
-                        {/* Mode & Category */}
+                      
                         <div className="grid sm:grid-cols-2 gap-4">
                             <div>
                                 <Label>Teaching Mode</Label>
@@ -178,7 +178,7 @@ const UpdateSlotsFrom = ({ onClose, selectedSlot }: Props) => {
                             </div>
                         </div>
 
-                        {/* Active */}
+                   
                         <div className="flex items-center justify-between border p-3 rounded">
                             <Label>Slot Active</Label>
                             <Switch
@@ -187,7 +187,7 @@ const UpdateSlotsFrom = ({ onClose, selectedSlot }: Props) => {
                             />
                         </div>
 
-                        {/* Rate */}
+               
                         <div>
                             <Label>Hourly Rate</Label>
                             <Input

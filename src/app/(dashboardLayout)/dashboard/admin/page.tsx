@@ -1,5 +1,5 @@
 
-
+export const dynamic = "force-dynamic";
 import MixBarChart from '@/components/modules/AdminPage/MixBarChart/MixbarChart';
 import { AdminService } from '@/services/admin.service';
 import { cookies } from 'next/headers'

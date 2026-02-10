@@ -1,4 +1,4 @@
-// components/tutor/ProfileHeader.tsx
+
 import { Card } from "@/components/ui/card";
 import { SingleTutorProfile } from "@/type/single.tutor.type";
 import Image from "next/image";
@@ -6,7 +6,7 @@ import Image from "next/image";
 const TutorProfileHeader = ({ tutor }: { tutor: SingleTutorProfile }) => {
   return (
     <Card className="p-0">
-      {/* Cover */}
+
       <div className="relative h-56 w-full">
         <Image
           src="https://img.freepik.com/free-photo/coworking-space-freelance-elearning-concept-top-view-male-hands-holding-cup-coffee-using_1258-314363.jpg"
@@ -16,7 +16,7 @@ const TutorProfileHeader = ({ tutor }: { tutor: SingleTutorProfile }) => {
         />
       </div>
 
-      {/* Profile Info */}
+
       <div className="relative px-6 pb-6">
         <div className="-mt-16">
           <Image

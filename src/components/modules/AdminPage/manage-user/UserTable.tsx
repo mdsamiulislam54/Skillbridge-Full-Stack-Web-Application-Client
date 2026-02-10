@@ -3,9 +3,9 @@
 import React, { useEffect, useState } from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { Search, UserMinus, UserPlus } from "lucide-react";
+import { Search} from "lucide-react";
 import { User } from "@/type/user.type";
-import { Card, CardHeader } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 import { SidebarGroup, SidebarGroupContent, SidebarInput } from "@/components/ui/sidebar";
@@ -19,7 +19,7 @@ type UserTableProps = { data: User[]; };
 
 const UserTable: React.FC<UserTableProps> = ({ data }) => {
     const router = useRouter();
-    const { mutate, isPending } = AdminStatusUpdate()
+    const { mutate } = AdminStatusUpdate()
     const searchParams = useSearchParams();
     const [formData, setFormData] = useState({
         search: '',
@@ -103,7 +103,7 @@ const UserTable: React.FC<UserTableProps> = ({ data }) => {
                             <TableCell>{user.role}</TableCell>
                             <TableCell>{user.status}</TableCell>
                             <TableCell className="flex justify-end gap-2">
-                                {/* ACTIVE */}
+                              
                                 <Button
                                     size="sm"
                                     variant="default"
@@ -123,7 +123,7 @@ const UserTable: React.FC<UserTableProps> = ({ data }) => {
                                     Ban
                                 </Button>
 
-                                {/* UNBAN */}
+                             
                                 <Button
                                     size="sm"
                                     variant="outline"

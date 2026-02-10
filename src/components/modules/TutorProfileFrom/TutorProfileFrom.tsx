@@ -2,8 +2,6 @@
 
 import { useForm } from "@tanstack/react-form"
 import * as z from "zod"
-import { toast } from "sonner"
-
 import { Button } from "@/components/ui/button"
 import {
     Card,
@@ -15,7 +13,6 @@ import {
 } from "@/components/ui/card"
 import {
     Field,
-    FieldDescription,
     FieldError,
     FieldGroup,
     FieldLabel,
@@ -91,7 +88,7 @@ function CreateProfile() {
                 >
                     <FieldGroup>
                         <div className="grid sm:grid-cols-2 gap-4">
-                            {/* Name */}
+                          
                             <form.Field name="name">{(field) => (
                                 <Field>
                                     <FieldLabel>Full Name</FieldLabel>
@@ -99,7 +96,7 @@ function CreateProfile() {
                                     <FieldError errors={field.state.meta.errors} />
                                 </Field>
                             )}</form.Field>
-                            {/* Education */}
+                          
                             <form.Field name="education">{(field) => (
                                 <Field>
                                     <FieldLabel>Education</FieldLabel>
@@ -109,7 +106,7 @@ function CreateProfile() {
                         </div>
 
 
-                        {/* Bio */}
+                      
                         <form.Field name="bio">{(field) => (
                             <Field>
                                 <FieldLabel>Bio</FieldLabel>
@@ -119,7 +116,7 @@ function CreateProfile() {
                         )}</form.Field>
 
                         <div className="grid sm:grid-cols-3 gap-4">
-                            {/* Experience Years */}
+                        {/* Experience Years */}
                             <form.Field name="experienceYears">{(field) => (
                                 <Field>
                                     <FieldLabel>Experience Years</FieldLabel>
@@ -129,7 +126,7 @@ function CreateProfile() {
 
 
 
-                            {/* Teaching Mode */}
+                           
                             <form.Field name="teachingMode">{(field) => (
                                 <Field>
                                     <FieldLabel>Teaching Mode</FieldLabel>
@@ -140,7 +137,7 @@ function CreateProfile() {
 
 
 
-                            {/* Languages */}
+                           
                             <form.Field name="languages">{(field) => (
                                 <Field>
                                     <FieldLabel>Languages</FieldLabel>
@@ -163,7 +160,7 @@ function CreateProfile() {
                         </div>
 
                         <div className="grid sm:grid-cols-2 gap-4">
-                            {/* Is Available */}
+                         
                             <form.Field name="isAvailable">{(field) => (
                                 <Field className="">
                                     <FieldLabel className="flex gap-4 p-2 rounded-xl">
@@ -173,7 +170,7 @@ function CreateProfile() {
                                     <Switch checked={field.state.value} onCheckedChange={field.setValue} />
                                 </Field>
                             )}</form.Field>
-                            {/* Profile Image */}
+                       
                             <form.Field name="profileImage">{(field) => (
                                 <Field>
                                     <FieldLabel>Profile Image URL</FieldLabel>
@@ -188,7 +185,7 @@ function CreateProfile() {
             </CardContent>
 
             <CardFooter>
-                <Button type="submit" form="tutor-profile-form" className="w-full bg-blue-500 hover:bg-blue-600">
+                <Button type="submit" form="tutor-profile-form" className="w-full ">
                     {
                         isPending ? <Spinner /> : " Create Tutor Profile"
                     }

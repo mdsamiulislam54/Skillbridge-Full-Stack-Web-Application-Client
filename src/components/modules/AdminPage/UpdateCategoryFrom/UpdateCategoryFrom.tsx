@@ -3,16 +3,13 @@
 
 import { useForm } from '@tanstack/react-form'
 import { z } from 'zod'
-
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Switch } from '@/components/ui/switch'
 import { Textarea } from '@/components/ui/textarea'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-
 import { Spinner } from '@/components/ui/spinner'
-import AdminCategoryCreate from '@/hook/admin/useCreateCategory'
 import { Category } from '@/type/category.type'
 import useCategoryUpdate from '@/hook/admin/useCategoryUpdate'
 
@@ -26,10 +23,10 @@ const categorySchema = z.object({
 
 type CategoryProps = {
     data: Category,
-    onClose: ()=>void
+    onClose: () => void
 }
 
-const UpdateCategoryForm = ({ data,onClose }: CategoryProps) => {
+const UpdateCategoryForm = ({ data, onClose }: CategoryProps) => {
     const { mutate, isPending } = useCategoryUpdate();
 
     const form = useForm({
@@ -50,11 +47,11 @@ const UpdateCategoryForm = ({ data,onClose }: CategoryProps) => {
                 sortOrder: Number(value.sortOrder),
                 isActive: value.isActive,
             }
-            mutate({id: data.id || '', data: categoryData},{
-                onSuccess:()=>{
+            mutate({ id: data.id || '', data: categoryData }, {
+                onSuccess: () => {
                     onClose()
                 }
-            } )
+            })
         },
     })
 
@@ -72,7 +69,6 @@ const UpdateCategoryForm = ({ data,onClose }: CategoryProps) => {
                     }}
                     className="space-y-5"
                 >
-                    {/* Name */}
                     <form.Field
                         name="name"
                         validators={{
@@ -95,7 +91,7 @@ const UpdateCategoryForm = ({ data,onClose }: CategoryProps) => {
                         )}
                     </form.Field>
 
-                    {/* Icon */}
+
                     <form.Field name="icon">
                         {(field) => (
                             <div className="space-y-1">
@@ -109,7 +105,7 @@ const UpdateCategoryForm = ({ data,onClose }: CategoryProps) => {
                         )}
                     </form.Field>
 
-                    {/* Description */}
+
                     <form.Field name="description">
                         {(field) => (
                             <div className="space-y-1">
@@ -122,7 +118,7 @@ const UpdateCategoryForm = ({ data,onClose }: CategoryProps) => {
                         )}
                     </form.Field>
 
-                    {/* Sort Order */}
+
                     <form.Field name="sortOrder">
                         {(field) => (
                             <div className="space-y-1">
@@ -140,7 +136,7 @@ const UpdateCategoryForm = ({ data,onClose }: CategoryProps) => {
                         )}
                     </form.Field>
 
-                    {/* Is Active */}
+
                     <form.Field name="isActive">
                         {(field) => (
                             <div className="flex items-center justify-between rounded-lg border p-4">
@@ -153,7 +149,7 @@ const UpdateCategoryForm = ({ data,onClose }: CategoryProps) => {
                         )}
                     </form.Field>
 
-                    {/* Submit */}
+
                     <Button type="submit" className="w-full">
                         {
                             isPending ? <Spinner /> : "Update Category"

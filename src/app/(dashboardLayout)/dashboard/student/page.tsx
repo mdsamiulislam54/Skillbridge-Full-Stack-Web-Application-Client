@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import MixBarChart from "@/components/modules/AdminPage/MixBarChart/MixbarChart";
 import StudentDashboardCard from "@/components/modules/studentPage/studentDashboardCard"
 import { studentService } from "@/services/student.service";

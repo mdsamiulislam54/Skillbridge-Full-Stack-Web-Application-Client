@@ -1,7 +1,6 @@
+export const dynamic = "force-dynamic";
 import CategoryTable from '@/components/modules/AdminPage/CategoryTable/CategoryTable'
 import { AdminService } from '@/services/admin.service'
-import React from 'react'
-
 const CategoryManage = async() => {
     const res = await AdminService.getCategory()
   return (

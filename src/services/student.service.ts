@@ -1,7 +1,9 @@
+
 import { config } from "@/config/config"
 import { BookingType } from "@/type/booking.type"
 import { GetParams } from "./tutor.service"
-import { Review, ReviewForm } from "@/type/Review.type"
+import { ReviewForm } from "@/type/Review.type"
+
 
 export const studentService = {
     createBooking: async (payload: BookingType) => {
@@ -16,8 +18,12 @@ export const studentService = {
                 credentials: "include",
                 body: JSON.stringify(payload)
             })
+            if (!res.ok) {
+                const text = await res.text();
+                throw new Error(text || "API Error");
+            }
 
-            return res
+            return await res.json()
 
         } catch (error) {
             throw error
@@ -45,6 +51,10 @@ export const studentService = {
                 credentials: "include"
 
             })
+            if (!res.ok) {
+                const text = await res.text();
+                throw new Error(text || "API Error");
+            }
             return await res.json();
 
         } catch (error) {
@@ -82,6 +92,10 @@ export const studentService = {
                 credentials: "include"
 
             })
+            if (!res.ok) {
+                const text = await res.text();
+                throw new Error(text || "API Error");
+            }
             return await res.json();
 
         } catch (error) {
@@ -100,6 +114,10 @@ export const studentService = {
                 credentials: "include",
                 body: JSON.stringify(data)
             });
+            if (!res.ok) {
+                const text = await res.text();
+                throw new Error(text || "API Error");
+            }
             return await res.json();
         } catch (error) {
             throw error
@@ -117,6 +135,10 @@ export const studentService = {
                 credentials: "include"
 
             })
+            if (!res.ok) {
+                const text = await res.text();
+                throw new Error(text || "API Error");
+            }
             return await res.json();
 
         } catch (error) {
@@ -136,6 +158,10 @@ export const studentService = {
                 credentials: "include"
 
             })
+            if (!res.ok) {
+                const text = await res.text();
+                throw new Error(text || "API Error");
+            }
             return await res.json();
 
         } catch (error) {

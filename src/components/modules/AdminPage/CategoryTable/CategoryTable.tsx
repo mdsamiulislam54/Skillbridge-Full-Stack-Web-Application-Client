@@ -10,8 +10,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { Category } from "@/type/category.type";
 import { useState } from "react";
-import CategoryForm from "../CategoryFrom/CategoryFrom";
-import { Delete, Trash2, X } from "lucide-react";
+
+import { Trash2, X } from "lucide-react";
 import UpdateCategoryForm from "../UpdateCategoryFrom/UpdateCategoryFrom";
 import useDeleteCategory from "@/hook/admin/useDeleteCategory";
 import { Spinner } from "@/components/ui/spinner";

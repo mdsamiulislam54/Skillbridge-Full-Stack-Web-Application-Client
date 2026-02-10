@@ -1,6 +1,6 @@
 'use client'
 import { studentService } from "@/services/student.service"
-import { Review, ReviewForm } from "@/type/Review.type"
+import {  ReviewForm } from "@/type/Review.type"
 import { useMutation } from "@tanstack/react-query"
 import { toast } from "sonner"
 

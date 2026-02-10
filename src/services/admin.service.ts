@@ -38,7 +38,11 @@ export const AdminService = {
 
     getCategory: async () => {
         try {
-            const res = await fetch(`${config.backendUrl}/api/admin/category`)
+            const res = await fetch(`${config.backendUrl}/api/admin/category`);
+            if (!res.ok) {
+                const text = await res.text();
+                throw new Error(text || "API Error");
+            }
             return await res.json();
 
         } catch (error) {
@@ -54,7 +58,11 @@ export const AdminService = {
                     ...(cookie ? { cookie } : {}),
                 },
                 credentials: "include"
-            })
+            });
+            if (!res.ok) {
+                const text = await res.text();
+                throw new Error(text || "API Error");
+            }
             return await res.json();
 
         } catch (error) {
@@ -69,7 +77,11 @@ export const AdminService = {
                     ...(cookie ? { cookie } : {}),
                 },
                 credentials: "include"
-            })
+            });
+            if (!res.ok) {
+                const text = await res.text();
+                throw new Error(text || "API Error");
+            }
             return await res.json();
 
         } catch (error) {
@@ -94,7 +106,11 @@ export const AdminService = {
                     ...(cookie ? { cookie } : {}),
                 },
                 credentials: "include"
-            })
+            });
+            if (!res.ok) {
+                const text = await res.text();
+                throw new Error(text || "API Error");
+            }
             return await res.json();
 
         } catch (error) {
@@ -111,7 +127,11 @@ export const AdminService = {
                     ...(cookie ? { cookie } : {}),
                 },
                 credentials: "include"
-            })
+            });
+            if (!res.ok) {
+                const text = await res.text();
+                throw new Error(text || "API Error");
+            }
             return await res.json();
 
         } catch (error) {
@@ -137,7 +157,11 @@ export const AdminService = {
                     ...(cookie ? { cookie } : {}),
                 },
                 credentials: "include"
-            })
+            });
+            if (!res.ok) {
+                const text = await res.text();
+                throw new Error(text || "API Error");
+            }
             return await res.json();
 
         } catch (error) {
@@ -155,7 +179,11 @@ export const AdminService = {
                 },
                 credentials: "include",
                 body: JSON.stringify(data)
-            })
+            });
+            if (!res.ok) {
+                const text = await res.text();
+                throw new Error(text || "API Error");
+            }
             return await res.json();
 
         } catch (error) {
@@ -172,8 +200,12 @@ export const AdminService = {
                     ...(cookie ? { cookie } : {}),
                 },
                 credentials: "include",
-              
-            })
+
+            });
+            if (!res.ok) {
+                const text = await res.text();
+                throw new Error(text || "API Error");
+            }
             return await res.json();
 
         } catch (error) {

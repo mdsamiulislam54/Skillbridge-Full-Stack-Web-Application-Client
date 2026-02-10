@@ -12,7 +12,7 @@ import {
 import { z } from "zod";
 import { FieldError } from "@/components/ui/field";
 import useCreateReview from "@/hook/student/useCreateReview";
-import { Review, ReviewForm } from "@/type/Review.type";
+import {  ReviewForm } from "@/type/Review.type";
 import { Spinner } from "@/components/ui/spinner";
 const reviewSchema = z.object({
     rating: z
@@ -72,7 +72,7 @@ const LeaveReview = ({ tutorProfileId, bookingId, onClose }: Props) => {
                     }}
                     className="space-y-4"
                 >
-                    {/* Rating */}
+            
                     <form.Field
                         name="rating"
                         validators={{
@@ -100,7 +100,7 @@ const LeaveReview = ({ tutorProfileId, bookingId, onClose }: Props) => {
                         )}
                     </form.Field>
 
-                    {/* Comment */}
+                 
                     <form.Field
                         name="comment"
                         validators={{

@@ -1,8 +1,8 @@
+export const dynamic = "force-dynamic";
 import BookingTable from '@/components/modules/AdminPage/BookingTable/BookingTable';
 import PaginationControl from '@/components/ui/pagination.control';
 import { AdminService } from '@/services/admin.service';
 import { cookies } from 'next/headers';
-import React from 'react'
 
 const ManageUser = async ({ searchParams }: { searchParams: Promise<{ page: string }> }) => {
     const { page } = await searchParams;
