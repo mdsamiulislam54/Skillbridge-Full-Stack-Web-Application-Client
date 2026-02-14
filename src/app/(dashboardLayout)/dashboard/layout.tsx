@@ -9,7 +9,9 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { getSession } from "@/hook/authentication/useGetSession";
+import { authenticationService } from "@/services/authentication";
+import { getSession } from "@/services/authentication.service";
+
 import Link from "next/link";
 
 type DashboardLayoutProps = {
@@ -22,7 +24,7 @@ export default async function DashboardLayout({
   
 
 }: DashboardLayoutProps) {
-  const session = await getSession();
+  const session = await getSession()
   
   return (
     <SidebarProvider>

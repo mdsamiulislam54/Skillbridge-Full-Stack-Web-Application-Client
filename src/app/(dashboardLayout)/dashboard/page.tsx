@@ -1,7 +1,8 @@
 export const dynamic = "force-dynamic";
 import { redirect } from "next/navigation"
 import { roles } from "@/constants/roles"
-import { getSession } from "@/hook/authentication/useGetSession"
+import { getSession } from "@/services/authentication.service";
+
 
 export default async function DashboardHome() {
   const session  =  await getSession()

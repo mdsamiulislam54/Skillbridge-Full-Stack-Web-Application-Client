@@ -10,23 +10,20 @@ export interface GetParams {
     status?: string
 }
 
-
-
 export const AdminService = {
-    adminCategoryCreate: async (payload: Category,) => {
+    adminCategoryCreate: async (payload: Category) => {
         try {
             const res = await fetch(`${config.backendUrl}/api/admin/category`, {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
-
                 },
                 credentials: "include",
                 body: JSON.stringify(payload)
             })
             if (!res.ok) {
                 const errorData = await res.json();
-                throw new Error(errorData.message || 'Category Create  failed');
+                throw new Error(errorData.message || 'Category Create failed');
             }
             return res
         } catch (error) {
@@ -35,28 +32,34 @@ export const AdminService = {
         }
     },
 
-
     getCategory: async () => {
         try {
-            const res = await fetch(`${config.backendUrl}/api/admin/category`);
+            const res = await fetch(`${config.backendUrl}/api/admin/category`, {
+                credentials: "include"
+            });
             if (!res.ok) {
                 const text = await res.text();
                 throw new Error(text || "API Error");
             }
             return await res.json();
-
         } catch (error) {
             console.log(error)
             throw error
         }
     },
+
     getAdminDashboardCard: async (cookie?: string) => {
         try {
+            const headers: HeadersInit = {
+                "Content-Type": "application/json",
+            };
+            
+            if (cookie) {
+                headers.Cookie = cookie;
+            }
+
             const res = await fetch(`${config.backendUrl}/api/admin/dashboard`, {
-                headers: {
-                    "Content-Type": "application/json",
-                    ...(cookie ? { cookie } : {}),
-                },
+                headers,
                 credentials: "include"
             });
             if (!res.ok) {
@@ -64,18 +67,23 @@ export const AdminService = {
                 throw new Error(text || "API Error");
             }
             return await res.json();
-
         } catch (error) {
             throw error
         }
     },
+
     getAdminChartData: async (cookie?: string) => {
         try {
+            const headers: HeadersInit = {
+                "Content-Type": "application/json",
+            };
+            
+            if (cookie) {
+                headers.Cookie = cookie;
+            }
+
             const res = await fetch(`${config.backendUrl}/api/admin/dashboard/chart`, {
-                headers: {
-                    "Content-Type": "application/json",
-                    ...(cookie ? { cookie } : {}),
-                },
+                headers,
                 credentials: "include"
             });
             if (!res.ok) {
@@ -83,28 +91,33 @@ export const AdminService = {
                 throw new Error(text || "API Error");
             }
             return await res.json();
-
         } catch (error) {
             throw error
         }
     },
+
     getAllUser: async (params: GetParams, cookie?: string) => {
         try {
-
             const url = new URL(`${config.backendUrl}/api/admin/all-user`);
 
             if (params) {
                 Object.entries(params).forEach(([key, value]) => {
                     if (value !== undefined && value !== null && value !== '') {
-                        url.searchParams.append(key, value)
+                        url.searchParams.append(key, value);
                     }
-                })
+                });
             }
+
+            const headers: HeadersInit = {
+                "Content-Type": "application/json",
+            };
+            
+            if (cookie) {
+                headers.Cookie = cookie;
+            }
+
             const res = await fetch(url, {
-                headers: {
-                    "Content-Type": "application/json",
-                    ...(cookie ? { cookie } : {}),
-                },
+                headers,
                 credentials: "include"
             });
             if (!res.ok) {
@@ -112,20 +125,24 @@ export const AdminService = {
                 throw new Error(text || "API Error");
             }
             return await res.json();
-
         } catch (error) {
             throw error
         }
     },
+
     updateUser: async (id: string, status: string, cookie?: string) => {
         try {
-            console.log(id, status)
+            const headers: HeadersInit = {
+                "Content-Type": "application/json",
+            };
+            
+            if (cookie) {
+                headers.Cookie = cookie;
+            }
+
             const res = await fetch(`${config.backendUrl}/api/admin/manage/user/${id}?status=${status}`, {
                 method: "PATCH",
-                headers: {
-                    "Content-Type": "application/json",
-                    ...(cookie ? { cookie } : {}),
-                },
+                headers,
                 credentials: "include"
             });
             if (!res.ok) {
@@ -133,7 +150,6 @@ export const AdminService = {
                 throw new Error(text || "API Error");
             }
             return await res.json();
-
         } catch (error) {
             throw error
         }
@@ -141,21 +157,26 @@ export const AdminService = {
 
     getAllBooking: async (params: GetParams, cookie?: string) => {
         try {
-
             const url = new URL(`${config.backendUrl}/api/admin/all-booking`);
 
             if (params) {
                 Object.entries(params).forEach(([key, value]) => {
                     if (value !== undefined && value !== null && value !== '') {
-                        url.searchParams.append(key, value)
+                        url.searchParams.append(key, value);
                     }
-                })
+                });
             }
+
+            const headers: HeadersInit = {
+                "Content-Type": "application/json",
+            };
+            
+            if (cookie) {
+                headers.Cookie = cookie;
+            }
+
             const res = await fetch(url, {
-                headers: {
-                    "Content-Type": "application/json",
-                    ...(cookie ? { cookie } : {}),
-                },
+                headers,
                 credentials: "include"
             });
             if (!res.ok) {
@@ -163,20 +184,24 @@ export const AdminService = {
                 throw new Error(text || "API Error");
             }
             return await res.json();
-
         } catch (error) {
             throw error
         }
     },
+
     updateCategory: async (id: string, data: Category, cookie?: string) => {
         try {
+            const headers: HeadersInit = {
+                "Content-Type": "application/json",
+            };
+            
+            if (cookie) {
+                headers.Cookie = cookie;
+            }
 
             const res = await fetch(`${config.backendUrl}/api/admin/manage/category/${id}`, {
                 method: "PATCH",
-                headers: {
-                    "Content-Type": "application/json",
-                    ...(cookie ? { cookie } : {}),
-                },
+                headers,
                 credentials: "include",
                 body: JSON.stringify(data)
             });
@@ -185,29 +210,31 @@ export const AdminService = {
                 throw new Error(text || "API Error");
             }
             return await res.json();
-
         } catch (error) {
             throw error
         }
     },
+
     deleteCategory: async (id: string, cookie?: string) => {
         try {
+            const headers: HeadersInit = {
+                "Content-Type": "application/json",
+            };
+            
+            if (cookie) {
+                headers.Cookie = cookie;
+            }
 
             const res = await fetch(`${config.backendUrl}/api/admin/manage/category/${id}`, {
                 method: "DELETE",
-                headers: {
-                    "Content-Type": "application/json",
-                    ...(cookie ? { cookie } : {}),
-                },
+                headers,
                 credentials: "include",
-
             });
             if (!res.ok) {
                 const text = await res.text();
                 throw new Error(text || "API Error");
             }
             return await res.json();
-
         } catch (error) {
             throw error
         }

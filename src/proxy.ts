@@ -1,17 +1,12 @@
 
 import { NextRequest, NextResponse } from "next/server";
-
 import { roles } from "./constants/roles";
-import { config as configs } from '@/config/config'
-import { getSession } from "./hook/authentication/useGetSession";
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
-export const fetchCache = "force-no-store";
+import { getSession } from "./services/authentication.service";
 
 export default async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
-  const session = await getSession();
-  console.log('Middleware Session:', session);
+  const session = await getSession()
+
 
   const isAuthenticated = !!session?.user;
   const userRole = session?.user?.role;

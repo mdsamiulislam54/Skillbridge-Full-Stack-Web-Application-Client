@@ -28,10 +28,10 @@ import {
 } from "@/components/ui/sheet";
 import Link from "next/link";
 import { ModeToggle } from "@/components/modules/Darkmode/darkmode";
-import { useClientSession } from "@/hook/authentication/useClientSession";
 import Image from "next/image";
 import useSignOut from "@/hook/authentication/useSign-Out";
 import { Spinner } from "@/components/ui/spinner";
+import { authClient } from "@/lib/auth-client";
 
 interface MenuItem {
   title: string;
@@ -80,7 +80,8 @@ const Navbar = ({
   },
   className,
 }: Navbar1Props) => {
-  const { user, isAuthenticated, isPending } = useClientSession();
+  
+  const {data:session, isPending} = authClient.useSession();
 
   const { mutate, isPending: signOutIsPending, reset } = useSignOut()
   const handaleSignOut = () => {
@@ -113,7 +114,7 @@ const Navbar = ({
             </div>
           </div>
           {
-            isAuthenticated ? (
+            session?.user ? (
               <div className="flex items-center gap-4">
 
                 <ModeToggle />
@@ -121,8 +122,8 @@ const Navbar = ({
                   <div>Loading...</div>
                 ) : (
                   <Link href={'/dashboard'} title="Dashboard" className="flex items-center gap-3">
-                    <span>{user?.name}</span>
-                    <Image src={user?.image || 'https://skillbridge-chi-seven.vercel.app/_next/static/media/teaching.6012afe6.svg'} alt="Profile" width={32} height={32} className="rounded-full" />
+                    <span>{session?.user?.name}</span>
+                    <Image src={session?.user?.image || 'https://skillbridge-chi-seven.vercel.app/_next/static/media/teaching.6012afe6.svg'} alt="Profile" width={32} height={32} className="rounded-full" />
                   </Link>
                 )}
                 <Button onClick={handaleSignOut} variant="outline" size="sm" className="cursor-pointer">
@@ -184,11 +185,11 @@ const Navbar = ({
                     {menu.map((item) => renderMobileMenuItem(item))}
                   </Accordion>
                   {
-                    isAuthenticated ? (
+                    session?.user ? (
                       <div>
                         <div className="flex items-center gap-4">
                           <Link href={'/dashboard'} title="Dashboard">
-                            <Image src={user?.image || 'https://skillbridge-chi-seven.vercel.app/_next/static/media/teaching.6012afe6.svg'} alt="Profile" width={32} height={32} className="rounded-full" />
+                            <Image src={session?.user?.image || 'https://skillbridge-chi-seven.vercel.app/_next/static/media/teaching.6012afe6.svg'} alt="Profile" width={32} height={32} className="rounded-full" />
                           </Link>
                           <ModeToggle />
                         </div>

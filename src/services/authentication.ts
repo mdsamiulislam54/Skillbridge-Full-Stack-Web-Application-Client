@@ -1,11 +1,9 @@
 
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
-export const fetchCache = "force-no-store";
+
 import { config } from "@/config/config"
 
 
-export const authenticationService = {
+export const  authenticationService = {
     login: async (payload: { email: string, password: string }) => {
         try {
             const res = await fetch(`${config.backendUrl}/api/auth/sign-in/email`, {
@@ -34,7 +32,7 @@ export const authenticationService = {
     signOut: async () => {
 
         try {
-            const res=  await fetch(`${config.backendUrl}/api/auth/sign-out`, {
+            const res = await fetch(`${config.backendUrl}/api/auth/sign-out`, {
                 method: "POST",
                 credentials: "include"
             })
@@ -47,7 +45,7 @@ export const authenticationService = {
         }
     },
 
-    register: async (payload: { name: string, password: string, email: string, images?: string,role:string }) => {
+    register: async (payload: { name: string, password: string, email: string, images?: string, role: string }) => {
         try {
             const res = await fetch(`${config.backendUrl}/api/auth/sign-up/email`, {
                 method: 'POST',
@@ -71,5 +69,7 @@ export const authenticationService = {
         } catch (error) {
             throw error;
         }
-    }
+    },
+
+  
 }
