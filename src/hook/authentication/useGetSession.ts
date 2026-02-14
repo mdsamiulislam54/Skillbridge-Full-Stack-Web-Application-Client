@@ -2,7 +2,7 @@
 import { config } from "@/config/config";
 import { cookies } from "next/headers";
 
-export const runtime = "nodejs";
+
 export const dynamic = "force-dynamic";
 
 export const getSession = async () => {
