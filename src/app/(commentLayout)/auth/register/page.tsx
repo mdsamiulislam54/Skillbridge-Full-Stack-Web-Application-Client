@@ -2,7 +2,7 @@
 import Register from '@/components/modules/authentication/register'
 import Images from '@/media/login.svg'
 import Image from "next/image"
-
+export const dynamic = "force-dynamic";
 const RegisterPage = () => {
   return (
     <div className="md:w-10/12 w-full mx-auto shadow-lg shadow-blue-500 sha p-4 my-5">

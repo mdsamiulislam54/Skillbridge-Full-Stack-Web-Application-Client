@@ -1,11 +1,10 @@
-// app/dashboard/page.tsx
 export const dynamic = "force-dynamic";
-import { getSession } from "@/hook/authentication/useGetSession"
 import { redirect } from "next/navigation"
 import { roles } from "@/constants/roles"
+import { getSession } from "@/hook/authentication/useGetSession"
 
 export default async function DashboardHome() {
-  const session = await getSession()
+  const session  =  await getSession()
 
   if (!session?.user) redirect("/auth/login")
 

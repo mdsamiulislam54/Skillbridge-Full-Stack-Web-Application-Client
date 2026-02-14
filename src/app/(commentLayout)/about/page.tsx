@@ -1,10 +1,14 @@
+'use client'
 import Image from "next/image";
 import Images from '@/media/teaching.svg'
 import Link from "next/link";
+import { useSession } from "@/components/Provider/SessionProvider";
+
 export default function AboutPage() {
-    
+   const {session} = useSession()
     return (
         <section className="w-full bg-background py-16">
+            {JSON.stringify(session)}
             <div
                 className="relative h-40 bg-cover bg-center bg-no-repeat"
                 style={{
@@ -20,7 +24,7 @@ export default function AboutPage() {
                         About Us
                     </h1>
 
-                   
+
 
 
                 </div>
@@ -31,7 +35,7 @@ export default function AboutPage() {
                     {/* Image */}
                     <div className="w-full flex justify-center items-center">
                         <Image
-                            src={Images} 
+                            src={Images}
                             alt="About us"
                             width={400}
                             height={400}

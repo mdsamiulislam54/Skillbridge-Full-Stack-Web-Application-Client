@@ -1,18 +1,20 @@
 
 import { NextRequest, NextResponse } from "next/server";
-import { getSession } from "./hook/authentication/useGetSession";
-import { roles } from "./constants/roles";
 
+import { roles } from "./constants/roles";
+import { config as configs } from '@/config/config'
+import { getSession } from "./hook/authentication/useGetSession";
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 export const fetchCache = "force-no-store";
 
 export default async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
-  const data = await getSession();
+  const session = await getSession();
+  console.log('Middleware Session:', session);
 
-  const isAuthenticated = !!data?.user;
-  const userRole = data?.user?.role;
+  const isAuthenticated = !!session?.user;
+  const userRole = session?.user?.role;
 
   if (!isAuthenticated) {
     return NextResponse.redirect(new URL("/auth/login", req.url));
@@ -35,5 +37,5 @@ export default async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*"],
+  matcher: ['/dashboard/:path*'],
 };

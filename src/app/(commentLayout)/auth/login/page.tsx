@@ -1,6 +1,7 @@
 import LoginPage from "@/components/modules/authentication/login"
 import Images from '@/media/login.svg'
 import Image from "next/image"
+export const dynamic = "force-dynamic";
 
 const Login = () => {
   return (

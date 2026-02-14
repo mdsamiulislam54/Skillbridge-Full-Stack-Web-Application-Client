@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/Provider/themeProvider";
 import { Toaster } from "sonner";
 import TanstackQueryProvider from "@/components/Provider/tanstackQueryProvider";
+import { SessionProvider } from "@/components/Provider/SessionProvider";
 
 
 const montserrat = Montserrat({
@@ -34,8 +35,9 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <TanstackQueryProvider>
-
-            {children}
+            <SessionProvider>
+              {children}
+            </SessionProvider>
             <Toaster richColors={true} />
           </TanstackQueryProvider>
         </ThemeProvider>
