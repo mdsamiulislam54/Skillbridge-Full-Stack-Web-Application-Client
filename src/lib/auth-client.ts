@@ -1,9 +1,8 @@
 
 import { createAuthClient } from "better-auth/react"
 import { inferAdditionalFields } from "better-auth/client/plugins";
-import { config } from "@/config/config";
 export const authClient = createAuthClient({
-    baseURL: config.backendUrl,
+    baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
     credentials: 'include',
     fetchOptions: {
         mode: 'cors',
