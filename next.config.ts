@@ -1,17 +1,15 @@
 // next.config.ts
-import { env } from "@/env";
 import type { NextConfig } from "next";
-
 const nextConfig: NextConfig = {
-      async rewrites() {
+    async rewrites() {
         return [
             {
                 source: "/api/auth/:path*",
-                destination: `${env.BACKEND_URL}/api/auth/:path*`,
+                destination: `${process.env.BACKEND_URL}/api/auth/:path*`,
             },
             {
                 source: "/api/:path*",
-                destination: `${env.BACKEND_URL}/api/:path*`,
+                destination: `${process.env.BACKEND_URL}/api/:path*`,
             },
         ];
     },
@@ -27,7 +25,7 @@ const nextConfig: NextConfig = {
             },
         ],
     },
-  
+
 
 };
 
