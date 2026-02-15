@@ -1,7 +1,20 @@
 // next.config.ts
+import { env } from "@/env";
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+      async rewrites() {
+        return [
+            {
+                source: "/api/auth/:path*",
+                destination: `${env.BACKEND_URL}/api/auth/:path*`,
+            },
+            {
+                source: "/api/:path*",
+                destination: `${env.BACKEND_URL}/api/:path*`,
+            },
+        ];
+    },
     images: {
         remotePatterns: [
             {
@@ -14,14 +27,7 @@ const nextConfig: NextConfig = {
             },
         ],
     },
-    async rewrites() {
-        return [
-            {
-                source: "/api/auth/:path*",
-                destination: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/:path*`,
-            },
-        ];
-    },
+  
 
 };
 

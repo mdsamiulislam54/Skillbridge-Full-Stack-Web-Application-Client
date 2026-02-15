@@ -1,5 +1,5 @@
 
-import { config } from "@/config/config"
+import { env } from "@/env";
 import { Category } from "@/type/category.type";
 
 export interface GetParams {
@@ -13,7 +13,7 @@ export interface GetParams {
 export const AdminService = {
     adminCategoryCreate: async (payload: Category) => {
         try {
-            const res = await fetch(`${config.backendUrl}/api/admin/category`, {
+            const res = await fetch(`${env.BACKEND_URL}/api/admin/category`, {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
@@ -34,7 +34,7 @@ export const AdminService = {
 
     getCategory: async () => {
         try {
-            const res = await fetch(`${config.backendUrl}/api/admin/category`, {
+            const res = await fetch(`${env.BACKEND_URL}/api/admin/category`, {
                 credentials: "include"
             });
             if (!res.ok) {
@@ -58,7 +58,7 @@ export const AdminService = {
                 headers.Cookie = cookie;
             }
 
-            const res = await fetch(`${config.backendUrl}/api/admin/dashboard`, {
+            const res = await fetch(`${env.BACKEND_URL}/api/admin/dashboard`, {
                 headers,
                 credentials: "include"
             });
@@ -82,7 +82,7 @@ export const AdminService = {
                 headers.Cookie = cookie;
             }
 
-            const res = await fetch(`${config.backendUrl}/api/admin/dashboard/chart`, {
+            const res = await fetch(`${env.BACKEND_URL}/api/admin/dashboard/chart`, {
                 headers,
                 credentials: "include"
             });
@@ -98,7 +98,7 @@ export const AdminService = {
 
     getAllUser: async (params: GetParams, cookie?: string) => {
         try {
-            const url = new URL(`${config.backendUrl}/api/admin/all-user`);
+            const url = new URL(`${env.BACKEND_URL}/api/admin/all-user`);
 
             if (params) {
                 Object.entries(params).forEach(([key, value]) => {
@@ -140,7 +140,7 @@ export const AdminService = {
                 headers.Cookie = cookie;
             }
 
-            const res = await fetch(`${config.backendUrl}/api/admin/manage/user/${id}?status=${status}`, {
+            const res = await fetch(`${env.BACKEND_URL}/api/admin/manage/user/${id}?status=${status}`, {
                 method: "PATCH",
                 headers,
                 credentials: "include"
@@ -157,7 +157,7 @@ export const AdminService = {
 
     getAllBooking: async (params: GetParams, cookie?: string) => {
         try {
-            const url = new URL(`${config.backendUrl}/api/admin/all-booking`);
+            const url = new URL(`${env.BACKEND_URL}/api/admin/all-booking`);
 
             if (params) {
                 Object.entries(params).forEach(([key, value]) => {
@@ -199,7 +199,7 @@ export const AdminService = {
                 headers.Cookie = cookie;
             }
 
-            const res = await fetch(`${config.backendUrl}/api/admin/manage/category/${id}`, {
+            const res = await fetch(`${env.BACKEND_URL}/api/admin/manage/category/${id}`, {
                 method: "PATCH",
                 headers,
                 credentials: "include",
@@ -225,7 +225,7 @@ export const AdminService = {
                 headers.Cookie = cookie;
             }
 
-            const res = await fetch(`${config.backendUrl}/api/admin/manage/category/${id}`, {
+            const res = await fetch(`${env.BACKEND_URL}/api/admin/manage/category/${id}`, {
                 method: "DELETE",
                 headers,
                 credentials: "include",

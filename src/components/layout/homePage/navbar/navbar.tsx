@@ -31,7 +31,8 @@ import { ModeToggle } from "@/components/modules/Darkmode/darkmode";
 import Image from "next/image";
 import useSignOut from "@/hook/authentication/useSign-Out";
 import { Spinner } from "@/components/ui/spinner";
-import { authClient } from "@/lib/auth-client";
+import { useClientSession } from "@/hook/authentication/useClientSession";
+
 
 interface MenuItem {
   title: string;
@@ -81,7 +82,7 @@ const Navbar = ({
   className,
 }: Navbar1Props) => {
   
-  const {data:session, isPending} = authClient.useSession();
+  const {session, isPending} = useClientSession()
 
   const { mutate, isPending: signOutIsPending, reset } = useSignOut()
   const handaleSignOut = () => {

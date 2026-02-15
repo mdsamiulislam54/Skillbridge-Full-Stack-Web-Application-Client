@@ -1,7 +1,7 @@
 // app/debug/page.tsx
 'use client';
+import { env } from '@/env';
 import { useEffect, useState } from 'react';
-import { config } from '@/config/config';
 
 export default function DebugPage() {
     const [cookies, setCookies] = useState('');
@@ -9,16 +9,13 @@ export default function DebugPage() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Document cookies দেখুন
         setCookies(document.cookie);
-        
-        // Session check
         checkSession();
     }, []);
 
     const checkSession = async () => {
         try {
-            const res = await fetch(`${config.backendUrl}/api/auth/get-session`, {
+            const res = await fetch(`${env.NEXT_PUBLIC_BACKEND_URL}/api/auth/get-session`, {
                 credentials: 'include'
             });
             const data = await res.json();

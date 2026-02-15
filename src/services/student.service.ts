@@ -1,14 +1,14 @@
 
-import { config } from "@/config/config"
 import { BookingType } from "@/type/booking.type"
 import { GetParams } from "./tutor.service"
 import { ReviewForm } from "@/type/Review.type"
+import { env } from "@/env"
 
 
 export const studentService = {
     createBooking: async (payload: BookingType) => {
         try {
-            const res = await fetch(`${config.backendUrl}/api/booking`, {
+            const res = await fetch(`${env.BACKEND_URL}/api/booking`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -33,7 +33,7 @@ export const studentService = {
     getStudentOwnBookings: async (params: GetParams, cookie?: string) => {
         try {
 
-            const url = new URL(`${config.backendUrl}/api/student/booking`);
+            const url = new URL(`${env.BACKEND_URL}/api/student/booking`);
 
             if (params) {
                 Object.entries(params).forEach(([key, value]) => {
@@ -65,7 +65,7 @@ export const studentService = {
     getStudentDashboardData: async (cookie?: string) => {
         try {
 
-            const res = await fetch(`${config.backendUrl}/api/student/dashboard`, {
+            const res = await fetch(`${env.BACKEND_URL}/api/student/dashboard`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -83,7 +83,7 @@ export const studentService = {
     getDashboardChartData: async (cookie?: string) => {
         try {
 
-            const res = await fetch(`${config.backendUrl}/api/student/dashboard/chart`, {
+            const res = await fetch(`${env.BACKEND_URL}/api/student/dashboard/chart`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -105,7 +105,7 @@ export const studentService = {
     },
     createReview: async (data: ReviewForm, cookie?: string) => {
         try {
-            const res = await fetch(`${config.backendUrl}/api/student/review`, {
+            const res = await fetch(`${env.BACKEND_URL}/api/student/review`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -126,7 +126,7 @@ export const studentService = {
     upComingBooking: async (cookie?: string) => {
         try {
 
-            const res = await fetch(`${config.backendUrl}/api/student/upcoming/booking`, {
+            const res = await fetch(`${env.BACKEND_URL}/api/student/upcoming/booking`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -149,7 +149,7 @@ export const studentService = {
     pastBooking: async (cookie?: string) => {
         try {
 
-            const res = await fetch(`${config.backendUrl}/api/student/past/booking`, {
+            const res = await fetch(`${env.BACKEND_URL}/api/student/past/booking`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",

@@ -2,10 +2,11 @@
 import Image from "next/image";
 import Images from '@/media/teaching.svg'
 import Link from "next/link";
-import { useSession } from "@/components/Provider/SessionProvider";
+import { useClientSession } from "@/hook/authentication/useClientSession";
+
 
 export default function AboutPage() {
-   const {session} = useSession()
+   const {session} = useClientSession()
     return (
         <section className="w-full bg-background py-16">
             {JSON.stringify(session)}

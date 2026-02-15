@@ -1,10 +1,10 @@
 
 import { createAuthClient } from "better-auth/react"
 import { inferAdditionalFields } from "better-auth/client/plugins";
-
+import { env } from "@/env";
 export const authClient = createAuthClient({
-    baseURL: typeof window !== "undefined" ? window.location.origin : "",
-    basePath: "/api/auth",
+    baseURL: `${env.NEXT_PUBLIC_AUTH_URL}/api/auth`,
+
     fetchOptions: {
         credentials: 'include',
     },

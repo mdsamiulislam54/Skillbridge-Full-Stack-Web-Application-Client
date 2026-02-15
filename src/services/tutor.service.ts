@@ -1,5 +1,5 @@
 
-import { config } from "@/config/config"
+import { env } from "@/env";
 import { TutorFormValues } from "@/lib/validator/tutor.schema"
 import { SlotsType, UpdateSlotsType } from "@/type/slots.type";
 
@@ -14,7 +14,7 @@ export interface GetParams {
 export const TutorService = {
     tutorProfileCreate: async (payload: TutorFormValues) => {
         try {
-            const res = await fetch(`${config.backendUrl}/api/tutor/create`, {
+            const res = await fetch(`${env.BACKEND_URL}/api/tutor/create`, {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'
@@ -37,7 +37,7 @@ export const TutorService = {
     },
     tutorSlotsCreate: async (payload: SlotsType) => {
         try {
-            const res = await fetch(`${config.backendUrl}/api/tutor/create/slots`, {
+            const res = await fetch(`${env.BACKEND_URL}/api/tutor/create/slots`, {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'
@@ -62,7 +62,7 @@ export const TutorService = {
     getTutorProfileById: async (cookie?: string) => {
         try {
 
-            const res = await fetch(`${config.backendUrl}/api/tutor/get-profile`, {
+            const res = await fetch(`${env.BACKEND_URL}/api/tutor/get-profile`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -85,7 +85,7 @@ export const TutorService = {
     },
     getTutorProfileAll: async () => {
         try {
-            const res = await fetch(`${config.backendUrl}/api/tutor/get-profile/all`)
+            const res = await fetch(`${env.BACKEND_URL}/api/tutor/get-profile/all`)
             if (!res.ok) {
                 const text = await res.text();
                 throw new Error(text || "API Error");
@@ -102,7 +102,7 @@ export const TutorService = {
     getTutorSlots: async (cookie?: string) => {
         try {
 
-            const res = await fetch(`${config.backendUrl}/api/tutor/slots`, {
+            const res = await fetch(`${env.BACKEND_URL}/api/tutor/slots`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -126,7 +126,7 @@ export const TutorService = {
     getDashboardCard: async (cookie?: string) => {
         try {
 
-            const res = await fetch(`${config.backendUrl}/api/tutor/dashboard`, {
+            const res = await fetch(`${env.BACKEND_URL}/api/tutor/dashboard`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -150,7 +150,7 @@ export const TutorService = {
     getChartData: async (cookie?: string) => {
         try {
 
-            const res = await fetch(`${config.backendUrl}/api/tutor/dashboard/chart-data`, {
+            const res = await fetch(`${env.BACKEND_URL}/api/tutor/dashboard/chart-data`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -174,7 +174,7 @@ export const TutorService = {
     slotsDelete: async (id: string) => {
         try {
 
-            const res = await fetch(`${config.backendUrl}/api/tutor/slots/${id}`, {
+            const res = await fetch(`${env.BACKEND_URL}/api/tutor/slots/${id}`, {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json"
@@ -198,7 +198,7 @@ export const TutorService = {
     slotsUpdate: async (id: string, payload: UpdateSlotsType) => {
         try {
 
-            const res = await fetch(`${config.backendUrl}/api/tutor/slots/update/${id}`, {
+            const res = await fetch(`${env.BACKEND_URL}/api/tutor/slots/update/${id}`, {
                 "cache": "no-store",
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
@@ -220,7 +220,7 @@ export const TutorService = {
     tutorProfileUpdate: async (id: string, payload: TutorFormValues) => {
         try {
 
-            const res = await fetch(`${config.backendUrl}/api/tutor/profile/update/${id}`, {
+            const res = await fetch(`${env.BACKEND_URL}/api/tutor/profile/update/${id}`, {
                 "cache": "no-store",
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
@@ -243,7 +243,7 @@ export const TutorService = {
     profileDelete: async (id: string) => {
         try {
 
-            const res = await fetch(`${config.backendUrl}/api/tutor/profile/${id}`, {
+            const res = await fetch(`${env.BACKEND_URL}/api/tutor/profile/${id}`, {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json"
@@ -266,7 +266,7 @@ export const TutorService = {
     },
     getAllTutorProfile: async (params: GetParams) => {
         try {
-            const url = new URL(`${config.backendUrl}/api/tutor`);
+            const url = new URL(`${env.BACKEND_URL}/api/tutor`);
 
             if (params) {
                 Object.entries(params).forEach(([key, value]) => {
@@ -289,7 +289,7 @@ export const TutorService = {
     },
     getAllTutorProfileById: async (id: string) => {
         try {
-            const res = await fetch(`${config.backendUrl}/api/tutor/${id}`);
+            const res = await fetch(`${env.BACKEND_URL}/api/tutor/${id}`);
             if (!res.ok) {
                 const text = await res.text();
                 throw new Error(text || "API Error");
@@ -303,7 +303,7 @@ export const TutorService = {
     getTutorBooking: async (cookie?: string) => {
         try {
 
-            const res = await fetch(`${config.backendUrl}/api/tutor/dashboard/chart-data`, {
+            const res = await fetch(`${env.BACKEND_URL}/api/tutor/dashboard/chart-data`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -327,7 +327,7 @@ export const TutorService = {
 
     GetOwnBookings: async (params: GetParams, cookie?: string) => {
         try {
-            const url = new URL(`${config.backendUrl}/api/tutor/booking`);
+            const url = new URL(`${env.BACKEND_URL}/api/tutor/booking`);
 
             if (params) {
                 Object.entries(params).forEach(([key, value]) => {
