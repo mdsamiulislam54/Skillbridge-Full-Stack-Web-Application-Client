@@ -2,6 +2,7 @@
 import { env } from "@/env";
 import { Category } from "@/type/category.type";
 
+
 export interface GetParams {
     page?: string,
     limit?: string
@@ -13,7 +14,8 @@ export interface GetParams {
 export const AdminService = {
     adminCategoryCreate: async (payload: Category) => {
         try {
-            const res = await fetch(`${env.BACKEND_URL}/api/admin/category`, {
+            console.log(".................category, pay", payload)
+            const res = await fetch(`${env.NEXT_PUBLIC_API_URL}/api/admin/category`, {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
@@ -53,7 +55,7 @@ export const AdminService = {
             const headers: HeadersInit = {
                 "Content-Type": "application/json",
             };
-            
+
             if (cookie) {
                 headers.Cookie = cookie;
             }
@@ -77,7 +79,7 @@ export const AdminService = {
             const headers: HeadersInit = {
                 "Content-Type": "application/json",
             };
-            
+
             if (cookie) {
                 headers.Cookie = cookie;
             }
@@ -111,7 +113,7 @@ export const AdminService = {
             const headers: HeadersInit = {
                 "Content-Type": "application/json",
             };
-            
+
             if (cookie) {
                 headers.Cookie = cookie;
             }
@@ -135,7 +137,7 @@ export const AdminService = {
             const headers: HeadersInit = {
                 "Content-Type": "application/json",
             };
-            
+
             if (cookie) {
                 headers.Cookie = cookie;
             }
@@ -170,7 +172,7 @@ export const AdminService = {
             const headers: HeadersInit = {
                 "Content-Type": "application/json",
             };
-            
+
             if (cookie) {
                 headers.Cookie = cookie;
             }
@@ -191,20 +193,21 @@ export const AdminService = {
 
     updateCategory: async (id: string, data: Category, cookie?: string) => {
         try {
-            const headers: HeadersInit = {
-                "Content-Type": "application/json",
-            };
-            
-            if (cookie) {
-                headers.Cookie = cookie;
-            }
 
-            const res = await fetch(`${env.BACKEND_URL}/api/admin/manage/category/${id}`, {
+            console.log("......UpdateData,", data)
+
+
+
+
+            const res = await fetch(`${env.NEXT_PUBLIC_API_URL}/api/admin/manage/category/${id}`, {
                 method: "PATCH",
-                headers,
+                headers: {
+                    "Content-Type": "application/json",
+                },
                 credentials: "include",
                 body: JSON.stringify(data)
             });
+            console.log("......UpdateData,", res)
             if (!res.ok) {
                 const text = await res.text();
                 throw new Error(text || "API Error");
@@ -215,19 +218,12 @@ export const AdminService = {
         }
     },
 
-    deleteCategory: async (id: string, cookie?: string) => {
+    deleteCategory: async (id: string, ) => {
         try {
-            const headers: HeadersInit = {
-                "Content-Type": "application/json",
-            };
-            
-            if (cookie) {
-                headers.Cookie = cookie;
-            }
+         
 
-            const res = await fetch(`${env.BACKEND_URL}/api/admin/manage/category/${id}`, {
+            const res = await fetch(`${env.NEXT_PUBLIC_API_URL}/api/admin/manage/category/${id}`, {
                 method: "DELETE",
-                headers,
                 credentials: "include",
             });
             if (!res.ok) {

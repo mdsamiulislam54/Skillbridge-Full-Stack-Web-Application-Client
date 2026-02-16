@@ -327,7 +327,7 @@ export const TutorService = {
 
     GetOwnBookings: async (params: GetParams, cookie?: string) => {
         try {
-            const url = new URL(`${env.BACKEND_URL}/api/tutor/booking`);
+            const url = new URL(`${env.NEXT_PUBLIC_BACKEND_URL}/api/tutor/booking`);
 
             if (params) {
                 Object.entries(params).forEach(([key, value]) => {

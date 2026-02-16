@@ -6,7 +6,7 @@ import { useClientSession } from "@/hook/authentication/useClientSession";
 
 
 export default function AboutPage() {
-   const {session} = useClientSession()
+   const session = useClientSession()
     return (
         <section className="w-full bg-background py-16">
             {JSON.stringify(session)}

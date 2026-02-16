@@ -44,6 +44,7 @@ const CategoryForm = () => {
                 sortOrder: Number(value.sortOrder),
                 isActive: value.isActive,
             }
+          
             mutate(categoryData)
         },
     })

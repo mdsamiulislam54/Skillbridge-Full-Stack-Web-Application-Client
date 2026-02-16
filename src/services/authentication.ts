@@ -3,7 +3,7 @@ import { env } from "@/env";
 export const  authenticationService = {
     login: async (payload: { email: string, password: string }) => {
         try {
-            const res = await fetch(`${env.NEXT_PUBLIC_AUTH_URL}/api/auth/sign-in/email`, {
+            const res = await fetch(`${env.NEXT_PUBLIC_API_URL}/api/auth/sign-in/email`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -29,7 +29,7 @@ export const  authenticationService = {
     signOut: async () => {
 
         try {
-            const res = await fetch(`${env.NEXT_PUBLIC_AUTH_URL}/api/auth/sign-out`, {
+            const res = await fetch(`${env.NEXT_PUBLIC_API_URL}/api/auth/sign-out`, {
                 method: "POST",
                 credentials: "include"
             })
@@ -44,7 +44,7 @@ export const  authenticationService = {
 
     register: async (payload: { name: string, password: string, email: string, images?: string, role: string }) => {
         try {
-            const res = await fetch(`${env.NEXT_PUBLIC_AUTH_URL}/api/auth/sign-up/email`, {
+            const res = await fetch(`${env.NEXT_PUBLIC_API_URL}/api/auth/sign-up/email`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

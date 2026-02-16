@@ -8,7 +8,7 @@ import { env } from "@/env"
 export const studentService = {
     createBooking: async (payload: BookingType) => {
         try {
-            const res = await fetch(`${env.BACKEND_URL}/api/booking`, {
+            const res = await fetch(`${env.NEXT_PUBLIC_API_URL}/api/booking`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -105,7 +105,7 @@ export const studentService = {
     },
     createReview: async (data: ReviewForm, cookie?: string) => {
         try {
-            const res = await fetch(`${env.BACKEND_URL}/api/student/review`, {
+            const res = await fetch(`${env.NEXT_PUBLIC_BACKEND_URL}/api/student/review`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
