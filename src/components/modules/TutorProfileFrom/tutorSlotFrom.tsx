@@ -26,7 +26,7 @@ const AvailabilitySlotForm = () => {
         endTime: "",
         duration: "60",
         teachingMode: "",
-        maxStudent: "1",
+        maxStudent: '',
         isActive: true,
         category: '',
         hourlyRate: ''
@@ -42,7 +42,7 @@ const AvailabilitySlotForm = () => {
         fetch()
     }, [])
 
- 
+
 
     const { user } = useClientSession()
     const { mutate, isPending } = useTutorSlotsCreate()
@@ -58,18 +58,14 @@ const AvailabilitySlotForm = () => {
         e.preventDefault()
 
         const payload: SlotsType = {
-            id:user?.id??"",
-            startTime: formData.startTime,
-            endTime: formData.endTime,
-            duration: formData.duration,
-            teachingMode: formData.teachingMode,
+            ...formData,
             maxStudent: Number(formData.maxStudent),
-            isActive: formData.isActive,
+            hourlyRate: Number(formData.hourlyRate),
+            id: user?.id ?? "",
             tutorId: user?.id,
-            category: formData.category,
-            hourlyRate: Number(formData.hourlyRate)
+
         }
-        console.log("______",payload)
+
         mutate(payload)
     }
     return (
@@ -160,7 +156,7 @@ const AvailabilitySlotForm = () => {
                         </div>
                     </div>
 
-                
+
                     <div className="flex items-center justify-between rounded-lg border p-3">
                         <Label>Slot Active</Label>
                         <Switch
@@ -170,7 +166,7 @@ const AvailabilitySlotForm = () => {
                     </div>
 
                     <div className="grid sm:grid-cols-2 gap-2">
-                    
+
                         <div className="space-y-1">
                             <Label>HourlyRate</Label>
                             <Input
@@ -185,7 +181,7 @@ const AvailabilitySlotForm = () => {
 
                     <Button type="submit" className="w-full" disabled={isPending}>
                         {
-                            isPending ? <Spinner/>:"Create Slot"
+                            isPending ? <Spinner /> : "Create Slot"
                         }
                     </Button>
                 </form>

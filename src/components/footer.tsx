@@ -91,10 +91,10 @@ export default function Footer() {
         </div>
 
 
-        <Separator className="my-6 dark:bg-zinc-800" />
+        <Separator className=" dark:bg-zinc-800" />
 
 
-        <div className=" flex items-center justify-between gap-4 text-sm text-muted-foreground">
+        <div className=" flex items-center justify-between gap-4 text-sm text-muted-foreground pt-2">
           <p>© {new Date().getFullYear()} SkillBridge. All rights reserved.</p>
           <p>
             Designed & Developed by{" "}

@@ -5,8 +5,9 @@ import { SlotsType, UpdateSlotsType } from "@/type/slots.type";
 
 export interface GetParams {
     page?: string,
-    limit?: string
-    search?: string
+    limit?: string,
+    search?: string,
+    filter?:string,
 }
 
 

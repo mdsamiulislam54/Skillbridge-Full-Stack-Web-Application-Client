@@ -142,7 +142,7 @@ export const AdminService = {
                 headers.Cookie = cookie;
             }
 
-            const res = await fetch(`${env.BACKEND_URL}/api/admin/manage/user/${id}?status=${status}`, {
+            const res = await fetch(`${env.NEXT_PUBLIC_API_URL}/api/admin/manage/user/${id}?status=${status}`, {
                 method: "PATCH",
                 headers,
                 credentials: "include"

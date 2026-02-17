@@ -116,7 +116,7 @@ const Navbar = ({
       "w-full z-50 transition-all duration-300 py-4",
 
       isSticky
-        ? "fixed top-0 left-0 bg-background shadow-md backdrop-blur-md border-b"
+        ? "fixed top-0 left-0 bg-background/50 shadow-md backdrop-blur-md border-b"
         : "relative",
       "border-b shadow-sm",
       className
@@ -216,13 +216,14 @@ const Navbar = ({
                   {
                     session?.user ? (
                       <div>
-                        <div className="flex items-center gap-4">
+                        <div className="flex items-center gap-4 mb-4">
+                          <p>{session?.user?.name}</p>
                           <Link href={'/dashboard'} title="Dashboard">
                             <Image src={session?.user?.image || 'https://skillbridge-chi-seven.vercel.app/_next/static/media/teaching.6012afe6.svg'} alt="Profile" width={32} height={32} className="rounded-full" />
                           </Link>
                           <ModeToggle />
                         </div>
-                        <Button onClick={handaleSignOut} variant="outline" size="sm" className="cursor-pointer">
+                        <Button onClick={handaleSignOut}  size="sm" className="cursor-pointer w-full">
                           {
                             signOutIsPending ? <Spinner /> : "Sign Out"
                           }
