@@ -28,6 +28,7 @@ const TutorSlotTable = ({ slots }: Props) => {
     const { mutate, isPending } = useTutorSlotsDelete();
     const [updateSlotsFrom, setUpdateSlotsFrom] = useState(false);
     const [selectedSlot, setSelectedSlot] = useState<TutorSlot | null>(null);
+    const [deleteId, setDeleteId] = useState('')
 
 
     const handleUpdateFromToggle = () => {
@@ -35,6 +36,7 @@ const TutorSlotTable = ({ slots }: Props) => {
     }
 
     const handleDelete = (id: string) => {
+        setDeleteId(id)
         mutate(id)
     };
     const handleUpdate = (slot: TutorSlot) => {
@@ -102,7 +104,7 @@ const TutorSlotTable = ({ slots }: Props) => {
 
 
                                 <Button variant="destructive" size="sm" onClick={() => handleDelete(slot.id)}>
-                                    {isPending ? <Spinner /> : <Trash2 className="w-4 h-4" />}
+                                    {isPending && deleteId === slot.id ? <Spinner /> : <Trash2 className="w-4 h-4" />}
                                 </Button>
 
                             </TableCell>

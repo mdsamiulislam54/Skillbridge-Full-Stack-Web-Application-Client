@@ -27,24 +27,44 @@ import { useClientSession } from "@/hook/authentication/useClientSession"
 
 const languagesOptions = ["English", "Bangla", "Hindi", "Spanish"]
 
-const tutorSchema = z.object({
-    name: z.string().min(2),
-    bio: z.string().min(10),
-    education: z.string(),
-    experienceYears: z.string(),
-    teachingMode: z.string(),
+export const tutorSchema = z.object({
+    name: z.string()
+        .min(2, { message: "Name must be at least 2 characters long" })
+        .max(50, { message: "Name cannot exceed 50 characters" }),
+    
+    bio: z.string()
+        .min(10, { message: "Bio must be at least 10 characters long" })
+        .max(500, { message: "Bio cannot exceed 500 characters" }),
+    
+    education: z.string()
+        .min(2, { message: "Education details are required" })
+        .max(100, { message: "Education details too long" }),
+
+    experienceYears: z.string()
+        .regex(/^\d+$/, { message: "Experience years must be a valid number" })
+        .min(1, { message: "Experience years are required" }),
+    
+    teachingMode: z.string()
+        .min(2, { message: "Teaching mode is required" }),
+    
     isAvailable: z.boolean(),
-    profileImage: z.string().optional(),
-    languages: z.array(z.string()).min(1),
-})
+    
+    profileImage: z.string()
+        .min(0,{ message: "Please enter a valid image URL" })
+        .optional()
+        .or(z.literal("")),
+
+    languages: z.array(z.string())
+        .min(1, { message: "At least one language is required" })
+        .max(10, { message: "Cannot add more than 10 languages" }),
+});
 
 type TutorFormValues = z.infer<typeof tutorSchema>
-
-
 
 function CreateProfile() {
     const { mutate, isPending } = useTutorProfileCreate();
     const { user } = useClientSession()
+    
     const form = useForm({
         defaultValues: {
             name: "",
@@ -65,14 +85,13 @@ function CreateProfile() {
                 userId: user?.id,
                 profileImage: value.profileImage || ""
             }
-    
+          
             mutate(formData)
         },
     })
 
     return (
         <Card className="max-w-full mx-auto m-4">
-           
             <CardHeader>
                 <CardTitle>Create Tutor Profile</CardTitle>
                 <CardDescription>Fill in the tutor details below</CardDescription>
@@ -87,108 +106,210 @@ function CreateProfile() {
                     }}
                 >
                     <FieldGroup>
+                        {/* Row 1: Name and Education */}
                         <div className="grid sm:grid-cols-2 gap-4">
-                          
-                            <form.Field name="name">{(field) => (
-                                <Field>
-                                    <FieldLabel>Full Name</FieldLabel>
-                                    <Input value={field.state.value} onChange={(e) => field.setValue(e.target.value)} />
-                                    <FieldError errors={field.state.meta.errors} />
-                                </Field>
-                            )}</form.Field>
-                          
-                            <form.Field name="education">{(field) => (
-                                <Field>
-                                    <FieldLabel>Education</FieldLabel>
-                                    <Input value={field.state.value} onChange={(e) => field.setValue(e.target.value)} />
-                                </Field>
-                            )}</form.Field>
+                            {/* Name Field */}
+                            <form.Field name="name">
+                                {(field) => {
+                                    const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
+                                    return (
+                                        <Field>
+                                            <FieldLabel>Full Name</FieldLabel>
+                                            <Input
+                                                value={field.state.value}
+                                                onChange={(e) => field.handleChange(e.target.value)}
+                                                onBlur={field.handleBlur}
+                                                className={isInvalid ? "border-red-500" : ""}
+                                            />
+                                            {isInvalid && (
+                                                <FieldError errors={field.state.meta.errors} />
+                                            )}
+                                        </Field>
+                                    )
+                                }}
+                            </form.Field>
+
+                            {/* Education Field */}
+                            <form.Field name="education">
+                                {(field) => {
+                                    const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
+                                    return (
+                                        <Field>
+                                            <FieldLabel>Education</FieldLabel>
+                                            <Input
+                                                value={field.state.value}
+                                                onChange={(e) => field.handleChange(e.target.value)}
+                                                onBlur={field.handleBlur}
+                                                className={isInvalid ? "border-red-500" : ""}
+                                            />
+                                            {isInvalid && (
+                                                <FieldError errors={field.state.meta.errors} />
+                                            )}
+                                        </Field>
+                                    )
+                                }}
+                            </form.Field>
                         </div>
 
+                        {/* Bio Field */}
+                        <form.Field name="bio">
+                            {(field) => {
+                                const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
+                                return (
+                                    <Field>
+                                        <FieldLabel>Bio</FieldLabel>
+                                        <Textarea
+                                            value={field.state.value}
+                                            onChange={(e) => field.handleChange(e.target.value)}
+                                            onBlur={field.handleBlur}
+                                            className={`min-h-[120px] ${isInvalid ? "border-red-500" : ""}`}
+                                        />
+                                        {isInvalid && (
+                                            <FieldError errors={field.state.meta.errors} />
+                                        )}
+                                        <span className="text-xs text-gray-500 mt-1">
+                                            {field.state.value.length}/500 characters
+                                        </span>
+                                    </Field>
+                                )
+                            }}
+                        </form.Field>
 
-                      
-                        <form.Field name="bio">{(field) => (
-                            <Field>
-                                <FieldLabel>Bio</FieldLabel>
-                                <Textarea value={field.state.value} onChange={(e) => field.setValue(e.target.value)} className="min-h-[120px]" />
-                                <FieldError errors={field.state.meta.errors} />
-                            </Field>
-                        )}</form.Field>
-
+                        {/* Row 2: Experience Years, Teaching Mode, Languages */}
                         <div className="grid sm:grid-cols-3 gap-4">
-                        {/* Experience Years */}
-                            <form.Field name="experienceYears">{(field) => (
-                                <Field>
-                                    <FieldLabel>Experience Years</FieldLabel>
-                                    <Input value={field.state.value} onChange={(e) => field.setValue(e.target.value)} />
-                                </Field>
-                            )}</form.Field>
+                            {/* Experience Years Field */}
+                            <form.Field name="experienceYears">
+                                {(field) => {
+                                    const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
+                                    return (
+                                        <Field>
+                                            <FieldLabel>Experience Years</FieldLabel>
+                                            <Input
+                                                type="number"
+                                                min="1"
+                                                value={field.state.value}
+                                                onChange={(e) => field.handleChange(e.target.value)}
+                                                onBlur={field.handleBlur}
+                                                className={isInvalid ? "border-red-500" : ""}
+                                            />
+                                            {isInvalid && (
+                                                <FieldError errors={field.state.meta.errors} />
+                                            )}
+                                        </Field>
+                                    )
+                                }}
+                            </form.Field>
 
+                            {/* Teaching Mode Field */}
+                            <form.Field name="teachingMode">
+                                {(field) => {
+                                    const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
+                                    return (
+                                        <Field>
+                                            <FieldLabel>Teaching Mode</FieldLabel>
+                                            <Input
+                                                value={field.state.value}
+                                                onChange={(e) => field.handleChange(e.target.value)}
+                                                onBlur={field.handleBlur}
+                                                className={isInvalid ? "border-red-500" : ""}
+                                            />
+                                            {isInvalid && (
+                                                <FieldError errors={field.state.meta.errors} />
+                                            )}
+                                        </Field>
+                                    )
+                                }}
+                            </form.Field>
 
-
-                           
-                            <form.Field name="teachingMode">{(field) => (
-                                <Field>
-                                    <FieldLabel>Teaching Mode</FieldLabel>
-                                    <Input value={field.state.value} onChange={(e) => field.setValue(e.target.value)} />
-                                </Field>
-                            )}</form.Field>
-
-
-
-
-                           
-                            <form.Field name="languages">{(field) => (
-                                <Field>
-                                    <FieldLabel>Languages</FieldLabel>
-                                    <div className="flex flex-wrap gap-2">
-                                        {languagesOptions.map((lang) => {
-                                            const selected = field.state.value.includes(lang)
-                                            return (
-                                                <Badge key={lang} variant={selected ? "default" : "outline"} className="cursor-pointer"
-                                                    onClick={() => {
-                                                        if (selected) field.setValue(field.state.value.filter(v => v !== lang))
-                                                        else field.setValue([...field.state.value, lang])
-                                                    }}>
-                                                    {lang}
-                                                </Badge>
-                                            )
-                                        })}
-                                    </div>
-                                </Field>
-                            )}</form.Field>
+                            {/* Languages Field */}
+                            <form.Field name="languages">
+                                {(field) => {
+                                    const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
+                                    return (
+                                        <Field>
+                                            <FieldLabel>Languages</FieldLabel>
+                                            <div className="flex flex-wrap gap-2 mt-2">
+                                                {languagesOptions.map((lang) => {
+                                                    const selected = field.state.value.includes(lang)
+                                                    return (
+                                                        <Badge
+                                                            key={lang}
+                                                            variant={selected ? "default" : "outline"}
+                                                            className={`cursor-pointer ${selected ? 'bg-blue-500' : ''} ${isInvalid ? 'border-red-500' : ''}`}
+                                                            onClick={() => {
+                                                                if (selected) {
+                                                                    field.handleChange(field.state.value.filter(v => v !== lang))
+                                                                } else {
+                                                                    field.handleChange([...field.state.value, lang])
+                                                                }
+                                                            }}
+                                                        >
+                                                            {lang}
+                                                        </Badge>
+                                                    )
+                                                })}
+                                            </div>
+                                            {isInvalid && (
+                                                <FieldError errors={field.state.meta.errors} />
+                                            )}
+                                            <span className="text-xs text-gray-500 mt-1">
+                                                {field.state.value.length} languages selected
+                                            </span>
+                                        </Field>
+                                    )
+                                }}
+                            </form.Field>
                         </div>
 
-                        <div className="grid sm:grid-cols-2 gap-4">
-                         
-                            <form.Field name="isAvailable">{(field) => (
-                                <Field className="">
-                                    <FieldLabel className="flex gap-4 p-2 rounded-xl">
-                                        Available for Booking
+                        {/* Row 3: Availability and Profile Image */}
+                        <div className="grid sm:grid-cols-2 gap-4 mt-4">
+                            {/* Availability Field */}
+                            <form.Field name="isAvailable">
+                                {(field) => (
+                                    <Field className="flex items-center justify-between p-4 border rounded-lg">
+                                        <FieldLabel className="mb-0">Available for Booking</FieldLabel>
+                                        <Switch
+                                            checked={field.state.value}
+                                            onCheckedChange={field.handleChange}
+                                        />
+                                    </Field>
+                                )}
+                            </form.Field>
 
-                                    </FieldLabel>
-                                    <Switch checked={field.state.value} onCheckedChange={field.setValue} />
-                                </Field>
-                            )}</form.Field>
-                       
-                            <form.Field name="profileImage">{(field) => (
-                                <Field>
-                                    <FieldLabel>Profile Image URL</FieldLabel>
-                                    <Input value={field.state.value} onChange={(e) => field.setValue(e.target.value)} placeholder="https://..." />
-                                </Field>
-                            )}</form.Field>
-
+                            {/* Profile Image Field */}
+                            <form.Field name="profileImage">
+                                {(field) => {
+                                    const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
+                                    return (
+                                        <Field>
+                                            <FieldLabel>Profile Image URL (Optional)</FieldLabel>
+                                            <Input
+                                                value={field.state.value}
+                                                onChange={(e) => field.handleChange(e.target.value)}
+                                                onBlur={field.handleBlur}
+                                                placeholder="https://example.com/image.jpg"
+                                                className={isInvalid ? "border-red-500" : ""}
+                                            />
+                                            {isInvalid && (
+                                                <FieldError errors={field.state.meta.errors} />
+                                            )}
+                                        </Field>
+                                    )
+                                }}
+                            </form.Field>
                         </div>
-
                     </FieldGroup>
                 </form>
             </CardContent>
 
             <CardFooter>
-                <Button type="submit" form="tutor-profile-form" className="w-full ">
-                    {
-                        isPending ? <Spinner /> : " Create Tutor Profile"
-                    }
+                <Button
+                    type="submit"
+                    form="tutor-profile-form"
+                    className="w-full"
+                    disabled={isPending}
+                >
+                    {isPending ? <Spinner /> : "Create Tutor Profile"}
                 </Button>
             </CardFooter>
         </Card>

@@ -27,7 +27,7 @@ export const getSession = async () => {
 
         const session = await res.json();
 
-        console.log("SESSION:", session);
+        // console.log("SESSION:", session);
 
         return session;
 

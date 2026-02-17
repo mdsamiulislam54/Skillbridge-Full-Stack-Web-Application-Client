@@ -2,16 +2,13 @@
 import Image from "next/image";
 import Images from '@/media/teaching.svg'
 import Link from "next/link";
-import { useClientSession } from "@/hook/authentication/useClientSession";
-
 
 export default function AboutPage() {
-   const session = useClientSession()
+ 
     return (
-        <section className="w-full bg-background py-16">
-            {JSON.stringify(session)}
+        <section className="w-full bg-background pb-10">
             <div
-                className="relative h-40 bg-cover bg-center bg-no-repeat"
+                className="relative h-50 bg-cover bg-center bg-no-repeat"
                 style={{
                     backgroundImage: `url("https://img.freepik.com/free-photo/coworking-space-freelance-elearning-concept-top-view-male-hands-holding-cup-coffee-using_1258-314363.jpg")`,
                 }}

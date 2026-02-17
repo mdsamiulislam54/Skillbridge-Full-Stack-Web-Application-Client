@@ -27,19 +27,23 @@ interface Hero47Props {
 }
 
 const Hero = ({
-  heading = "Unlock Your Potential",
-  subheading = ", Master New Skills Today",
-  description = "Skillbridge connects passionate learners with expert tutors worldwide. Dive into interactive courses, personalized mentoring, and hands-on projects that transform your career. Start your learning journey today!",
+  heading = "Transform Your Future with Expert-Led Learning",
+
+  subheading = "Learn Without Limits. Grow Without Boundaries.",
+
+  description = "SkillBridge empowers you to learn in-demand skills from world-class tutors through personalized mentorship, real-world projects, and immersive learning experiences. Whether you're advancing your career or exploring new passions, your journey to success starts here.",
+
   buttons = {
     primary: {
-      text: "Get Started",
+      text: "Start Learning Now",
       url: "/tutor",
     },
     secondary: {
-      text: "contact us",
+      text: "Explore How It Works",
       url: "/contact",
     },
   },
+
 
   className,
 }: Hero47Props) => {
@@ -47,9 +51,9 @@ const Hero = ({
     <section className={cn("bg-background py-20 lg:py-10", className)}>
       <div className="container px-4 mx-auto flex flex-col items-center gap-10 lg:my-0 lg:flex-row">
         <div className="flex flex-col gap-7 lg:w-2/3">
-          <h2 className="text-5xl font-semibold text-foreground md:text-5xl lg:text-8xl">
-            <span>{heading}</span>
-            <span className="text-muted-foreground">{subheading}</span>
+          <h2 className="flex flex-col">
+            <span className="text-xl font-semibold text-foreground md:text-2xl lg:text-3xl">{heading}</span>
+            <span className="text-muted-foreground md:text-6xl lg:text-6xl">{subheading}</span>
           </h2>
           <p className=" text-muted-foreground  text-md">
             {description}

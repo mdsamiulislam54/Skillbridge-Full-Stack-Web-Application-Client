@@ -36,7 +36,7 @@ export const AdminService = {
 
     getCategory: async () => {
         try {
-            const res = await fetch(`${env.BACKEND_URL}/api/admin/category`, {
+            const res = await fetch(`${env.NEXT_PUBLIC_API_URL}/api/admin/category`, {
                 credentials: "include"
             });
             if (!res.ok) {

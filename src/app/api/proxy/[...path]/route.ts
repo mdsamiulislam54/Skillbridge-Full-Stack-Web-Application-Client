@@ -86,7 +86,7 @@ async function proxy(req: NextRequest, path: string[]) {
         credentials: "include",
     });
 
-    console.log("_____________Response:", response)
+    // console.log("_____________Response:", response)
     const resBody = await response.text();
 
     const res = new NextResponse(resBody, {

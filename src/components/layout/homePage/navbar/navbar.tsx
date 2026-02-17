@@ -32,6 +32,7 @@ import Image from "next/image";
 import useSignOut from "@/hook/authentication/useSign-Out";
 import { Spinner } from "@/components/ui/spinner";
 import { useClientSession } from "@/hook/authentication/useClientSession";
+import { useEffect, useState } from "react";
 
 
 interface MenuItem {
@@ -81,18 +82,45 @@ const Navbar = ({
   },
   className,
 }: Navbar1Props) => {
-  
-  const {session, isPending} = useClientSession()
 
+  const { session, isPending } = useClientSession()
+  const [isSticky, setIsSticky] = useState(false)
   const { mutate, isPending: signOutIsPending, reset } = useSignOut()
   const handaleSignOut = () => {
     mutate();
     reset();
- 
+
   }
 
+
+  useEffect(() => {
+
+    const handleScroll = () => {
+
+      if (window.scrollY > 10) {
+        setIsSticky(true)
+      } else {
+        setIsSticky(false)
+      }
+
+    }
+
+    window.addEventListener("scroll", handleScroll)
+
+    return () => window.removeEventListener("scroll", handleScroll)
+
+  }, [])
+
   return (
-    <section className={cn("py-4", className)}>
+    <section className={cn(
+      "w-full z-50 transition-all duration-300 py-4",
+
+      isSticky
+        ? "fixed top-0 left-0 bg-background shadow-md backdrop-blur-md border-b"
+        : "relative",
+      "border-b shadow-sm",
+      className
+    )}>
       <div className="container px-4 mx-auto">
 
         {/* Desktop Menu */}

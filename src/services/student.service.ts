@@ -103,13 +103,12 @@ export const studentService = {
             throw error
         }
     },
-    createReview: async (data: ReviewForm, cookie?: string) => {
+    createReview: async (data: ReviewForm) => {
         try {
-            const res = await fetch(`${env.NEXT_PUBLIC_BACKEND_URL}/api/student/review`, {
+            const res = await fetch(`${env.NEXT_PUBLIC_API_URL}/api/student/review`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    ...(cookie ? { cookie } : {}),
                 },
                 credentials: "include",
                 body: JSON.stringify(data)

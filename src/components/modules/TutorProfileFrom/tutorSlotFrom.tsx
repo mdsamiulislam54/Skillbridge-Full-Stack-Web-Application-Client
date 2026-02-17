@@ -42,6 +42,8 @@ const AvailabilitySlotForm = () => {
         fetch()
     }, [])
 
+ 
+
     const { user } = useClientSession()
     const { mutate, isPending } = useTutorSlotsCreate()
 
@@ -67,7 +69,7 @@ const AvailabilitySlotForm = () => {
             category: formData.category,
             hourlyRate: Number(formData.hourlyRate)
         }
-        console.log(payload)
+        console.log("______",payload)
         mutate(payload)
     }
     return (
