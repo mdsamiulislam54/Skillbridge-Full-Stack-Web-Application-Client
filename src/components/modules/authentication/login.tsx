@@ -107,7 +107,7 @@ const LoginPage = () => {
                                                 autoComplete="off"
                                                 className="relative"
                                             />
-                                            <button onClick={handleShowPassword} className="cursor-pointer absolute top-2 right-2 ">
+                                            <button type="button" onClick={handleShowPassword} className="cursor-pointer absolute top-2 right-2 ">
                                                 {
                                                     showPassword ? <EyeClosed /> : <Eye />
                                                 }
@@ -115,7 +115,7 @@ const LoginPage = () => {
                                         </div>
                                         {isInvalid && (
                                             <FieldError errors={field.state.meta.errors} />
-                                        )};
+                                        )}
 
                                     </Field>
                                 )

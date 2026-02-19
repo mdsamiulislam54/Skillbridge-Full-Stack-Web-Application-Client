@@ -59,7 +59,7 @@ const Register = () => {
     })
 
     return (
-        <Card className="w-full max-w-lg">
+        <div className="w-full max-w-lg">
             <CardHeader>
                 <CardTitle>Register Your Account</CardTitle>
                 <CardDescription>
@@ -195,7 +195,7 @@ const Register = () => {
                                                 autoComplete="off"
                                                 className="relative"
                                             />
-                                            <button onClick={handleShowPassword} className="cursor-pointer absolute top-2 right-2 ">
+                                            <button type="button" onClick={handleShowPassword} className="cursor-pointer absolute top-2 right-2 ">
                                                 {
                                                     showPassword ? <EyeClosed /> : <Eye />
                                                 }
@@ -215,7 +215,7 @@ const Register = () => {
             <CardFooter>
                 <Field orientation="vertical" className="w-full">
 
-                    <Button type="submit" className="w-full" form="bug-report-form">
+                    <Button type="submit" className="w-full mt-4" form="bug-report-form">
                         {isPending ? <span className="flex gap-2 justify-center items-center"><Spinner /> Registering...</span> : "Register"}
                     </Button>
                     <Button variant="outline" className="w-full mt-2 text-center">
@@ -227,7 +227,7 @@ const Register = () => {
                     </FieldDescription>
                 </Field>
             </CardFooter>
-        </Card>
+        </div>
     )
 }
 
