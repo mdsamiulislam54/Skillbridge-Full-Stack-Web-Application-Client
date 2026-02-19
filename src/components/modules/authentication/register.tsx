@@ -24,6 +24,8 @@ import useSignUp from "@/hook/authentication/useSign-Up"
 import { Spinner } from "@/components/ui/spinner"
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Eye, EyeClosed } from "lucide-react"
+import { useState } from "react"
 
 const formSchema = z.object({
     email: z.email().min(5, "Email must be at least 5 characters."),
@@ -36,7 +38,9 @@ const formSchema = z.object({
 })
 
 const Register = () => {
-    const { mutate, isPending } = useSignUp()
+    const [showPassword, setShowPassword] = useState(false);
+    const { mutate, isPending } = useSignUp();
+    const handleShowPassword = () => setShowPassword(!showPassword);
     const form = useForm({
         defaultValues: {
             name: "",
@@ -178,17 +182,25 @@ const Register = () => {
                                 return (
                                     <Field data-invalid={isInvalid}>
                                         <FieldLabel htmlFor={field.name}>Password</FieldLabel>
-                                        <Input
-                                            id={field.name}
-                                            type="password"
-                                            name={field.name}
-                                            value={field.state.value}
-                                            onBlur={field.handleBlur}
-                                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => field.handleChange(e.target.value)}
-                                            aria-invalid={isInvalid}
-                                            placeholder="Enter Your Password ****"
-                                            autoComplete="off"
-                                        />
+                                        <div className="relative">
+                                            <Input
+                                                id={field.name}
+                                                type={showPassword ? "text" : "password"}
+                                                name={field.name}
+                                                value={field.state.value}
+                                                onBlur={field.handleBlur}
+                                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => field.handleChange(e.target.value)}
+                                                aria-invalid={isInvalid}
+                                                placeholder="Enter Your Password ****"
+                                                autoComplete="off"
+                                                className="relative"
+                                            />
+                                            <button onClick={handleShowPassword} className="cursor-pointer absolute top-2 right-2 ">
+                                                {
+                                                    showPassword ? <EyeClosed /> : <Eye />
+                                                }
+                                            </button>
+                                        </div>
                                         {isInvalid && (
                                             <FieldError errors={field.state.meta.errors} />
                                         )}

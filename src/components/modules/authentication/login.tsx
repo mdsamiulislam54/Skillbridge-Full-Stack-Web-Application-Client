@@ -22,6 +22,8 @@ import { Input } from "@/components/ui/input"
 import Link from "next/link"
 import useSignIn from "@/hook/authentication/useSign-in"
 import { Spinner } from "@/components/ui/spinner"
+import { useState } from "react"
+import { Eye, EyeClosed } from "lucide-react"
 
 const formSchema = z.object({
     email: z.email().min(5, "Email must be at least 5 characters."),
@@ -29,20 +31,21 @@ const formSchema = z.object({
 })
 
 const LoginPage = () => {
-    const {mutate, isPending} = useSignIn();
+    const [showPassword, setShowPassword] = useState(false);
+    const { mutate, isPending } = useSignIn();
     const form = useForm({
         defaultValues: {
-            email: "samiulm5332@gmail.com",
-            password: "password1234",
+            email: "",
+            password: "",
         },
         validators: {
             onSubmit: formSchema,
         },
         onSubmit: async ({ value }) => {
-            mutate({email:value.email, password:value.password});
+            mutate({ email: value.email, password: value.password });
         },
     })
-
+    const handleShowPassword = () => setShowPassword(!showPassword);
     return (
         <Card className="w-full max-w-lg">
             <CardHeader>
@@ -89,22 +92,31 @@ const LoginPage = () => {
                                 const isInvalid =
                                     field.state.meta.isTouched && !field.state.meta.isValid
                                 return (
-                                    <Field data-invalid={isInvalid}>
+                                    <Field data-invalid={isInvalid} >
                                         <FieldLabel htmlFor={field.name}>Password</FieldLabel>
-                                        <Input
-                                            id={field.name}
-                                            type="password"
-                                            name={field.name}
-                                            value={field.state.value}
-                                            onBlur={field.handleBlur}
-                                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => field.handleChange(e.target.value)}
-                                            aria-invalid={isInvalid}
-                                            placeholder="Enter Your Password ****"
-                                            autoComplete="off"
-                                        />
+                                        <div className="relative">
+                                            <Input
+                                                id={field.name}
+                                                type={showPassword ? "text":"password"}
+                                                name={field.name}
+                                                value={field.state.value}
+                                                onBlur={field.handleBlur}
+                                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => field.handleChange(e.target.value)}
+                                                aria-invalid={isInvalid}
+                                                placeholder="Enter Your Password ****"
+                                                autoComplete="off"
+                                                className="relative"
+                                            />
+                                            <button onClick={handleShowPassword} className="cursor-pointer absolute top-2 right-2 ">
+                                                {
+                                                    showPassword ? <EyeClosed /> : <Eye />
+                                                }
+                                            </button>
+                                        </div>
                                         {isInvalid && (
                                             <FieldError errors={field.state.meta.errors} />
-                                        )}
+                                        )};
+
                                     </Field>
                                 )
                             }}
@@ -117,14 +129,14 @@ const LoginPage = () => {
                 <Field orientation="vertical" className="w-full">
 
                     <Button type="submit" className="w-full" form="bug-report-form">
-                       {isPending ? <span className="flex gap-2 justify-center items-center"><Spinner /> Loggin in...</span> : "Login"}
+                        {isPending ? <span className="flex gap-2 justify-center items-center"><Spinner /> Loggin in...</span> : "Login"}
                     </Button>
                     <Button variant="outline" className="w-full mt-2 text-center">
-                        
+
 
                     </Button>
                     <FieldDescription className="text-center mt-4">
-                      Do not have an account? <Link href="/auth/register" className="text-blue-600 hover:underline">Register here</Link>
+                        Do not have an account? <Link href="/auth/register" className="text-blue-600 hover:underline">Register here</Link>
                     </FieldDescription>
                 </Field>
             </CardFooter>
